@@ -1,0 +1,6 @@
+framework module Pods_ShopAppLaza {
+  umbrella header "Pods-ShopAppLaza-umbrella.h"
+
+  export *
+  module * { export * }
+}
