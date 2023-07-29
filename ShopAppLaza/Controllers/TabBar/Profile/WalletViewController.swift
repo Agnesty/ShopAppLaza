@@ -40,6 +40,7 @@ class WalletViewController: UIViewController {
     }
     
     @IBAction func logoutBtn(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
         UserDefaults.standard.removeObject(forKey: "loggedInUsername")
         UserDefaults.standard.removeObject(forKey: "loggedInPassword")
         UserDefaults.standard.synchronize()
@@ -51,7 +52,7 @@ class WalletViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Wallet"
+        label.text = "Profile"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
 

@@ -76,6 +76,7 @@ class SignUpViewController: UIViewController {
                             DispatchQueue.main.async {
                                 // Save the user ID to UserDefaults
                                 UserDefaults.standard.set(userID, forKey: "userID")
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                                 UserDefaults.standard.set(userData, forKey: "userData")
                                 UserDefaults.standard.synchronize()
 

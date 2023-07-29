@@ -9,6 +9,8 @@ import UIKit
 
 class ForgotPasswordViewController: UIViewController {
 
+    @IBOutlet weak var confirmBtn: UIButton!
+    @IBOutlet weak var emailTF: UITextField!
     private lazy var backButton: UIButton = {
         let backButton = UIButton.init(type: .custom)
         backButton.setImage(UIImage(named: "backButton"), for: .normal)
@@ -31,6 +33,21 @@ class ForgotPasswordViewController: UIViewController {
         navigationItem.hidesBackButton = true
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        emailTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
     }
 
+    @objc func disabledBtn(){
+        if !emailTF.hasText {
+            confirmBtn.isEnabled = false
+            confirmBtn.backgroundColor = .gray
+            return
+        } else {
+            confirmBtn.isEnabled = true
+            confirmBtn.backgroundColor = UIColor(hex: "#9775FA")
+        }
+       
+        
+    }
+    
 }

@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var loginBtn: UIButton!
     
     @IBAction func forgotPassAction(_ sender: UIButton) {
         guard let forgotPass = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForgotPasswordViewController") as? ForgotPasswordViewController else { return }
@@ -42,6 +43,9 @@ class LoginViewController: UIViewController {
         navigationItem.hidesBackButton = true
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        usernameTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
+        passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         
     }
     
@@ -111,6 +115,18 @@ class LoginViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    @objc func disabledBtn(){
+        if !usernameTF.hasText || !passwordTF.hasText {
+            loginBtn.isEnabled = false
+            loginBtn.backgroundColor = .gray
+            return
+        } else {
+            loginBtn.isEnabled = true
+            loginBtn.backgroundColor = UIColor(hex: "#9775FA")
+        }
+       
+        
+    }
     
     
     

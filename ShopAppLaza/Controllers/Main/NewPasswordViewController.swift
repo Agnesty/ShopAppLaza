@@ -9,6 +9,10 @@ import UIKit
 
 class NewPasswordViewController: UIViewController {
     
+    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var confirmPassTF: UITextField!
+    @IBOutlet weak var resetPassBtn: UIButton!
+    
     private lazy var backButton: UIButton = {
         let backButton = UIButton.init(type: .custom)
         backButton.setImage(UIImage(named: "backButton"), for: .normal)
@@ -26,8 +30,28 @@ class NewPasswordViewController: UIViewController {
         view.addSubview(backButton)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        confirmPassTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
+        passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
     }
     
+    @objc func disabledBtn(){
+//        print("\(confirmPass.text) - \(newPassword.text)")
+        if !confirmPassTF.hasText, !passwordTF.hasText {
+            resetPassBtn.isEnabled = false
+            resetPassBtn.backgroundColor = .gray
+            return
+        }
+        
+        if confirmPassTF.text == passwordTF.text{
+            resetPassBtn.isEnabled = true
+            resetPassBtn.backgroundColor = UIColor(hex: "#9775FA")
+        } else  {
+            resetPassBtn.isEnabled = false
+            resetPassBtn.backgroundColor = .gray
+        }
+        
+    }
     
 
 }
