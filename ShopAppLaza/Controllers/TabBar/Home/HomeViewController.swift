@@ -26,7 +26,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     @objc func menuButtonAction() {
 //        present(menu, animated: true)
-        present(withIdentifier: "SideMenu")
+        performSegue(withIdentifier: "SideMenu", sender: nil)
         print("This is sde menu")
     }
     
