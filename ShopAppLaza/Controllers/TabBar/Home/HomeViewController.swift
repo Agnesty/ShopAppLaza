@@ -10,8 +10,7 @@ import SideMenu
 
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-//    var menu: SideMenuNavigationController?
-//    let menu = SideMenuNavigationController(rootViewController: MenuListController())
+    let menu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     
     var produk = [WelcomeElement]()
     var category = Categories()
@@ -21,13 +20,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let menuButton = UIButton.init(type: .custom)
         menuButton.setImage(UIImage(named: "Menu"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
-        menuButton.frame = CGRect(x: 20, y: 45, width: 45, height: 45)
+        menuButton.frame = CGRect(x: 20, y: 90, width: 45, height: 45)
         return menuButton
     }()
 
     @objc func menuButtonAction() {
 //        present(menu, animated: true)
-//                print("This is sde menu")
+        present(withIdentifier: "SideMenu")
+        print("This is sde menu")
     }
     
     private lazy var keranjangButton: UIButton = {
@@ -60,10 +60,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        menu = SideMenuNavigationController(rootViewController: UIViewController())
-//        menu?.leftSide = true
-//        SideMenuManager.default.leftMenuNavigationController = menu
-//        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        menu.leftSide = true
+        menu.menuWidth = 300
+        menu.blurEffectStyle = .prominent
 
         DispatchQueue.main.async {
             self.getDataCategories { [weak self] category in
@@ -76,7 +75,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
         
-       
         setupTabBarItemImage()
         view.addSubview(menuButton)
         view.addSubview(keranjangButton)
@@ -91,11 +89,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionArraival.delegate = self
         collectionArraival.dataSource = self
         collectionArraival.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
+        
+        SideMenuManager.default.addPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
     
     func applyConstraints() {
         NSLayoutConstraint.activate([
-            keranjangButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            keranjangButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
             keranjangButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             keranjangButton.widthAnchor.constraint(equalToConstant: 45),
             keranjangButton.heightAnchor.constraint(equalToConstant: 45),

@@ -32,10 +32,16 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
-        guard let username = usernameTF.text else { return }
-        guard let password = passwordTF.text else { return }
+//        guard let username = usernameTF.text else { return }
+//        guard let password = passwordTF.text else { return }
+//
+//        login(username: username, password: password)
         
-        login(username: username, password: password)
+        let homeViewController = HomeViewController()
+//        homeViewController.loggedInUser = user // Mengirim data user ke halaman beranda jika diperlukan
+        guard let loginAction = UIStoryboard(name: "TabBar",bundle:nil).instantiateViewController(withIdentifier:"TabBarControllerViewController") as? TabBarControllerViewController else { return }
+        loginAction.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(loginAction,animated: true)
     }
     
     override func viewDidLoad() {
