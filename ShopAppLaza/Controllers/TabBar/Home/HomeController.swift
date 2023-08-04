@@ -8,16 +8,9 @@
 import UIKit
 import SideMenu
 
-enum Sections: Int {
-    case CategoryBrand = 0
-    case NewArrival = 1
-}
-
-enum APIError: Error {
-    case failedTogetData
-}
-
 class HomeController: UIViewController {
+    
+    var loggedInUser: UserElement?
     
     private lazy var menuButton: UIButton = {
         let menuButton = UIButton.init(type: .custom)
@@ -28,9 +21,22 @@ class HomeController: UIViewController {
     }()
     
     @objc func menuButtonAction() {
-        //      performSegue(withIdentifier: "SideMenu", sender: nil)
-        print("This is sde menu")
+        let homeStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
+        let vc = homeStoryboard.instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
+        vc.delegate = self
+        let sideMenu = SideMenuNavigationController(rootViewController: vc)
+        
+        self.sideMenuNav = sideMenu
+        
+        sideMenu.presentationStyle = .menuSlideIn
+        sideMenu.blurEffectStyle = .prominent
+        sideMenu.leftSide = true
+        sideMenu.menuWidth = 330
+        present(sideMenu, animated: true)
+        print("This is side menu baru")
     }
+    
+    private var sideMenuNav: SideMenuNavigationController?
     
     private lazy var keranjangButton: UIButton = {
         let keranjangButton = UIButton.init(type: .custom)
@@ -71,12 +77,6 @@ class HomeController: UIViewController {
         tableView.dataSource = self
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
         tableView.register(NewArrivalTableViewCell.nib(), forCellReuseIdentifier: NewArrivalTableViewCell.identifier)
-        
-        
-        
-//        SideMenuManager.default.addPanGestureToPresent(toView: self.navigationController!.navigationBar)
-//        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        
     }
     
     func applyConstraints() {
@@ -87,34 +87,6 @@ class HomeController: UIViewController {
             keranjangButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
-    
-    
-    
-    func getProducts(completion: @escaping (Result<Welcome, Error>) -> Void) {
-        guard let url = URL(string: "https://fakestoreapi.com/products") else {
-            print("Invalid URL.")
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(APIError.failedTogetData))
-                return
-            }
-            
-            do {
-                let welcome = try JSONDecoder().decode(Welcome.self, from: data)
-                completion(.success(welcome))
-            } catch {
-                completion(.failure(APIError.failedTogetData))
-            }
-        }
-        
-        task.resume()
-    }
-    
-    
-    
     
 }
 
@@ -139,6 +111,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             guard let cellProduct = tableView.dequeueReusableCell(withIdentifier: NewArrivalTableViewCell.identifier, for: indexPath) as? NewArrivalTableViewCell else { return UITableViewCell() }
             cellProduct.onReload = { [weak self] in
                 self?.tableView.reloadData()
+            cellProduct.delegate = self
             }
             return cellProduct
         }
@@ -151,5 +124,23 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return UITableView.automaticDimension
         }
+    }
+}
+
+extension HomeController: NewArrivalDidSelectItemDelegate {
+    func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement) {
+        guard let detailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        self.navigationController?.pushViewController(detailView, animated: true)
+        detailView.product = productModel
+        
+    }
+    
+}
+
+extension HomeController: SideMenuControllerDelegate {
+    
+    func logoutPressed() {
+        sideMenuNav?.dismiss(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
 }

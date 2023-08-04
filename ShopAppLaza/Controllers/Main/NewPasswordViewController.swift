@@ -9,37 +9,69 @@ import UIKit
 
 class NewPasswordViewController: UIViewController {
     
+    //IBOutlet
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var confirmPassTF: UITextField!
     @IBOutlet weak var resetPassBtn: UIButton!
+    @IBOutlet weak var strongCheck: UILabel!{
+        didSet{
+            strongCheck.isHidden = true
+        }
+    }
     
-    private lazy var backButton: UIButton = {
-        let backButton = UIButton.init(type: .custom)
-        backButton.setImage(UIImage(named: "backButton"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
-        backButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45)
-        return backButton
-    }()
+    //IBAction
+    @IBAction func resetPassAction(_ sender: UIButton) {
+        guard let performLogin = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
+        self.navigationController?.pushViewController(performLogin, animated: true)
+    }
     
-    @objc func backButtonAction() {
+    @IBAction func hidePassButton(_ sender: UIButton) {
+        hideEyePass(object: passwordTF, sender: sender)
+    }
+    
+    @IBAction func hideConfirmPass(_ sender: UIButton) {
+        hideEyePass(object: confirmPassTF, sender: sender)
+    }
+    
+    func hideEyePass(object: UITextField, sender: UIButton) {
+        let isHidden = object.isSecureTextEntry
+        object.isSecureTextEntry = !isHidden
+        
+        let imageName = isHidden ? "ic_hide_pass" : "ic_view_pass"
+        sender.setImage(UIImage(named: imageName), for: .normal)
+    }
+    
+    @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-        view.addSubview(backButton)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        resetPassBtn.isEnabled = false
         
         confirmPassTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
     }
     
     @objc func disabledBtn(){
-//        print("\(confirmPass.text) - \(newPassword.text)")
+        
+        //Memunculkan Strong Check pada Password
+        let strongCheck = passwordTF.text ?? ""
+        let validStrong = strongCheck.count > 8
+        resetPassBtn.isEnabled = strongCheck.count > 8
+        
+        if validStrong {
+            self.strongCheck.isHidden = false
+        } else {
+            self.strongCheck.isHidden = true
+        }
+        
         if !confirmPassTF.hasText, !passwordTF.hasText {
             resetPassBtn.isEnabled = false
-            resetPassBtn.backgroundColor = .gray
+            resetPassBtn.backgroundColor = UIColor(hex: "#8E8E93")
+            resetPassBtn.titleLabel?.textColor = .systemBackground
             return
         }
         
@@ -48,7 +80,8 @@ class NewPasswordViewController: UIViewController {
             resetPassBtn.backgroundColor = UIColor(hex: "#9775FA")
         } else  {
             resetPassBtn.isEnabled = false
-            resetPassBtn.backgroundColor = .gray
+            resetPassBtn.backgroundColor = UIColor(hex: "#8E8E93")
+            resetPassBtn.tintColor = .white
         }
         
     }

@@ -37,7 +37,6 @@ class CategoryTableViewCell: UITableViewCell {
                 self?.onReload?()
                 }
         }
-//        self.collectionBrand.collectionViewLayout.invalidateLayout()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

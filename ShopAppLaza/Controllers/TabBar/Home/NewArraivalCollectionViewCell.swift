@@ -17,9 +17,6 @@ class NewArraivalCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleProduk: UILabel!
     @IBOutlet weak var priceProduk: UILabel!
-    @IBAction func favoriteAction(_ sender: UIButton) {
-    }
-    
     @IBOutlet weak var imageProduct: UIImageView! {
         didSet{
             imageProduct.layer.cornerRadius = CGFloat(15)

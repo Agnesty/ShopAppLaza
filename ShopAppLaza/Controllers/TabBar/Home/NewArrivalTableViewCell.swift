@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol NewArrivalDidSelectItemDelegate: AnyObject {
+    func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement)
+}
+
 class NewArrivalTableViewCell: UITableViewCell {
+    
+    weak var delegate: NewArrivalDidSelectItemDelegate?
     
     private var product: Welcome = Welcome()
     
@@ -35,7 +41,6 @@ class NewArrivalTableViewCell: UITableViewCell {
                 self?.onReload?()
             }
         }
-//        self.collectionNewArrival.collectionViewLayout.invalidateLayout()
     }
 
     
@@ -80,13 +85,13 @@ extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("dequeue product table collection view cell")
             guard let cellNewArraival = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
 
             let newArraival = product[indexPath.row]
             cellNewArraival.setImageWithPlugin(url: newArraival.image)
             cellNewArraival.titleProduk.text = newArraival.title
             cellNewArraival.priceProduk.text = String(newArraival.price)
+        
             return cellNewArraival
     }
     
@@ -100,5 +105,10 @@ extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("apakah ke klik?")
+        let productModel = product[indexPath.item]
+        delegate?.NewArrivalItemSelectNavigation(didSelectItemAt: indexPath, productModel: productModel)
     }
 }

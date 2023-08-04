@@ -49,6 +49,11 @@ class Screen2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
+        
+        if UserDefaults.standard.bool(forKey: "isLoggedIn"){
+            guard let performHome = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "TabBarControllerViewController") as? TabBarControllerViewController else { return }
+            self.navigationController?.pushViewController(performHome, animated: true)
+        }
 
     }
 
