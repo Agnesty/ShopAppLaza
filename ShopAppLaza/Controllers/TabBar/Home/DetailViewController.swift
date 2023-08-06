@@ -9,32 +9,17 @@ import UIKit
 import SDWebImage
 
 class DetailViewController: UIViewController {
-    
-    let sizes = ["S", "M", "L", "XL", "2XL"]
-    enum Star: String {
-        case fullStar = "star.fill"
-        case halfStar = "star.leadinghalf.filled"
-        case emptyStar = "star"
-    }
-    
+    private var detailVM = DetailViewModel()
     var product: WelcomeElement?
     
+    //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
-    @IBAction func viewAllReviewAction(_ sender: UIButton) {
-        guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
-        self.navigationController?.pushViewController(performReviews, animated: true)
-    }
-    @IBAction func backButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @IBOutlet weak var favorite: UIButton!{
         didSet{
             favorite.layer.cornerRadius = 22
         }
     }
-    
     @IBOutlet weak var imageProduct: UIImageView!
     @IBOutlet weak var categoryBrand: UILabel!
     @IBOutlet weak var titleBarang: UILabel!
@@ -49,32 +34,25 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationItem.hidesBackButton = true
-        
+        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
         sizeCollection.reloadData()
         
-        setProduct()
+        detailVM.setProduct()
         ratingStarData(rating: product?.rating.rate ?? 0)
+    }
+    
+    //MARK: IBAction
+    @IBAction func viewAllReviewAction(_ sender: UIButton) {
+        guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
+        self.navigationController?.pushViewController(performReviews, animated: true)
+    }
+    @IBAction func backButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
    
-    }
-    
-    func setProduct() {
-        imageSetURL(url: (product?.image)!)
-        self.categoryBrand.text = product?.category.rawValue.capitalized
-        self.titleBarang.text = product?.title
-        self.priceLabel.text = "$\(product?.price ?? 0)"
-        self.descriptionLabel.text = product?.description
-        self.ratingLabel.text = "\(product?.rating.rate ?? 0)"
-    }
-    
-    func imageSetURL(url: String) {
-        let urlImage = URL(string: url)
-        imageProduct.sd_setImage(with: urlImage)
-    }
-    
     func ratingStarData(rating: Double) {
         var collectStar = [Star]()
         var colors = [UIColor]()
@@ -109,28 +87,19 @@ class DetailViewController: UIViewController {
         star4.tintColor = colors[3]
         star5.tintColor = colors[4]
     }
-
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sizes.count
+        return detailVM.sizes.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SizeDetailCollectionViewCell.identifier, for: indexPath) as? SizeDetailCollectionViewCell else {
             return UICollectionViewCell() }
-        cell.labelSize.text = sizes[indexPath.row]
-        
+        cell.labelSize.text = detailVM.sizes[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 60, height: 60)
     }
-    
-    
-    
-    
-    
-    
 }

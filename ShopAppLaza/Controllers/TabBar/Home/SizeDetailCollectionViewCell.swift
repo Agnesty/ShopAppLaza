@@ -13,7 +13,8 @@ class SizeDetailCollectionViewCell: UICollectionViewCell {
     static func nib() -> UINib {
         return UINib(nibName: "SizeDetailCollectionViewCell", bundle: nil)
     }
-
+    
+    //MARK: IBOutlet
     @IBOutlet weak var viewSize: UIView! {
         didSet{
             viewSize.layer.cornerRadius = CGFloat(10)

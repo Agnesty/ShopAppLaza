@@ -5,8 +5,8 @@
 //  Created by Agnes Triselia Yudia on 27/07/23.
 //
 
-import Foundation
 import UIKit
+import SDWebImage
 
 extension UIImage {
     // This method creates an image of a view
@@ -37,5 +37,12 @@ extension UIColor {
         let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
         
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+}
+
+extension UIImageView {
+    func setImageWithPlugin(url: String) {
+        let urlImage = URL(string: url)
+        self.sd_setImage(with: urlImage)
     }
 }

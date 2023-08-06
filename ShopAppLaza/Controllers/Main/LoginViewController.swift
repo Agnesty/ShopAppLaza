@@ -9,10 +9,9 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    @IBAction func backButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
+    private let loginVM = LoginViewModel()
     
+    //MARK: IBOutlet
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
@@ -27,73 +26,67 @@ class LoginViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.hidesBackButton = true
+        loginVM.loginViewCtr = self
+        loginBtn.isEnabled = false
+        usernameTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
+        passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
+    }
+    
+    //MARK: IBAction
+    @IBAction func backButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func hidePassBtn(_ sender: UIButton) {
         let isHidden = passwordTF.isSecureTextEntry
         passwordTF.isSecureTextEntry = !isHidden
         let imageName = isHidden ? "ic_hide_pass" : "ic_view_pass"
         sender.setImage(UIImage(named: imageName), for: .normal)
     }
-    
     @IBAction func forgotPassAction(_ sender: UIButton) {
         guard let forgotPass = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForgotPasswordViewController") as? ForgotPasswordViewController else { return }
-        
         self.navigationController?.pushViewController(forgotPass, animated: true)
     }
-    
     @IBAction func loginAction(_ sender: UIButton) {
         guard let username = usernameTF.text else { return }
         guard let password = passwordTF.text else { return }
-
-        login(username: username, password: password)
+        loginVM.login(username: username, password: password)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.hidesBackButton = true
-        
-        loginBtn.isEnabled = false
-        
-        usernameTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
-        passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
-    }
-    
-    
-    
-    func login(username: String, password: String) {
-        let urlString = "https://fakestoreapi.com/users"
-        guard let url = URL(string: urlString) else {
-            print("URL not valid")
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            guard let data = data else {
-                print("Error retrieving data: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            
-            do {
-                let users = try JSONDecoder().decode(User.self, from: data)
-                // Lakukan pengecekan login berdasarkan username dan password
-                if let user = users.first(where: { $0.username == username && $0.password == password }) {
-                    // Login berhasil, lakukan tindakan yang diperlukan setelah login
-                    DispatchQueue.main.async { [weak self] in
-                        self?.loginSuccessful(user: user)
-                    }
-                } else {
-                    // Login gagal, tampilkan pesan error
-                    DispatchQueue.main.async { [weak self] in
-                        self?.showLoginError()
-                    }
-                }
-                
-            } catch {
-                print("Error decoding data: \(error.localizedDescription)")
-            }
+    @objc func disabledBtn(){
+        //Memunculkan Strong Check pada Password
+        let strongCheck = passwordTF.text ?? ""
+        let validStrong = strongCheck.count > 8
+        loginBtn.isEnabled = strongCheck.count > 8
+        if validStrong {
+            self.strongCheck.isHidden = false
+        } else {
+            self.strongCheck.isHidden = true
         }
         
-        task.resume()
+        //Memunculkan check pada username
+        let username = usernameTF.text ?? ""
+        let validUsername = username.count > 4
+        loginBtn.isEnabled = username.count > 4
+        if validUsername{
+            usernameCheck.isHidden = false
+        } else {
+            usernameCheck.isHidden = true
+        }
+        
+        //Jika sesuai kategori kebutuhan dari setiap textfield maka signup button akan terbuka
+        if !usernameTF.hasText || !passwordTF.hasText {
+            loginBtn.isEnabled = false
+            loginBtn.backgroundColor = UIColor(hex: "#8E8E93")
+        } else {
+            loginBtn.isEnabled = true
+            loginBtn.backgroundColor = UIColor(hex: "#9775FA")
+        }
     }
     
+    //MARK: FUNCTION
     func loginSuccessful(user: UserElement) {
         // Navigasi ke halaman beranda
         let homeViewController = HomeController()
@@ -114,8 +107,6 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(user.email, forKey: "loggedInEmail")
         UserDefaults.standard.set(user.username, forKey: "loggedInUsername")
         UserDefaults.standard.set(user.password, forKey: "loggedInPassword")
-        
-        
         UserDefaults.standard.synchronize()
     }
         
@@ -125,42 +116,4 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
-    @objc func disabledBtn(){
-        
-        //Memunculkan Strong Check pada Password
-        let strongCheck = passwordTF.text ?? ""
-        let validStrong = strongCheck.count > 8
-        loginBtn.isEnabled = strongCheck.count > 8
-        
-        if validStrong {
-            self.strongCheck.isHidden = false
-        } else {
-            self.strongCheck.isHidden = true
-        }
-        
-        //Memunculkan check pada username
-        let username = usernameTF.text ?? ""
-        let validUsername = username.count > 4
-        loginBtn.isEnabled = username.count > 4
-        
-        if validUsername{
-            usernameCheck.isHidden = false
-        } else {
-            usernameCheck.isHidden = true
-        }
-        
-        if !usernameTF.hasText || !passwordTF.hasText {
-            loginBtn.isEnabled = false
-            loginBtn.backgroundColor = UIColor(hex: "#8E8E93")
-        } else {
-            loginBtn.isEnabled = true
-            loginBtn.backgroundColor = UIColor(hex: "#9775FA")
-        }
-       
-        
-    }
-    
-    
-    
 }

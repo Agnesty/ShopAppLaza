@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class NewArraivalCollectionViewCell: UICollectionViewCell {
     
@@ -14,7 +13,8 @@ class NewArraivalCollectionViewCell: UICollectionViewCell {
     static func nib() -> UINib {
         return UINib(nibName: "NewArraivalCollectionViewCell", bundle: nil)
     }
-
+    
+    //MARK: IBOutlet
     @IBOutlet weak var titleProduk: UILabel!
     @IBOutlet weak var priceProduk: UILabel!
     @IBOutlet weak var imageProduct: UIImageView! {
@@ -27,12 +27,4 @@ class NewArraivalCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    func setImageWithPlugin(url: String) {
-        let urlImage = URL(string: url)
-        imageProduct.sd_setImage(with: urlImage)
-    }
-    
-    
-
 }

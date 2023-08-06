@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias Welcome = [WelcomeElement]
 typealias Categories = [String]
@@ -32,6 +33,12 @@ enum Category: String, Codable {
 struct Rating: Codable {
     let rate: Double
     let count: Int
+}
+
+enum Star: String {
+    case fullStar = "star.fill"
+    case halfStar = "star.leadinghalf.filled"
+    case emptyStar = "star"
 }
 
 

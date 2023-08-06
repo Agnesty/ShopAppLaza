@@ -8,19 +8,20 @@
 import UIKit
 
 class ForgotPasswordViewController: UIViewController {
-
+    
+    //MARK: IBOutlet
     @IBOutlet weak var confirmBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var labelError: UILabel!
-    
-    @IBAction func backButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @IBOutlet weak var emailCheck: UIButton!{
         didSet{
             emailCheck.isHidden = true
         }
+    }
+    
+    //MARK: IBAction
+    @IBAction func backButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     @IBAction func emailChanged(_ sender: Any) {
         if let email = emailTF.text
@@ -32,27 +33,8 @@ class ForgotPasswordViewController: UIViewController {
                 labelError.isHidden = true
             }
         }
-        
         checkFormValidation()
     }
-    
-    func checkFormValidation() {
-        if !labelError.isHidden {
-            confirmBtn.isEnabled = false
-            emailCheck.isHidden = true
-        } else {
-            confirmBtn.isEnabled = true
-            emailCheck.isHidden = false
-        }
-    }
-    
-    func resetForm() {
-        confirmBtn.isEnabled = false
-        labelError.isHidden = false
-        labelError.text = "Required"
-        emailTF.text = ""
-    }
-    
     @IBAction func confirmAction(_ sender: UIButton) {
         resetForm()
         guard let performVerifCode = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerificationCodeViewController") as? VerificationCodeViewController else { return }
@@ -62,9 +44,7 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-        
         confirmBtn.isEnabled = false
-        
         emailTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
     }
 
@@ -77,8 +57,23 @@ class ForgotPasswordViewController: UIViewController {
             confirmBtn.isEnabled = true
             confirmBtn.backgroundColor = UIColor(hex: "#9775FA")
         }
-       
-        
+    }
+    
+    //MARK: FUNCTION
+    func checkFormValidation() {
+        if !labelError.isHidden {
+            confirmBtn.isEnabled = false
+            emailCheck.isHidden = true
+        } else {
+            confirmBtn.isEnabled = true
+            emailCheck.isHidden = false
+        }
+    }
+    func resetForm() {
+        confirmBtn.isEnabled = false
+        labelError.isHidden = false
+        labelError.text = "Required"
+        emailTF.text = ""
     }
     
 }

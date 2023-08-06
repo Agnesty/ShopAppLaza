@@ -14,6 +14,7 @@ class BrandCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: "BrandCollectionViewCell", bundle: nil)
     }
 
+    //MARK: IBOutlet
     @IBOutlet weak var view: UIView!{
         didSet{
             view.layer.cornerRadius = CGFloat(10)
