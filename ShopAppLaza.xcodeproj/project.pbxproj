@@ -48,10 +48,15 @@
 		334BF3E52A7B816F00755766 /* DummyPeopleReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BF3E42A7B816F00755766 /* DummyPeopleReviews.swift */; };
 		334BF3E82A7B875800755766 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */; };
 		334BF3E92A7B875800755766 /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */; };
+		334E61A92A83365600DB3921 /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E61A82A83365600DB3921 /* PaymentMethodViewController.swift */; };
+		334E61AB2A83833D00DB3921 /* GopayPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E61AA2A83833D00DB3921 /* GopayPaymentViewController.swift */; };
+		334E61AD2A83920900DB3921 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E61AC2A83920900DB3921 /* AddressViewController.swift */; };
+		334E61B02A83942F00DB3921 /* CardAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E61AE2A83942F00DB3921 /* CardAddressTableViewCell.swift */; };
+		334E61B12A83942F00DB3921 /* CardAddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 334E61AF2A83942F00DB3921 /* CardAddressTableViewCell.xib */; };
 		3354D3E72A808F3D00A9DB7F /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */; };
 		3354D3E82A808F3D00A9DB7F /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */; };
 		3354D3EA2A8091DC00A9DB7F /* OrderConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */; };
-		3354D3EC2A80975B00A9DB7F /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */; };
+		3354D3EC2A80975B00A9DB7F /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3EB2A80975B00A9DB7F /* AddAddressViewController.swift */; };
 		3354D3EE2A809CCB00A9DB7F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */; };
 		3354D3F02A80D92000A9DB7F /* AddCardNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */; };
 		336A2F102A7BEE9400C639FD /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A2F0F2A7BEE9400C639FD /* VerificationCodeViewController.swift */; };
@@ -123,10 +128,15 @@
 		334BF3E42A7B816F00755766 /* DummyPeopleReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyPeopleReviews.swift; sourceTree = "<group>"; };
 		334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
+		334E61A82A83365600DB3921 /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
+		334E61AA2A83833D00DB3921 /* GopayPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GopayPaymentViewController.swift; sourceTree = "<group>"; };
+		334E61AC2A83920900DB3921 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		334E61AE2A83942F00DB3921 /* CardAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddressTableViewCell.swift; sourceTree = "<group>"; };
+		334E61AF2A83942F00DB3921 /* CardAddressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardAddressTableViewCell.xib; sourceTree = "<group>"; };
 		3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
 		3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmedViewController.swift; sourceTree = "<group>"; };
-		3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		3354D3EB2A80975B00A9DB7F /* AddAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
 		3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardNumberViewController.swift; sourceTree = "<group>"; };
 		336A2F0F2A7BEE9400C639FD /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
@@ -311,21 +321,26 @@
 				3378B5452A70F56800420E00 /* CartViewController.swift */,
 				3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */,
 				3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */,
-				3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */,
+				3354D3EB2A80975B00A9DB7F /* AddAddressViewController.swift */,
 				3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */,
 				3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */,
 				33D5305C2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift */,
 				33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */,
+				334E61A82A83365600DB3921 /* PaymentMethodViewController.swift */,
+				334E61AA2A83833D00DB3921 /* GopayPaymentViewController.swift */,
+				334E61AC2A83920900DB3921 /* AddressViewController.swift */,
+				334E61AE2A83942F00DB3921 /* CardAddressTableViewCell.swift */,
+				334E61AF2A83942F00DB3921 /* CardAddressTableViewCell.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
 		};
-		3361219A2A74327E00F08F14 /* Profile */ = {
+		3361219A2A74327E00F08F14 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
 				3378B5472A70F58500420E00 /* WalletViewController.swift */,
 			);
-			path = Profile;
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		3361219B2A7432D600F08F14 /* ViewModels */ = {
@@ -377,7 +392,7 @@
 				334257DA2A723D1D000CD97A /* Home */,
 				336121982A74325900F08F14 /* Favorite */,
 				336121992A74327000F08F14 /* Cart */,
-				3361219A2A74327E00F08F14 /* Profile */,
+				3361219A2A74327E00F08F14 /* Wallet */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -529,6 +544,7 @@
 				3378B5562A70FC5900420E00 /* Inter-Regular.ttf in Resources */,
 				334BF3E92A7B875800755766 /* ReviewsTableViewCell.xib in Resources */,
 				3378B5572A70FC5900420E00 /* Inter-Black.ttf in Resources */,
+				334E61B12A83942F00DB3921 /* CardAddressTableViewCell.xib in Resources */,
 				334257DE2A723D5B000CD97A /* NewArraivalCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +606,7 @@
 				33D5305E2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift in Sources */,
 				3378B5462A70F56800420E00 /* CartViewController.swift in Sources */,
 				33C569452A73B103007C24EA /* BrandCollectionViewCell.swift in Sources */,
+				334E61B02A83942F00DB3921 /* CardAddressTableViewCell.swift in Sources */,
 				332C98A72A701133003CAFD3 /* AppDelegate.swift in Sources */,
 				3354D3E72A808F3D00A9DB7F /* CartTableViewCell.swift in Sources */,
 				3378B5482A70F58500420E00 /* WalletViewController.swift in Sources */,
@@ -615,10 +632,12 @@
 				33304B5E2A78DAEC000804A8 /* HomeController.swift in Sources */,
 				33D5305B2A822F62009CA2ED /* CryptoKit.swift in Sources */,
 				33CE6F272A7E2FBF00FA8084 /* Screen2ViewModel.swift in Sources */,
+				334E61AD2A83920900DB3921 /* AddressViewController.swift in Sources */,
 				33CE6F252A7E2D5800FA8084 /* SignUpViewModel.swift in Sources */,
+				334E61AB2A83833D00DB3921 /* GopayPaymentViewController.swift in Sources */,
 				3322C11A2A81D77800EEF0C7 /* CategoryDetailView.swift in Sources */,
 				33CE6F292A7E601E00FA8084 /* LoginViewModel.swift in Sources */,
-				3354D3EC2A80975B00A9DB7F /* AddressViewController.swift in Sources */,
+				3354D3EC2A80975B00A9DB7F /* AddAddressViewController.swift in Sources */,
 				33308AF22A74C155005E819D /* User.swift in Sources */,
 				33308AF42A74F595005E819D /* SideMenu.swift in Sources */,
 				3354D3EE2A809CCB00A9DB7F /* PaymentViewController.swift in Sources */,
@@ -628,6 +647,7 @@
 				334BF3E52A7B816F00755766 /* DummyPeopleReviews.swift in Sources */,
 				3354D3F02A80D92000A9DB7F /* AddCardNumberViewController.swift in Sources */,
 				332291D02A7F862E0035D65F /* CategoryTableViewModel.swift in Sources */,
+				334E61A92A83365600DB3921 /* PaymentMethodViewController.swift in Sources */,
 				3378B5362A70B71A00420E00 /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,36 +1,41 @@
 //
-//  PaymentViewController.swift
+//  WalletViewController.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 07/08/23.
+//  Created by Agnes Triselia Yudia on 26/07/23.
 //
 
 import UIKit
+import CreditCardForm
 
-class PaymentViewController: UIViewController {
+class WalletViewController: UIViewController {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    private func setupTabBarItemImage() {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.text = "MyCards"
+        label.font = UIFont(name: "Inter", size: 11)
+        label.sizeToFit()
 
-    //MARK: IBOutlet
-    @IBOutlet weak var paymentCollectionView: UICollectionView!
+        tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
+        tabBarItem.selectedImage = UIImage(view: label)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        paymentCollectionView.dataSource = self
-        paymentCollectionView.delegate = self
-        paymentCollectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
+        setupTabBarItemImage()
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
     }
-   
-    //MARK: IBAction
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @IBAction func addCartNumber(_ sender: UIButton) {
-        guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
-        self.navigationController?.pushViewController(performAddCardNumber, animated: true)
-    }
-    
+
 }
 
-extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension WalletViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -48,11 +53,6 @@ extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-    
-
-    
-  
-    
     
     
 }

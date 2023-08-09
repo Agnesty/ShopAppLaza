@@ -30,7 +30,7 @@ class CartViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Cart"
+        label.text = "Order"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
 
@@ -56,11 +56,9 @@ class CartViewController: UIViewController {
         self.navigationController?.pushViewController(performAddress, animated: true)
     }
     @IBAction func paymentBtnAction(_ sender: UIButton) {
-        guard let performPayment = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
-        self.navigationController?.pushViewController(performPayment, animated: true)
+        guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentMethodViewController") as? PaymentMethodViewController else { return }
+        self.navigationController?.pushViewController(performPaymentMethod, animated: true)
     }
-    
-
 }
 
 extension CartViewController: UITableViewDataSource, UITableViewDelegate{
