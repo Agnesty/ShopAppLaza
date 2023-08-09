@@ -107,6 +107,7 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(user.email, forKey: "loggedInEmail")
         UserDefaults.standard.set(user.username, forKey: "loggedInUsername")
         UserDefaults.standard.set(user.password, forKey: "loggedInPassword")
+        UserDefaults.standard.set(user.name.firstname, forKey: "loggedInFirstName")
         UserDefaults.standard.synchronize()
     }
         

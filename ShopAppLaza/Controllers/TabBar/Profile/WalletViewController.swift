@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import CreditCardForm
 
 class WalletViewController: UIViewController {
     
+    @IBOutlet weak var myCards: CreditCardFormView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var changePassTF: UITextField!
@@ -52,7 +54,7 @@ class WalletViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.text = "Profile"
+        label.text = "MyCards"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
 

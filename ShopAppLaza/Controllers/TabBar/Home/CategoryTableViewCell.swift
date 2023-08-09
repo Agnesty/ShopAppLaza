@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CategoryBrandSelectItemDelegate: AnyObject {
+    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath)
+}
+
 class CategoryTableViewCell: UITableViewCell {
     
     static let identifier = "tableViewCell"
@@ -16,6 +20,7 @@ class CategoryTableViewCell: UITableViewCell {
     var onReload: (() -> Void)?
     private var category: Categories = Categories()
     private var categoryTableVM = CategoryTableViewModel()
+    weak var delegate: CategoryBrandSelectItemDelegate?
     
     //MARK: IBOutlet
     @IBOutlet weak var labelBrand: UILabel!
@@ -55,5 +60,8 @@ extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 10
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.CategoryItemSelectNavigation(didSelectItem: indexPath)
     }
 }

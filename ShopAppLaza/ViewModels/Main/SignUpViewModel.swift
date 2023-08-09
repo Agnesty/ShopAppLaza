@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import CryptoKit
 
 class SignUpViewModel {
+    private let encryptDescrypt = EncryptDescrypt()
     var signUpViewCtr: SignUpViewController?
     
     func signUpUser() {
         guard let unwrappedVC = signUpViewCtr else { return }
-        
+        let key = SymmetricKey(size: .bits256)
         // Prepare the data to be sent in JSON format
         let userData: [String: Any] = [
             "username": unwrappedVC.usernameTF.text ?? "",
@@ -23,6 +25,9 @@ class SignUpViewModel {
         // Convert the user data to JSON
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
+            let encryptedUserData = try! encryptDescrypt.encryptData(jsonData, using: key)
+            let encryptedUserDataBase64 = encryptedUserData.base64EncodedString()
+            print("ini encrypt yang awal: \(encryptedUserDataBase64)")
             var request = URLRequest(url: URL(string: "https://fakestoreapi.com/users")!)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -41,10 +46,12 @@ class SignUpViewModel {
                         print("Response JSON: \(json)")
                         if let jsonResponse = json as? [String: Any], let userID = jsonResponse["id"] as? Int {
                             DispatchQueue.main.async {
+                               
+                                
                                 // Save the user ID to UserDefaults
                                 UserDefaults.standard.set(userID, forKey: "userID")
                                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                                UserDefaults.standard.set(userData, forKey: "userData")
+                                UserDefaults.standard.set(encryptedUserDataBase64, forKey: "userData")
                                 UserDefaults.standard.synchronize()
 
                                 // Get and print the saved data from UserDefaults

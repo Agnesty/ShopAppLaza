@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-ShopAppLaza/Pods-ShopAppLaza-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CreditCardForm/CreditCardForm.framework
 ${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework

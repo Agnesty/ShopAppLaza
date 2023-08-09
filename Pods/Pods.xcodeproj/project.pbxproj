@@ -7,30 +7,62 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		057B453F4AE14D10EA77D38FA1A0B8FB /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA75D7F8119ABA5A3EF4AB757FE0EF /* SideMenuPresentationController.swift */; };
-		1F0DDBBAF86A028D6D60A7E10B4D3634 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C723107D860DB31CABCD028704863BA8 /* SideMenu-dummy.m */; };
-		3817F4830A10E51D20B72530EF6A56D2 /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296BE21FF7AAD7D19E6ED839F0804FC1 /* SideMenuTransitionController.swift */; };
-		3A25998873D80FF7EC4E45176C2AC03E /* Pods-ShopAppLaza-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ED18D5B3ACDE48E59128AE8E4F3F682E /* Pods-ShopAppLaza-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5587C359D9C8789950E7F6585C2292E7 /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1907B78B39DE0F0C6221B3F154AAC862 /* SideMenuPresentationStyle.swift */; };
-		74106BDED4B8B2281DFE4BE5E109D847 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B435A692AE8CB71108BC3C8B3E424BE1 /* Initializable.swift */; };
-		887D7E546D6837CC964318D1B0C842D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		9E9F19E0120EA3C46967C28E637F52C8 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B80BD863C174D5427612E5FC99ED1 /* SideMenuNavigationController.swift */; };
-		A55ADE7D37DA47D7B09D428E96F56087 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		B804587E525773FCA9698855B2C752DC /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB9B2576E9F7BC25C5B4B3ED9D9275 /* SideMenuAnimationController.swift */; };
-		BC9C2E663681EDDBFE985034DCC7AAAF /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7C515B3D13887A728A453D7099F17D /* UITableViewVibrantCell.swift */; };
-		BE79F903F87E7D5918C6414E6203743E /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A8B5179015129C9DC09887F8A8E0F /* Print.swift */; };
-		C938A84518272201BF375E5F7062C791 /* Pods-ShopAppLaza-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E26C0CC28B60D434EE1AFF6554E4D0A9 /* Pods-ShopAppLaza-dummy.m */; };
-		D3BE0026C39E4B360BBDA0D5C57DD25D /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E0EF1FE9720FBF7E95FDF1468E9464 /* Deprecations.swift */; };
-		DAD5950A205347FCDBD3751604472431 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1F12E6E9DEC732642010364EE9795B /* Protected.swift */; };
-		E56EEF71CC5AF0DA40228F2CA67B4BA0 /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEDAD33E39B2C6517EE2C665A844ABA /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E709C98B763E8065628D8E88715E0BF8 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16C168F52FDF8EC2C45F49A36F215C /* SideMenuManager.swift */; };
-		E72252B09CC270B50217CA6AEABD620A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007E87349E50118E13B294C1DF5CA0D /* SideMenuPushCoordinator.swift */; };
-		E97C7A323474D0205E872AE7BC773650 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF29DE67A5AA1D16125206E5A037E259 /* SideMenuInteractionController.swift */; };
-		F28D439429A375B6D4FCD037ED317CD6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACD16025EBF0FAAFEC087DE312E58C8 /* Extensions.swift */; };
+		04459CB3692B269C1329E312F51AFE3D /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D958B16DE35DD4B9920E8BCD6A9E718 /* CreditCardValidator.swift */; };
+		057B453F4AE14D10EA77D38FA1A0B8FB /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F40EA8C92E4BE2C5370943A86C3F900 /* SideMenuPresentationController.swift */; };
+		1F0DDBBAF86A028D6D60A7E10B4D3634 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 79939FABFE7BD829941C2746908F8773 /* SideMenu-dummy.m */; };
+		22ED29F9016C52DA1E72532741940FEE /* AKMaskFieldPatternCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23692743AA80103323A7D235EA08B48D /* AKMaskFieldPatternCharacter.swift */; };
+		290021B707C80BCE5AD8F43E526116EE /* CreditCardForm-CreditCardForm in Resources */ = {isa = PBXBuildFile; fileRef = 93206FEF9D2EA9994A33B6A8CABAF03B /* CreditCardForm-CreditCardForm */; };
+		29282EF5D64D9C913D8C13B186341B6C /* Pods-ShopAppLaza-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ED18D5B3ACDE48E59128AE8E4F3F682E /* Pods-ShopAppLaza-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B3E0E26A36FF090CD950D2030B0A012 /* AKMaskFieldEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07B03BF784788020D8C11831FF4EC1 /* AKMaskFieldEvent.swift */; };
+		2DD44305EF5E437A3EBD94AE94BB2D1E /* CreditCardForm.h in Headers */ = {isa = PBXBuildFile; fileRef = 12C9CA03A70FED298565CDF1CB7BE3F2 /* CreditCardForm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		351D088DD136B76AFFDF0196241C4306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		3817F4830A10E51D20B72530EF6A56D2 /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C35EEE45423C77DFAC2175838687A20 /* SideMenuTransitionController.swift */; };
+		3AB0F1F27CBEEBD8511DE7DF3A094119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3BB001BBB58FE519C506E2AA52BED11 /* Images.xcassets */; };
+		452B67C804FE3C4E2008392CCCDA5225 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		4B49A6E17AD908DC17E5BEC15E5AEEB4 /* AKMaskFieldBlockCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B639C036424FEA9BF18FB717E4C3AD /* AKMaskFieldBlockCharacter.swift */; };
+		5587C359D9C8789950E7F6585C2292E7 /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E04ABDFB9AAB0CA0F240F747EC86B9 /* SideMenuPresentationStyle.swift */; };
+		6B65E6C8F78DDECBBFB484910EE4EAC0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */; };
+		6DDE3F21B8B439281D1EDF228D0ED065 /* AKMaskFieldUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB5E11388BB1C3C67726F3C995E492 /* AKMaskFieldUtility.swift */; };
+		6F58BCE7397C1FE3E24A99F084DA62DE /* CreditCardForm-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FE61EF165A866B593329275500E08D06 /* CreditCardForm-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74106BDED4B8B2281DFE4BE5E109D847 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D139C6ACF70FE553CC5DBFC4F4C275 /* Initializable.swift */; };
+		79D4FB6A3DCB4A5B95178B24B097D079 /* AKMaskField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C6D48D4EA8F6857B19FCB9C02ED596 /* AKMaskField.swift */; };
+		887D7E546D6837CC964318D1B0C842D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		9E9F19E0120EA3C46967C28E637F52C8 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED2BF1268DE1A7D38ED4A646E743ED /* SideMenuNavigationController.swift */; };
+		A0CF4435DF87F242B80D9FBE6E45CEA6 /* Pods-ShopAppLaza-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E26C0CC28B60D434EE1AFF6554E4D0A9 /* Pods-ShopAppLaza-dummy.m */; };
+		AB25C18FE52C5B5B953D3C030CCC156B /* CreditCardForm-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC4C091A0DB869698498B5506C0F6B /* CreditCardForm-dummy.m */; };
+		B190209DDD0006F9A27C0F6BBA977F82 /* CreditCardValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ED5F6AF07A4E7BC75ADA3CC23B2DE9 /* CreditCardValidationType.swift */; };
+		B804587E525773FCA9698855B2C752DC /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640E4AA5FBD4840C433B0F950065D /* SideMenuAnimationController.swift */; };
+		BC9C2E663681EDDBFE985034DCC7AAAF /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE6DB727F48D71EA702C7C75FCB0709 /* UITableViewVibrantCell.swift */; };
+		BE79F903F87E7D5918C6414E6203743E /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FEAF65722B9C908FA32B19AEC319F7 /* Print.swift */; };
+		D3BE0026C39E4B360BBDA0D5C57DD25D /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6704AA747BF343E8808A945B8B64A283 /* Deprecations.swift */; };
+		DAD5950A205347FCDBD3751604472431 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6BF6F6E39D4EF11CF7B690275AB19A /* Protected.swift */; };
+		DEC8BA2FD8A5D7CFAD5ED8DF2839C382 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C0A0F8CA7AD01A3C97EA067E4C1F4 /* Utilities.swift */; };
+		E4D20EC4339FF0197D892F4CB12C1DB5 /* CreditCardFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CEECE63F3829F34A1AFACA06173914 /* CreditCardFormView.swift */; };
+		E56EEF71CC5AF0DA40228F2CA67B4BA0 /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8FFBA734CD0C273DC1DC6B98669FB5 /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5A89E0C46FF7FCA7C4BB2C4FE9EE1DA /* AKMaskFieldStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8D63933BF958CDEBAE628FE621316F /* AKMaskFieldStatus.swift */; };
+		E709C98B763E8065628D8E88715E0BF8 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26332673D25EC72AE7525552E68D0E6C /* SideMenuManager.swift */; };
+		E72252B09CC270B50217CA6AEABD620A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99DAA112C5AFE55C99AE56CD22060D3 /* SideMenuPushCoordinator.swift */; };
+		E97C7A323474D0205E872AE7BC773650 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BA53F33C6DE3BBDC01ACA1658263E2 /* SideMenuInteractionController.swift */; };
+		F0A147DCC8930062BE7085C81CD60DA2 /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F374C98658D1C671341E556C74171B /* AKMaskFieldBlock.swift */; };
+		F28D439429A375B6D4FCD037ED317CD6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C597FB8740FC3F1EBD72330C029051CA /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5EFA1A5CBC896E5A7360F1DA59F5B3CA /* PBXContainerItemProxy */ = {
+		9675D0D54C07B77CFDBE7644B5BF6F54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8361D64686865DCA05B2F78B6D91C4CE;
+			remoteInfo = "CreditCardForm-CreditCardForm";
+		};
+		BC2F13E02C0A02EAD8DACAA0CFAE346F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 845A1266A2D0AD42C903573C45B1839E;
+			remoteInfo = CreditCardForm;
+		};
+		D953D883FB22C81A3B3DCE8A79B7CC55 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -40,43 +72,74 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1907B78B39DE0F0C6221B3F154AAC862 /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/Classes/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
-		296BE21FF7AAD7D19E6ED839F0804FC1 /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/Classes/SideMenuTransitionController.swift; sourceTree = "<group>"; };
-		29DA75D7F8119ABA5A3EF4AB757FE0EF /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/Classes/SideMenuPresentationController.swift; sourceTree = "<group>"; };
+		00ED5F6AF07A4E7BC75ADA3CC23B2DE9 /* CreditCardValidationType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CreditCardValidationType.swift; path = CreditCardForm/Classes/CreditCardValidationType.swift; sourceTree = "<group>"; };
+		02BA53F33C6DE3BBDC01ACA1658263E2 /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
+		0DB2953ADA0D2C1CE90BFF5E0FC3E04D /* SideMenu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.debug.xcconfig; sourceTree = "<group>"; };
+		12C9CA03A70FED298565CDF1CB7BE3F2 /* CreditCardForm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CreditCardForm.h; path = CreditCardForm/CreditCardForm.h; sourceTree = "<group>"; };
+		18F374C98658D1C671341E556C74171B /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldBlock.swift; path = CreditCardForm/Classes/AKMaskFieldBlock.swift; sourceTree = "<group>"; };
+		19FEAF65722B9C908FA32B19AEC319F7 /* Print.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Classes/Print.swift; sourceTree = "<group>"; };
+		1A6BF6F6E39D4EF11CF7B690275AB19A /* Protected.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Classes/Protected.swift; sourceTree = "<group>"; };
+		1EF1467D7734B9CE8C86E64FCF7692D4 /* SideMenu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.release.xcconfig; sourceTree = "<group>"; };
+		216705F6BD1DA67E4590F8A18DF27E3A /* CreditCardForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CreditCardForm.debug.xcconfig; sourceTree = "<group>"; };
+		21E04ABDFB9AAB0CA0F240F747EC86B9 /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/Classes/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
+		23692743AA80103323A7D235EA08B48D /* AKMaskFieldPatternCharacter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldPatternCharacter.swift; path = CreditCardForm/Classes/AKMaskFieldPatternCharacter.swift; sourceTree = "<group>"; };
+		26332673D25EC72AE7525552E68D0E6C /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
+		27BC4C091A0DB869698498B5506C0F6B /* CreditCardForm-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CreditCardForm-dummy.m"; sourceTree = "<group>"; };
 		319D06AA0D1D0BA345459C039040A1ED /* SideMenu */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SideMenu; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39731C041E2E77BC5245E8132FC071E0 /* SideMenu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SideMenu-Info.plist"; sourceTree = "<group>"; };
+		32C6D48D4EA8F6857B19FCB9C02ED596 /* AKMaskField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskField.swift; path = CreditCardForm/Classes/AKMaskField.swift; sourceTree = "<group>"; };
+		38CEECE63F3829F34A1AFACA06173914 /* CreditCardFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CreditCardFormView.swift; path = CreditCardForm/Classes/CreditCardFormView.swift; sourceTree = "<group>"; };
 		39AE60ED8DAF998765EAEBF8C8EAEC45 /* Pods-ShopAppLaza */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ShopAppLaza"; path = Pods_ShopAppLaza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		639605EE872C890DF7392A3818475BB5 /* SideMenu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.release.xcconfig; sourceTree = "<group>"; };
+		3F40EA8C92E4BE2C5370943A86C3F900 /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/Classes/SideMenuPresentationController.swift; sourceTree = "<group>"; };
+		4C35EEE45423C77DFAC2175838687A20 /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/Classes/SideMenuTransitionController.swift; sourceTree = "<group>"; };
+		4E07B03BF784788020D8C11831FF4EC1 /* AKMaskFieldEvent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldEvent.swift; path = CreditCardForm/Classes/AKMaskFieldEvent.swift; sourceTree = "<group>"; };
+		51CD10E94D0534634F3E35D5A6C1A7F7 /* CreditCardForm-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CreditCardForm-prefix.pch"; sourceTree = "<group>"; };
+		54B6133C87F2CDCBD978FDE566B4D601 /* ResourceBundle-CreditCardForm-CreditCardForm-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CreditCardForm-CreditCardForm-Info.plist"; sourceTree = "<group>"; };
 		644846DBED6286BEDD518A6CB884EE07 /* Pods-ShopAppLaza-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ShopAppLaza-acknowledgements.markdown"; sourceTree = "<group>"; };
+		645B2C69F1F423B2C9C878A8A897E222 /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SideMenu.modulemap; sourceTree = "<group>"; };
+		6704AA747BF343E8808A945B8B64A283 /* Deprecations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Classes/Deprecations.swift; sourceTree = "<group>"; };
+		6AAE56341AC19202993DD27463FF8B4D /* CreditCardForm.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CreditCardForm.modulemap; sourceTree = "<group>"; };
 		6BDAB1805BD5B2492AB6FD88B71BDE32 /* Pods-ShopAppLaza.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ShopAppLaza.modulemap"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7D16C168F52FDF8EC2C45F49A36F215C /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
-		8E4B80BD863C174D5427612E5FC99ED1 /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/Classes/SideMenuNavigationController.swift; sourceTree = "<group>"; };
+		79939FABFE7BD829941C2746908F8773 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
+		83B639C036424FEA9BF18FB717E4C3AD /* AKMaskFieldBlockCharacter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldBlockCharacter.swift; path = CreditCardForm/Classes/AKMaskFieldBlockCharacter.swift; sourceTree = "<group>"; };
+		8C8D63933BF958CDEBAE628FE621316F /* AKMaskFieldStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldStatus.swift; path = CreditCardForm/Classes/AKMaskFieldStatus.swift; sourceTree = "<group>"; };
+		8D958B16DE35DD4B9920E8BCD6A9E718 /* CreditCardValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CreditCardValidator.swift; path = CreditCardForm/Classes/CreditCardValidator.swift; sourceTree = "<group>"; };
+		93206FEF9D2EA9994A33B6A8CABAF03B /* CreditCardForm-CreditCardForm */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "CreditCardForm-CreditCardForm"; path = CreditCardForm.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		98ED2BF1268DE1A7D38ED4A646E743ED /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/Classes/SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E1F12E6E9DEC732642010364EE9795B /* Protected.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Classes/Protected.swift; sourceTree = "<group>"; };
 		A101F94D36935597CDB51932A32E5A68 /* Pods-ShopAppLaza.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ShopAppLaza.release.xcconfig"; sourceTree = "<group>"; };
-		AE8A8B5179015129C9DC09887F8A8E0F /* Print.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Classes/Print.swift; sourceTree = "<group>"; };
-		B007E87349E50118E13B294C1DF5CA0D /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/Classes/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
+		A57BF24E5F87DCBF8DE432E498D41084 /* SideMenu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SideMenu-Info.plist"; sourceTree = "<group>"; };
+		ADBEE831BB9DFB6C88557A120A49B580 /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		B1771D871CE84F3FEEE071268151D1B0 /* Pods-ShopAppLaza-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ShopAppLaza-acknowledgements.plist"; sourceTree = "<group>"; };
-		B435A692AE8CB71108BC3C8B3E424BE1 /* Initializable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Classes/Initializable.swift; sourceTree = "<group>"; };
-		B72C4994EA5E6719DEB95FF5415FB140 /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SideMenu.modulemap; sourceTree = "<group>"; };
-		B741F11F3B190DB6E66E566ECF54FC35 /* SideMenu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.debug.xcconfig; sourceTree = "<group>"; };
-		BA7C515B3D13887A728A453D7099F17D /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
-		BB7389E65A56B13A2B00F28FCEF9794F /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
-		BF29DE67A5AA1D16125206E5A037E259 /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
+		BD8FFBA734CD0C273DC1DC6B98669FB5 /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
 		C367063F5BFFCE4E4FFFB188CC29FDBB /* Pods-ShopAppLaza-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ShopAppLaza-Info.plist"; sourceTree = "<group>"; };
-		C5E0EF1FE9720FBF7E95FDF1468E9464 /* Deprecations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Classes/Deprecations.swift; sourceTree = "<group>"; };
-		C723107D860DB31CABCD028704863BA8 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
-		CACD16025EBF0FAAFEC087DE312E58C8 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
-		DEDB9B2576E9F7BC25C5B4B3ED9D9275 /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/Classes/SideMenuAnimationController.swift; sourceTree = "<group>"; };
+		C40C0A0F8CA7AD01A3C97EA067E4C1F4 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = CreditCardForm/Classes/Utilities.swift; sourceTree = "<group>"; };
+		C597FB8740FC3F1EBD72330C029051CA /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
+		D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D3D139C6ACF70FE553CC5DBFC4F4C275 /* Initializable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Classes/Initializable.swift; sourceTree = "<group>"; };
+		D5CB5E11388BB1C3C67726F3C995E492 /* AKMaskFieldUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AKMaskFieldUtility.swift; path = CreditCardForm/Classes/AKMaskFieldUtility.swift; sourceTree = "<group>"; };
 		E23F8FF267780CFC1E163FA7B3DEA2DA /* Pods-ShopAppLaza-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ShopAppLaza-frameworks.sh"; sourceTree = "<group>"; };
 		E26C0CC28B60D434EE1AFF6554E4D0A9 /* Pods-ShopAppLaza-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ShopAppLaza-dummy.m"; sourceTree = "<group>"; };
+		E3BB001BBB58FE519C506E2AA52BED11 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CreditCardForm/Images.xcassets; sourceTree = "<group>"; };
+		E7E85A6793FACBE2E63CB87A30B5EA66 /* CreditCardForm-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CreditCardForm-Info.plist"; sourceTree = "<group>"; };
+		EA2640E4AA5FBD4840C433B0F950065D /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/Classes/SideMenuAnimationController.swift; sourceTree = "<group>"; };
+		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		ECF7B2A881CE8688B9F07AA764AF31CD /* CreditCardForm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CreditCardForm.release.xcconfig; sourceTree = "<group>"; };
 		ED18D5B3ACDE48E59128AE8E4F3F682E /* Pods-ShopAppLaza-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ShopAppLaza-umbrella.h"; sourceTree = "<group>"; };
+		EFE6DB727F48D71EA702C7C75FCB0709 /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
+		F32E27864407A620B6E64A3D2FB222B1 /* CreditCardForm */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CreditCardForm; path = CreditCardForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BE357C1C8FE271528D1AEB4F908943 /* Pods-ShopAppLaza.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ShopAppLaza.debug.xcconfig"; sourceTree = "<group>"; };
-		FAEDAD33E39B2C6517EE2C665A844ABA /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
+		F99DAA112C5AFE55C99AE56CD22060D3 /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/Classes/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
+		FE61EF165A866B593329275500E08D06 /* CreditCardForm-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CreditCardForm-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C64A51859CDD750A56B10BB6F6E9D08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5DC25AA7986F2BF0AC82E6132A31A66D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,55 +148,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0ECA6089CABD2DAC4C3C2F8D412A586 /* Frameworks */ = {
+		61310E76792CC0AC22884C991612682D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55ADE7D37DA47D7B09D428E96F56087 /* Foundation.framework in Frameworks */,
+				452B67C804FE3C4E2008392CCCDA5225 /* Foundation.framework in Frameworks */,
+				6B65E6C8F78DDECBBFB484910EE4EAC0 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF855F77F9E53ECD89C712F9A2C36A22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				351D088DD136B76AFFDF0196241C4306 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		065FF3C006D1A5171BF836C6AA535B96 /* Support Files */ = {
+		030A46900758F0A42A1789E220CFAA43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B72C4994EA5E6719DEB95FF5415FB140 /* SideMenu.modulemap */,
-				C723107D860DB31CABCD028704863BA8 /* SideMenu-dummy.m */,
-				39731C041E2E77BC5245E8132FC071E0 /* SideMenu-Info.plist */,
-				BB7389E65A56B13A2B00F28FCEF9794F /* SideMenu-prefix.pch */,
-				FAEDAD33E39B2C6517EE2C665A844ABA /* SideMenu-umbrella.h */,
-				B741F11F3B190DB6E66E566ECF54FC35 /* SideMenu.debug.xcconfig */,
-				639605EE872C890DF7392A3818475BB5 /* SideMenu.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SideMenu";
-			sourceTree = "<group>";
-		};
-		1874A795F79793FFD600389080AE65CB /* Products */ = {
-			isa = PBXGroup;
-			children = (
+				F32E27864407A620B6E64A3D2FB222B1 /* CreditCardForm */,
+				93206FEF9D2EA9994A33B6A8CABAF03B /* CreditCardForm-CreditCardForm */,
 				39AE60ED8DAF998765EAEBF8C8EAEC45 /* Pods-ShopAppLaza */,
 				319D06AA0D1D0BA345459C039040A1ED /* SideMenu */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+				59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */,
+				D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		7D34FA07FC7B9431D63786FEAE0BA6F5 /* Pods */ = {
+		6503B51BCDD4F7A4DCE26827FC77C93B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				860B550C527090E352A83A65C289DBC3 /* SideMenu */,
+				953AB1F5289B68AFE027FCF53FD49DA4 /* CreditCardForm */,
+				AB241B0B29BAEAE885489A60F8C41AE3 /* SideMenu */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		6D8AB49A99AE4910AB98F375F756D516 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E3BB001BBB58FE519C506E2AA52BED11 /* Images.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		848692DF41E616F39D6A6B7A0CCA703C /* Targets Support Files */ = {
@@ -144,24 +221,46 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		860B550C527090E352A83A65C289DBC3 /* SideMenu */ = {
+		953AB1F5289B68AFE027FCF53FD49DA4 /* CreditCardForm */ = {
 			isa = PBXGroup;
 			children = (
-				C5E0EF1FE9720FBF7E95FDF1468E9464 /* Deprecations.swift */,
-				CACD16025EBF0FAAFEC087DE312E58C8 /* Extensions.swift */,
-				B435A692AE8CB71108BC3C8B3E424BE1 /* Initializable.swift */,
-				AE8A8B5179015129C9DC09887F8A8E0F /* Print.swift */,
-				9E1F12E6E9DEC732642010364EE9795B /* Protected.swift */,
-				DEDB9B2576E9F7BC25C5B4B3ED9D9275 /* SideMenuAnimationController.swift */,
-				BF29DE67A5AA1D16125206E5A037E259 /* SideMenuInteractionController.swift */,
-				7D16C168F52FDF8EC2C45F49A36F215C /* SideMenuManager.swift */,
-				8E4B80BD863C174D5427612E5FC99ED1 /* SideMenuNavigationController.swift */,
-				29DA75D7F8119ABA5A3EF4AB757FE0EF /* SideMenuPresentationController.swift */,
-				1907B78B39DE0F0C6221B3F154AAC862 /* SideMenuPresentationStyle.swift */,
-				B007E87349E50118E13B294C1DF5CA0D /* SideMenuPushCoordinator.swift */,
-				296BE21FF7AAD7D19E6ED839F0804FC1 /* SideMenuTransitionController.swift */,
-				BA7C515B3D13887A728A453D7099F17D /* UITableViewVibrantCell.swift */,
-				065FF3C006D1A5171BF836C6AA535B96 /* Support Files */,
+				32C6D48D4EA8F6857B19FCB9C02ED596 /* AKMaskField.swift */,
+				18F374C98658D1C671341E556C74171B /* AKMaskFieldBlock.swift */,
+				83B639C036424FEA9BF18FB717E4C3AD /* AKMaskFieldBlockCharacter.swift */,
+				4E07B03BF784788020D8C11831FF4EC1 /* AKMaskFieldEvent.swift */,
+				23692743AA80103323A7D235EA08B48D /* AKMaskFieldPatternCharacter.swift */,
+				8C8D63933BF958CDEBAE628FE621316F /* AKMaskFieldStatus.swift */,
+				D5CB5E11388BB1C3C67726F3C995E492 /* AKMaskFieldUtility.swift */,
+				12C9CA03A70FED298565CDF1CB7BE3F2 /* CreditCardForm.h */,
+				38CEECE63F3829F34A1AFACA06173914 /* CreditCardFormView.swift */,
+				00ED5F6AF07A4E7BC75ADA3CC23B2DE9 /* CreditCardValidationType.swift */,
+				8D958B16DE35DD4B9920E8BCD6A9E718 /* CreditCardValidator.swift */,
+				C40C0A0F8CA7AD01A3C97EA067E4C1F4 /* Utilities.swift */,
+				6D8AB49A99AE4910AB98F375F756D516 /* Resources */,
+				F0DCFF851AA98C5239A27CBEBD3EAEE4 /* Support Files */,
+			);
+			name = CreditCardForm;
+			path = CreditCardForm;
+			sourceTree = "<group>";
+		};
+		AB241B0B29BAEAE885489A60F8C41AE3 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				6704AA747BF343E8808A945B8B64A283 /* Deprecations.swift */,
+				C597FB8740FC3F1EBD72330C029051CA /* Extensions.swift */,
+				D3D139C6ACF70FE553CC5DBFC4F4C275 /* Initializable.swift */,
+				19FEAF65722B9C908FA32B19AEC319F7 /* Print.swift */,
+				1A6BF6F6E39D4EF11CF7B690275AB19A /* Protected.swift */,
+				EA2640E4AA5FBD4840C433B0F950065D /* SideMenuAnimationController.swift */,
+				02BA53F33C6DE3BBDC01ACA1658263E2 /* SideMenuInteractionController.swift */,
+				26332673D25EC72AE7525552E68D0E6C /* SideMenuManager.swift */,
+				98ED2BF1268DE1A7D38ED4A646E743ED /* SideMenuNavigationController.swift */,
+				3F40EA8C92E4BE2C5370943A86C3F900 /* SideMenuPresentationController.swift */,
+				21E04ABDFB9AAB0CA0F240F747EC86B9 /* SideMenuPresentationStyle.swift */,
+				F99DAA112C5AFE55C99AE56CD22060D3 /* SideMenuPushCoordinator.swift */,
+				4C35EEE45423C77DFAC2175838687A20 /* SideMenuTransitionController.swift */,
+				EFE6DB727F48D71EA702C7C75FCB0709 /* UITableViewVibrantCell.swift */,
+				FD07F015FF94C4F66910D6611301594E /* Support Files */,
 			);
 			name = SideMenu;
 			path = SideMenu;
@@ -171,19 +270,11 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				7D34FA07FC7B9431D63786FEAE0BA6F5 /* Pods */,
-				1874A795F79793FFD600389080AE65CB /* Products */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				6503B51BCDD4F7A4DCE26827FC77C93B /* Pods */,
+				030A46900758F0A42A1789E220CFAA43 /* Products */,
 				848692DF41E616F39D6A6B7A0CCA703C /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D3EC628B4EF600A5B49E7CB5CE436519 /* Pods-ShopAppLaza */ = {
@@ -203,14 +294,45 @@
 			path = "Target Support Files/Pods-ShopAppLaza";
 			sourceTree = "<group>";
 		};
+		F0DCFF851AA98C5239A27CBEBD3EAEE4 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6AAE56341AC19202993DD27463FF8B4D /* CreditCardForm.modulemap */,
+				27BC4C091A0DB869698498B5506C0F6B /* CreditCardForm-dummy.m */,
+				E7E85A6793FACBE2E63CB87A30B5EA66 /* CreditCardForm-Info.plist */,
+				51CD10E94D0534634F3E35D5A6C1A7F7 /* CreditCardForm-prefix.pch */,
+				FE61EF165A866B593329275500E08D06 /* CreditCardForm-umbrella.h */,
+				216705F6BD1DA67E4590F8A18DF27E3A /* CreditCardForm.debug.xcconfig */,
+				ECF7B2A881CE8688B9F07AA764AF31CD /* CreditCardForm.release.xcconfig */,
+				54B6133C87F2CDCBD978FDE566B4D601 /* ResourceBundle-CreditCardForm-CreditCardForm-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CreditCardForm";
+			sourceTree = "<group>";
+		};
+		FD07F015FF94C4F66910D6611301594E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				645B2C69F1F423B2C9C878A8A897E222 /* SideMenu.modulemap */,
+				79939FABFE7BD829941C2746908F8773 /* SideMenu-dummy.m */,
+				A57BF24E5F87DCBF8DE432E498D41084 /* SideMenu-Info.plist */,
+				ADBEE831BB9DFB6C88557A120A49B580 /* SideMenu-prefix.pch */,
+				BD8FFBA734CD0C273DC1DC6B98669FB5 /* SideMenu-umbrella.h */,
+				0DB2953ADA0D2C1CE90BFF5E0FC3E04D /* SideMenu.debug.xcconfig */,
+				1EF1467D7734B9CE8C86E64FCF7692D4 /* SideMenu.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SideMenu";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		6FD288BD78C0EE5D989E955CF031DE7B /* Headers */ = {
+		0FCABBE41BE3F44EC5ABBEEBA109048A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A25998873D80FF7EC4E45176C2AC03E /* Pods-ShopAppLaza-umbrella.h in Headers */,
+				29282EF5D64D9C913D8C13B186341B6C /* Pods-ShopAppLaza-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,26 +344,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ADD14E1FCF7B161FC2C61DF0C731CC82 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DD44305EF5E437A3EBD94AE94BB2D1E /* CreditCardForm.h in Headers */,
+				6F58BCE7397C1FE3E24A99F084DA62DE /* CreditCardForm-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		18624BF028875FF153D76AAB299E1657 /* Pods-ShopAppLaza */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3056A24ED6F16FF23D5C9FBA47886D3C /* Build configuration list for PBXNativeTarget "Pods-ShopAppLaza" */;
+			buildConfigurationList = E9F42E40FA975B2C4A6D8AB8A3BD14E6 /* Build configuration list for PBXNativeTarget "Pods-ShopAppLaza" */;
 			buildPhases = (
-				6FD288BD78C0EE5D989E955CF031DE7B /* Headers */,
-				25EBC9EA6D3F367BE43410F012E87A9A /* Sources */,
-				D0ECA6089CABD2DAC4C3C2F8D412A586 /* Frameworks */,
-				E7D3E0DB8978B1239565F32BC7BEDFDF /* Resources */,
+				0FCABBE41BE3F44EC5ABBEEBA109048A /* Headers */,
+				F3D40E7D7E5D7AE6DC181C21EECDDA63 /* Sources */,
+				CF855F77F9E53ECD89C712F9A2C36A22 /* Frameworks */,
+				81606DD2E1643411E85CF8D71091FBD0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F34D7B586EA94D0221330A92EFFFF3B1 /* PBXTargetDependency */,
+				457280384242DB244C3EEF84913CAF9B /* PBXTargetDependency */,
+				24FBB4A5B2B786AAC1C2C962FC166B31 /* PBXTargetDependency */,
 			);
 			name = "Pods-ShopAppLaza";
 			productName = Pods_ShopAppLaza;
 			productReference = 39AE60ED8DAF998765EAEBF8C8EAEC45 /* Pods-ShopAppLaza */;
+			productType = "com.apple.product-type.framework";
+		};
+		8361D64686865DCA05B2F78B6D91C4CE /* CreditCardForm-CreditCardForm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2ED0311950376A0E4BBDDE099DC54E5 /* Build configuration list for PBXNativeTarget "CreditCardForm-CreditCardForm" */;
+			buildPhases = (
+				00A2685E543BD4B06FBED87634D02B48 /* Sources */,
+				4C64A51859CDD750A56B10BB6F6E9D08 /* Frameworks */,
+				C54780BC7A3F33748BE71FEBFFCBF12C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CreditCardForm-CreditCardForm";
+			productName = CreditCardForm;
+			productReference = 93206FEF9D2EA9994A33B6A8CABAF03B /* CreditCardForm-CreditCardForm */;
+			productType = "com.apple.product-type.bundle";
+		};
+		845A1266A2D0AD42C903573C45B1839E /* CreditCardForm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E165C9D19825055FCBEC3BFB76B1C2C1 /* Build configuration list for PBXNativeTarget "CreditCardForm" */;
+			buildPhases = (
+				ADD14E1FCF7B161FC2C61DF0C731CC82 /* Headers */,
+				576ACDBF78F0DD37D4FBB88D4CE0F026 /* Sources */,
+				61310E76792CC0AC22884C991612682D /* Frameworks */,
+				48A49AAABCAF664665D6E7D6D2C8FABC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C6030F24F51120515AF96A3A1B877EB2 /* PBXTargetDependency */,
+			);
+			name = CreditCardForm;
+			productName = CreditCardForm;
+			productReference = F32E27864407A620B6E64A3D2FB222B1 /* CreditCardForm */;
 			productType = "com.apple.product-type.framework";
 		};
 		C4A0A7D8591B67FB75E2E8D215E3735B /* SideMenu */ = {
@@ -280,10 +448,12 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 1874A795F79793FFD600389080AE65CB /* Products */;
+			productRefGroup = 030A46900758F0A42A1789E220CFAA43 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				845A1266A2D0AD42C903573C45B1839E /* CreditCardForm */,
+				8361D64686865DCA05B2F78B6D91C4CE /* CreditCardForm-CreditCardForm */,
 				18624BF028875FF153D76AAB299E1657 /* Pods-ShopAppLaza */,
 				C4A0A7D8591B67FB75E2E8D215E3735B /* SideMenu */,
 			);
@@ -291,6 +461,21 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		48A49AAABCAF664665D6E7D6D2C8FABC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				290021B707C80BCE5AD8F43E526116EE /* CreditCardForm-CreditCardForm in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81606DD2E1643411E85CF8D71091FBD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C35CA0EF3E2BEED48FF33721BDC0D000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,21 +483,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7D3E0DB8978B1239565F32BC7BEDFDF /* Resources */ = {
+		C54780BC7A3F33748BE71FEBFFCBF12C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AB0F1F27CBEEBD8511DE7DF3A094119 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		25EBC9EA6D3F367BE43410F012E87A9A /* Sources */ = {
+		00A2685E543BD4B06FBED87634D02B48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C938A84518272201BF375E5F7062C791 /* Pods-ShopAppLaza-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576ACDBF78F0DD37D4FBB88D4CE0F026 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79D4FB6A3DCB4A5B95178B24B097D079 /* AKMaskField.swift in Sources */,
+				F0A147DCC8930062BE7085C81CD60DA2 /* AKMaskFieldBlock.swift in Sources */,
+				4B49A6E17AD908DC17E5BEC15E5AEEB4 /* AKMaskFieldBlockCharacter.swift in Sources */,
+				2B3E0E26A36FF090CD950D2030B0A012 /* AKMaskFieldEvent.swift in Sources */,
+				22ED29F9016C52DA1E72532741940FEE /* AKMaskFieldPatternCharacter.swift in Sources */,
+				E5A89E0C46FF7FCA7C4BB2C4FE9EE1DA /* AKMaskFieldStatus.swift in Sources */,
+				6DDE3F21B8B439281D1EDF228D0ED065 /* AKMaskFieldUtility.swift in Sources */,
+				AB25C18FE52C5B5B953D3C030CCC156B /* CreditCardForm-dummy.m in Sources */,
+				E4D20EC4339FF0197D892F4CB12C1DB5 /* CreditCardFormView.swift in Sources */,
+				B190209DDD0006F9A27C0F6BBA977F82 /* CreditCardValidationType.swift in Sources */,
+				04459CB3692B269C1329E312F51AFE3D /* CreditCardValidator.swift in Sources */,
+				DEC8BA2FD8A5D7CFAD5ED8DF2839C382 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,21 +542,76 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F3D40E7D7E5D7AE6DC181C21EECDDA63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0CF4435DF87F242B80D9FBE6E45CEA6 /* Pods-ShopAppLaza-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F34D7B586EA94D0221330A92EFFFF3B1 /* PBXTargetDependency */ = {
+		24FBB4A5B2B786AAC1C2C962FC166B31 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SideMenu;
 			target = C4A0A7D8591B67FB75E2E8D215E3735B /* SideMenu */;
-			targetProxy = 5EFA1A5CBC896E5A7360F1DA59F5B3CA /* PBXContainerItemProxy */;
+			targetProxy = D953D883FB22C81A3B3DCE8A79B7CC55 /* PBXContainerItemProxy */;
+		};
+		457280384242DB244C3EEF84913CAF9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CreditCardForm;
+			target = 845A1266A2D0AD42C903573C45B1839E /* CreditCardForm */;
+			targetProxy = BC2F13E02C0A02EAD8DACAA0CFAE346F /* PBXContainerItemProxy */;
+		};
+		C6030F24F51120515AF96A3A1B877EB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CreditCardForm-CreditCardForm";
+			target = 8361D64686865DCA05B2F78B6D91C4CE /* CreditCardForm-CreditCardForm */;
+			targetProxy = 9675D0D54C07B77CFDBE7644B5BF6F54 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2C63AD0579C6EDAFF93045FD9CF4E136 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECF7B2A881CE8688B9F07AA764AF31CD /* CreditCardForm.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CreditCardForm/CreditCardForm-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CreditCardForm/CreditCardForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CreditCardForm/CreditCardForm.modulemap";
+				PRODUCT_MODULE_NAME = CreditCardForm;
+				PRODUCT_NAME = CreditCardForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		46BFE2312ECDC35BEC02D94DC5B60F4C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 639605EE872C890DF7392A3818475BB5 /* SideMenu.release.xcconfig */;
+			baseConfigurationReference = 1EF1467D7734B9CE8C86E64FCF7692D4 /* SideMenu.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -366,7 +625,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SideMenu/SideMenu-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SideMenu/SideMenu-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -386,7 +645,41 @@
 			};
 			name = Release;
 		};
-		701692852D2F2207C82B1528579763B9 /* Debug */ = {
+		792C3A89968A0FFF1266D825C93C1681 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 216705F6BD1DA67E4590F8A18DF27E3A /* CreditCardForm.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CreditCardForm/CreditCardForm-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CreditCardForm/CreditCardForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CreditCardForm/CreditCardForm.modulemap";
+				PRODUCT_MODULE_NAME = CreditCardForm;
+				PRODUCT_NAME = CreditCardForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		880565F1FD67440EF272DEC771FD1002 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F5BE357C1C8FE271528D1AEB4F908943 /* Pods-ShopAppLaza.debug.xcconfig */;
 			buildSettings = {
@@ -402,7 +695,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ShopAppLaza/Pods-ShopAppLaza-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -423,7 +716,104 @@
 			};
 			name = Debug;
 		};
-		7C3FBC45C4966EFE20583918767EFBE2 /* Debug */ = {
+		903A0004D3E6651EFD5D2E16214D101B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		9E0C37648D76E361234D07CA876D0358 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DB2953ADA0D2C1CE90BFF5E0FC3E04D /* SideMenu.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SideMenu/SideMenu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SideMenu/SideMenu-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SideMenu/SideMenu.modulemap";
+				PRODUCT_MODULE_NAME = SideMenu;
+				PRODUCT_NAME = SideMenu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B4EFE046ACF8F37157F6E322C7FCFC28 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -476,7 +866,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -489,42 +879,24 @@
 			};
 			name = Debug;
 		};
-		9E0C37648D76E361234D07CA876D0358 /* Debug */ = {
+		C04FDEC37742188D3684C1710A145E96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B741F11F3B190DB6E66E566ECF54FC35 /* SideMenu.debug.xcconfig */;
+			baseConfigurationReference = ECF7B2A881CE8688B9F07AA764AF31CD /* CreditCardForm.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SideMenu/SideMenu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SideMenu/SideMenu-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/SideMenu/SideMenu.modulemap";
-				PRODUCT_MODULE_NAME = SideMenu;
-				PRODUCT_NAME = SideMenu;
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CreditCardForm";
+				IBSC_MODULE = CreditCardForm;
+				INFOPLIST_FILE = "Target Support Files/CreditCardForm/ResourceBundle-CreditCardForm-CreditCardForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_NAME = CreditCardForm;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				WRAPPER_EXTENSION = bundle;
 			};
-			name = Debug;
+			name = Release;
 		};
-		9FD31D3B7BC740751DE76269301ABAD8 /* Release */ = {
+		C9B163A07017193696A013DC3E8F1F35 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A101F94D36935597CDB51932A32E5A68 /* Pods-ShopAppLaza.release.xcconfig */;
 			buildSettings = {
@@ -540,7 +912,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ShopAppLaza/Pods-ShopAppLaza-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -562,85 +934,31 @@
 			};
 			name = Release;
 		};
-		FF0A36149038A192FFD678E1D4A40D3B /* Release */ = {
+		D1245630322A65468E5037802A4BD426 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 216705F6BD1DA67E4590F8A18DF27E3A /* CreditCardForm.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CreditCardForm";
+				IBSC_MODULE = CreditCardForm;
+				INFOPLIST_FILE = "Target Support Files/CreditCardForm/ResourceBundle-CreditCardForm-CreditCardForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_NAME = CreditCardForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3056A24ED6F16FF23D5C9FBA47886D3C /* Build configuration list for PBXNativeTarget "Pods-ShopAppLaza" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				701692852D2F2207C82B1528579763B9 /* Debug */,
-				9FD31D3B7BC740751DE76269301ABAD8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C3FBC45C4966EFE20583918767EFBE2 /* Debug */,
-				FF0A36149038A192FFD678E1D4A40D3B /* Release */,
+				B4EFE046ACF8F37157F6E322C7FCFC28 /* Debug */,
+				903A0004D3E6651EFD5D2E16214D101B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -650,6 +968,33 @@
 			buildConfigurations = (
 				9E0C37648D76E361234D07CA876D0358 /* Debug */,
 				46BFE2312ECDC35BEC02D94DC5B60F4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2ED0311950376A0E4BBDDE099DC54E5 /* Build configuration list for PBXNativeTarget "CreditCardForm-CreditCardForm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1245630322A65468E5037802A4BD426 /* Debug */,
+				C04FDEC37742188D3684C1710A145E96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E165C9D19825055FCBEC3BFB76B1C2C1 /* Build configuration list for PBXNativeTarget "CreditCardForm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				792C3A89968A0FFF1266D825C93C1681 /* Debug */,
+				2C63AD0579C6EDAFF93045FD9CF4E136 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9F42E40FA975B2C4A6D8AB8A3BD14E6 /* Build configuration list for PBXNativeTarget "Pods-ShopAppLaza" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				880565F1FD67440EF272DEC771FD1002 /* Debug */,
+				C9B163A07017193696A013DC3E8F1F35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

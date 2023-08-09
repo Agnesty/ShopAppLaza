@@ -32,15 +32,53 @@ class SideMenuController: UIViewController {
     @IBOutlet weak var myCardsAction: UIButton!
     @IBOutlet weak var wishlistAction: UIButton!
     @IBOutlet weak var settingsAction: UIButton!
+    @IBOutlet weak var namaLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let firstname = UserDefaults.standard.string(forKey: "loggedInFirstName"){
+            namaLabel.text = "\(firstname.capitalized)"
+        }
+        
     }
     
     //MARK: IBAction
     @IBAction func logoutButtonAction(_ sender: UIButton) {
         showLogoutAlert()
     }
+    @IBAction func myCartButtonAction(_ sender: UIButton) {
+        let performMyTabBar = UIStoryboard(name: "TabBar", bundle: nil)
+        let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
+        tabbar.selectedIndex = 2
+        
+        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
+    }
+    @IBAction func myCardsButtonAction(_ sender: UIButton) {
+        let performMyTabBar = UIStoryboard(name: "TabBar", bundle: nil)
+        let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
+        tabbar.selectedIndex = 3
+        
+        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
+    }
+    @IBAction func wishlist(_ sender: UIButton) {
+        let performMyTabBar = UIStoryboard(name: "TabBar", bundle: nil)
+        let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
+        tabbar.selectedIndex = 1
+        
+        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
+    }
+    @IBAction func switchMode(_ sender: UISwitch) {
+        if let window = UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first?.windows.first {
+            if sender.isOn {
+                window.overrideUserInterfaceStyle = .dark
+                return
+            }
+            window.overrideUserInterfaceStyle =  .light
+            return
+        }
+    }
+    
     
     //MARK: FUNCTION
     func showLogoutAlert() {

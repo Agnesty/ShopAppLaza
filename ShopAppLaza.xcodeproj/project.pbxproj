@@ -10,6 +10,15 @@
 		04C8D7A9005B9F12197895CF /* Pods_ShopAppLaza.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D041EDD0416E78C08C642479 /* Pods_ShopAppLaza.framework */; };
 		332291D02A7F862E0035D65F /* CategoryTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332291CF2A7F862E0035D65F /* CategoryTableViewModel.swift */; };
 		332291D32A7FC4A40035D65F /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332291D22A7FC4A40035D65F /* DetailViewModel.swift */; };
+		3322C11A2A81D77800EEF0C7 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322C1192A81D77800EEF0C7 /* CategoryDetailView.swift */; };
+		3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C11F2A81E54400EEF0C7 /* Stripe */; };
+		3322C1222A81E54400EEF0C7 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C1212A81E54400EEF0C7 /* StripeApplePay */; };
+		3322C1242A81E54400EEF0C7 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C1232A81E54400EEF0C7 /* StripeCardScan */; };
+		3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C1252A81E54400EEF0C7 /* StripeFinancialConnections */; };
+		3322C1282A81E54400EEF0C7 /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C1272A81E54400EEF0C7 /* StripeIdentity */; };
+		3322C12A2A81E54400EEF0C7 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C1292A81E54400EEF0C7 /* StripePaymentSheet */; };
+		3322C12C2A81E54400EEF0C7 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C12B2A81E54400EEF0C7 /* StripePayments */; };
+		3322C12E2A81E54400EEF0C7 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */; };
 		332C0B622A7CACD4008ECB27 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332C0B612A7CACD4008ECB27 /* CustomSlider.swift */; };
 		332C98A72A701133003CAFD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332C98A62A701133003CAFD3 /* AppDelegate.swift */; };
 		332C98A92A701133003CAFD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332C98A82A701133003CAFD3 /* SceneDelegate.swift */; };
@@ -39,6 +48,12 @@
 		334BF3E52A7B816F00755766 /* DummyPeopleReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BF3E42A7B816F00755766 /* DummyPeopleReviews.swift */; };
 		334BF3E82A7B875800755766 /* ReviewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */; };
 		334BF3E92A7B875800755766 /* ReviewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */; };
+		3354D3E72A808F3D00A9DB7F /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */; };
+		3354D3E82A808F3D00A9DB7F /* CartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */; };
+		3354D3EA2A8091DC00A9DB7F /* OrderConfirmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */; };
+		3354D3EC2A80975B00A9DB7F /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */; };
+		3354D3EE2A809CCB00A9DB7F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */; };
+		3354D3F02A80D92000A9DB7F /* AddCardNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */; };
 		336A2F102A7BEE9400C639FD /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A2F0F2A7BEE9400C639FD /* VerificationCodeViewController.swift */; };
 		336A2F122A7C01F500C639FD /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A2F112A7C01F500C639FD /* Regex.swift */; };
 		3378B5362A70B71A00420E00 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5352A70B71A00420E00 /* SignUpViewController.swift */; };
@@ -47,7 +62,7 @@
 		3378B53C2A70EE0200420E00 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B53B2A70EE0200420E00 /* NewPasswordViewController.swift */; };
 		3378B53E2A70F27200420E00 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3378B53D2A70F27200420E00 /* TabBar.storyboard */; };
 		3378B5442A70F54700420E00 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5432A70F54700420E00 /* FavoriteViewController.swift */; };
-		3378B5462A70F56800420E00 /* KeranjangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5452A70F56800420E00 /* KeranjangViewController.swift */; };
+		3378B5462A70F56800420E00 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5452A70F56800420E00 /* CartViewController.swift */; };
 		3378B5482A70F58500420E00 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5472A70F58500420E00 /* WalletViewController.swift */; };
 		3378B54A2A70F86F00420E00 /* TabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5492A70F86F00420E00 /* TabBarControllerViewController.swift */; };
 		3378B5542A70FC5900420E00 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3378B54B2A70FC5900420E00 /* Inter-ExtraBold.ttf */; };
@@ -67,6 +82,9 @@
 		33CE6F252A7E2D5800FA8084 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CE6F242A7E2D5800FA8084 /* SignUpViewModel.swift */; };
 		33CE6F272A7E2FBF00FA8084 /* Screen2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CE6F262A7E2FBF00FA8084 /* Screen2ViewModel.swift */; };
 		33CE6F292A7E601E00FA8084 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CE6F282A7E601E00FA8084 /* LoginViewModel.swift */; };
+		33D5305B2A822F62009CA2ED /* CryptoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D5305A2A822F62009CA2ED /* CryptoKit.swift */; };
+		33D5305E2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D5305C2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift */; };
+		33D5305F2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */; };
 		33EFBB482A7B3823005D7841 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EFBB472A7B3823005D7841 /* SideMenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +93,7 @@
 		2E6880FBC70717FD614E98B9 /* Pods-ShopAppLaza.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopAppLaza.debug.xcconfig"; path = "Target Support Files/Pods-ShopAppLaza/Pods-ShopAppLaza.debug.xcconfig"; sourceTree = "<group>"; };
 		332291CF2A7F862E0035D65F /* CategoryTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewModel.swift; sourceTree = "<group>"; };
 		332291D22A7FC4A40035D65F /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		3322C1192A81D77800EEF0C7 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		332C0B612A7CACD4008ECB27 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		332C98A32A701133003CAFD3 /* ShopAppLaza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopAppLaza.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		332C98A62A701133003CAFD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +123,12 @@
 		334BF3E42A7B816F00755766 /* DummyPeopleReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyPeopleReviews.swift; sourceTree = "<group>"; };
 		334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsTableViewCell.swift; sourceTree = "<group>"; };
 		334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsTableViewCell.xib; sourceTree = "<group>"; };
+		3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableViewCell.xib; sourceTree = "<group>"; };
+		3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmedViewController.swift; sourceTree = "<group>"; };
+		3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardNumberViewController.swift; sourceTree = "<group>"; };
 		336A2F0F2A7BEE9400C639FD /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		336A2F112A7C01F500C639FD /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		3378B5352A70B71A00420E00 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +137,7 @@
 		3378B53B2A70EE0200420E00 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewController.swift; sourceTree = "<group>"; };
 		3378B53D2A70F27200420E00 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3378B5432A70F54700420E00 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		3378B5452A70F56800420E00 /* KeranjangViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeranjangViewController.swift; sourceTree = "<group>"; };
+		3378B5452A70F56800420E00 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3378B5472A70F58500420E00 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		3378B5492A70F86F00420E00 /* TabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerViewController.swift; sourceTree = "<group>"; };
 		3378B54B2A70FC5900420E00 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -132,6 +157,9 @@
 		33CE6F242A7E2D5800FA8084 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		33CE6F262A7E2FBF00FA8084 /* Screen2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen2ViewModel.swift; sourceTree = "<group>"; };
 		33CE6F282A7E601E00FA8084 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		33D5305A2A822F62009CA2ED /* CryptoKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKit.swift; sourceTree = "<group>"; };
+		33D5305C2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentCollectionViewCell.swift; sourceTree = "<group>"; };
+		33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardPaymentCollectionViewCell.xib; sourceTree = "<group>"; };
 		33EFBB472A7B3823005D7841 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		D041EDD0416E78C08C642479 /* Pods_ShopAppLaza.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopAppLaza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,9 +169,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3322C12C2A81E54400EEF0C7 /* StripePayments in Frameworks */,
+				3322C1242A81E54400EEF0C7 /* StripeCardScan in Frameworks */,
+				3322C1222A81E54400EEF0C7 /* StripeApplePay in Frameworks */,
+				3322C12E2A81E54400EEF0C7 /* StripePaymentsUI in Frameworks */,
 				334257EA2A724BD3000CD97A /* SDWebImageMapKit in Frameworks */,
+				3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */,
+				3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */,
 				334257E82A724BD3000CD97A /* SDWebImage in Frameworks */,
 				04C8D7A9005B9F12197895CF /* Pods_ShopAppLaza.framework in Frameworks */,
+				3322C12A2A81E54400EEF0C7 /* StripePaymentSheet in Frameworks */,
+				3322C1282A81E54400EEF0C7 /* StripeIdentity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +248,7 @@
 				33304B642A78F453000804A8 /* NewArrivalTableViewCell.xib */,
 				334BF3DF2A7B6BE600755766 /* SizeDetailCollectionViewCell.xib */,
 				334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */,
+				3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -230,6 +267,7 @@
 				334BF3DC2A7B61D700755766 /* AddReviewController.swift */,
 				334BF3DE2A7B6BE600755766 /* SizeDetailCollectionViewCell.swift */,
 				334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */,
+				3322C1192A81D77800EEF0C7 /* CategoryDetailView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -242,6 +280,7 @@
 				339C5D0B2A79EE9600085359 /* DynamicHeightCollectionView.swift */,
 				336A2F112A7C01F500C639FD /* Regex.swift */,
 				332C0B612A7CACD4008ECB27 /* CustomSlider.swift */,
+				33D5305A2A822F62009CA2ED /* CryptoKit.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -266,12 +305,19 @@
 			path = Favorite;
 			sourceTree = "<group>";
 		};
-		336121992A74327000F08F14 /* Keranjang */ = {
+		336121992A74327000F08F14 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				3378B5452A70F56800420E00 /* KeranjangViewController.swift */,
+				3378B5452A70F56800420E00 /* CartViewController.swift */,
+				3354D3E52A808F3D00A9DB7F /* CartTableViewCell.swift */,
+				3354D3E92A8091DC00A9DB7F /* OrderConfirmedViewController.swift */,
+				3354D3EB2A80975B00A9DB7F /* AddressViewController.swift */,
+				3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */,
+				3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */,
+				33D5305C2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift */,
+				33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */,
 			);
-			path = Keranjang;
+			path = Cart;
 			sourceTree = "<group>";
 		};
 		3361219A2A74327E00F08F14 /* Profile */ = {
@@ -330,7 +376,7 @@
 				3378B5492A70F86F00420E00 /* TabBarControllerViewController.swift */,
 				334257DA2A723D1D000CD97A /* Home */,
 				336121982A74325900F08F14 /* Favorite */,
-				336121992A74327000F08F14 /* Keranjang */,
+				336121992A74327000F08F14 /* Cart */,
 				3361219A2A74327E00F08F14 /* Profile */,
 			);
 			path = TabBar;
@@ -408,6 +454,14 @@
 			packageProductDependencies = (
 				334257E72A724BD3000CD97A /* SDWebImage */,
 				334257E92A724BD3000CD97A /* SDWebImageMapKit */,
+				3322C11F2A81E54400EEF0C7 /* Stripe */,
+				3322C1212A81E54400EEF0C7 /* StripeApplePay */,
+				3322C1232A81E54400EEF0C7 /* StripeCardScan */,
+				3322C1252A81E54400EEF0C7 /* StripeFinancialConnections */,
+				3322C1272A81E54400EEF0C7 /* StripeIdentity */,
+				3322C1292A81E54400EEF0C7 /* StripePaymentSheet */,
+				3322C12B2A81E54400EEF0C7 /* StripePayments */,
+				3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */,
 			);
 			productName = ShopAppLaza;
 			productReference = 332C98A32A701133003CAFD3 /* ShopAppLaza.app */;
@@ -439,6 +493,7 @@
 			mainGroup = 332C989A2A701133003CAFD3;
 			packageReferences = (
 				334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 			);
 			productRefGroup = 332C98A42A701133003CAFD3 /* Products */;
 			projectDirPath = "";
@@ -458,6 +513,7 @@
 				3378B5552A70FC5900420E00 /* Inter-SemiBold.ttf in Resources */,
 				334BF3E12A7B6BE600755766 /* SizeDetailCollectionViewCell.xib in Resources */,
 				33C569462A73B103007C24EA /* BrandCollectionViewCell.xib in Resources */,
+				33D5305F2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib in Resources */,
 				3378B55A2A70FC5900420E00 /* Inter-Bold.ttf in Resources */,
 				3378B5542A70FC5900420E00 /* Inter-ExtraBold.ttf in Resources */,
 				33304B662A78F453000804A8 /* NewArrivalTableViewCell.xib in Resources */,
@@ -469,6 +525,7 @@
 				332C98AE2A701133003CAFD3 /* Main.storyboard in Resources */,
 				33304B622A78E0BF000804A8 /* CategoryTableViewCell.xib in Resources */,
 				3378B55C2A70FC5900420E00 /* Inter-Medium.ttf in Resources */,
+				3354D3E82A808F3D00A9DB7F /* CartTableViewCell.xib in Resources */,
 				3378B5562A70FC5900420E00 /* Inter-Regular.ttf in Resources */,
 				334BF3E92A7B875800755766 /* ReviewsTableViewCell.xib in Resources */,
 				3378B5572A70FC5900420E00 /* Inter-Black.ttf in Resources */,
@@ -529,9 +586,12 @@
 				336A2F122A7C01F500C639FD /* Regex.swift in Sources */,
 				334257DD2A723D5B000CD97A /* NewArraivalCollectionViewCell.swift in Sources */,
 				3378B53A2A70DEC300420E00 /* ForgotPasswordViewController.swift in Sources */,
-				3378B5462A70F56800420E00 /* KeranjangViewController.swift in Sources */,
+				3354D3EA2A8091DC00A9DB7F /* OrderConfirmedViewController.swift in Sources */,
+				33D5305E2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift in Sources */,
+				3378B5462A70F56800420E00 /* CartViewController.swift in Sources */,
 				33C569452A73B103007C24EA /* BrandCollectionViewCell.swift in Sources */,
 				332C98A72A701133003CAFD3 /* AppDelegate.swift in Sources */,
+				3354D3E72A808F3D00A9DB7F /* CartTableViewCell.swift in Sources */,
 				3378B5482A70F58500420E00 /* WalletViewController.swift in Sources */,
 				339C5D0A2A79EE4300085359 /* IntrinsicTableView.swift in Sources */,
 				334BF3E02A7B6BE600755766 /* SizeDetailCollectionViewCell.swift in Sources */,
@@ -553,15 +613,20 @@
 				332C98BC2A7023D4003CAFD3 /* Screen2ViewController.swift in Sources */,
 				339C5D0C2A79EE9600085359 /* DynamicHeightCollectionView.swift in Sources */,
 				33304B5E2A78DAEC000804A8 /* HomeController.swift in Sources */,
+				33D5305B2A822F62009CA2ED /* CryptoKit.swift in Sources */,
 				33CE6F272A7E2FBF00FA8084 /* Screen2ViewModel.swift in Sources */,
 				33CE6F252A7E2D5800FA8084 /* SignUpViewModel.swift in Sources */,
+				3322C11A2A81D77800EEF0C7 /* CategoryDetailView.swift in Sources */,
 				33CE6F292A7E601E00FA8084 /* LoginViewModel.swift in Sources */,
+				3354D3EC2A80975B00A9DB7F /* AddressViewController.swift in Sources */,
 				33308AF22A74C155005E819D /* User.swift in Sources */,
 				33308AF42A74F595005E819D /* SideMenu.swift in Sources */,
+				3354D3EE2A809CCB00A9DB7F /* PaymentViewController.swift in Sources */,
 				336A2F102A7BEE9400C639FD /* VerificationCodeViewController.swift in Sources */,
 				3378B54A2A70F86F00420E00 /* TabBarControllerViewController.swift in Sources */,
 				3378B53C2A70EE0200420E00 /* NewPasswordViewController.swift in Sources */,
 				334BF3E52A7B816F00755766 /* DummyPeopleReviews.swift in Sources */,
+				3354D3F02A80D92000A9DB7F /* AddCardNumberViewController.swift in Sources */,
 				332291D02A7F862E0035D65F /* CategoryTableViewModel.swift in Sources */,
 				3378B5362A70B71A00420E00 /* SignUpViewController.swift in Sources */,
 			);
@@ -785,6 +850,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 23.0.0;
+			};
+		};
 		334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -796,6 +869,46 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3322C11F2A81E54400EEF0C7 /* Stripe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = Stripe;
+		};
+		3322C1212A81E54400EEF0C7 /* StripeApplePay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeApplePay;
+		};
+		3322C1232A81E54400EEF0C7 /* StripeCardScan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeCardScan;
+		};
+		3322C1252A81E54400EEF0C7 /* StripeFinancialConnections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeFinancialConnections;
+		};
+		3322C1272A81E54400EEF0C7 /* StripeIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripeIdentity;
+		};
+		3322C1292A81E54400EEF0C7 /* StripePaymentSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePaymentSheet;
+		};
+		3322C12B2A81E54400EEF0C7 /* StripePayments */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePayments;
+		};
+		3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePaymentsUI;
+		};
 		334257E72A724BD3000CD97A /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */;

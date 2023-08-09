@@ -33,16 +33,6 @@ class HomeController: UIViewController {
         sideMenu.menuWidth = 330
         present(sideMenu, animated: true)
     }
-    private lazy var keranjangButton: UIButton = {
-        let keranjangButton = UIButton.init(type: .custom)
-        keranjangButton.setImage(UIImage(named: "Cart"), for: .normal)
-        keranjangButton.addTarget(self, action: #selector(keranjangButtonAction), for: .touchUpInside)
-        keranjangButton.translatesAutoresizingMaskIntoConstraints = false
-        return keranjangButton
-    }()
-    @objc func keranjangButtonAction() {
-        //Action jika keranjang button di klik
-    }
     
     //Setting tabbar names
     private func setupTabBarItemImage() {
@@ -61,23 +51,13 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         setupTabBarItemImage()
         view.addSubview(menuButton)
-        view.addSubview(keranjangButton)
-        applyConstraints()
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
         tableView.register(NewArrivalTableViewCell.nib(), forCellReuseIdentifier: NewArrivalTableViewCell.identifier)
     }
     
-    //MARK: Function
-    func applyConstraints() {
-        NSLayoutConstraint.activate([
-            keranjangButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
-            keranjangButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            keranjangButton.widthAnchor.constraint(equalToConstant: 45),
-            keranjangButton.heightAnchor.constraint(equalToConstant: 45),
-        ])
-    }
 }
 
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
@@ -92,6 +72,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             guard let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as? CategoryTableViewCell else { return UITableViewCell() }
             cellCategory.onReload = { [weak self] in
                 self?.tableView.reloadData()
+            cellCategory.delegate = self
             }
             return cellCategory
         } else {
@@ -114,9 +95,16 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeController: NewArrivalDidSelectItemDelegate {
     func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement) {
-        guard let detailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-        self.navigationController?.pushViewController(detailView, animated: true)
-        detailView.product = productModel
+        guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
+        newArrivalDetailView.product = productModel
+    }
+}
+
+extension HomeController: CategoryBrandSelectItemDelegate {
+    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath) {
+        guard let categoryDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "CategoryDetailView") as? CategoryDetailView else { return }
+        self.navigationController?.pushViewController(categoryDetailView, animated: true)
     }
 }
 
