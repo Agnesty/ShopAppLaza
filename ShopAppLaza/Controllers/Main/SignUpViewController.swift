@@ -12,10 +12,26 @@ class SignUpViewController: UIViewController {
     private let signUpVM = SignUpViewModel()
     
     //MARK: IBOutlet
-    @IBOutlet weak var usernameTF: UITextField!
-    @IBOutlet weak var emailTF: UITextField!
-    @IBOutlet weak var passwordTF: UITextField!
-    @IBOutlet weak var confirmPassTF: UITextField!
+    @IBOutlet weak var usernameTF: UITextField!{
+        didSet{
+            usernameTF.borderStyle = .none
+        }
+    }
+    @IBOutlet weak var emailTF: UITextField!{
+        didSet{
+            emailTF.borderStyle = .none
+        }
+    }
+    @IBOutlet weak var passwordTF: UITextField!{
+        didSet{
+            passwordTF.borderStyle = .none
+        }
+    }
+    @IBOutlet weak var confirmPassTF: UITextField!{
+        didSet{
+            confirmPassTF.borderStyle = .none
+        }
+    }
     @IBOutlet weak var emailError: UILabel!
     @IBOutlet weak var signUp: UIButton!
     @IBOutlet weak var passwordError: UILabel!

@@ -11,7 +11,7 @@ import SDWebImage
 class DetailViewController: UIViewController {
     private var detailVM = DetailViewModel()
     var product: WelcomeElement?
-    
+
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
@@ -34,14 +34,23 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailVM.detailViewCtr = self
+//        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
         sizeCollection.reloadData()
         
-        detailVM.setProduct()
+        setProduct()
         ratingStarData(rating: product?.rating.rate ?? 0)
+    }
+    
+    func setProduct() {
+        imageProduct.setImageWithPlugin(url: (product?.image)!)
+        categoryBrand.text = product?.category.rawValue.capitalized
+        titleBarang.text = product?.title
+        priceLabel.text = "$\(product?.price ?? 0)"
+        descriptionLabel.text = product?.description
+        ratingLabel.text = "\(product?.rating.rate ?? 0)"
     }
     
     //MARK: IBAction

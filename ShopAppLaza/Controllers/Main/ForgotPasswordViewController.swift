@@ -11,7 +11,11 @@ class ForgotPasswordViewController: UIViewController {
     
     //MARK: IBOutlet
     @IBOutlet weak var confirmBtn: UIButton!
-    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var emailTF: UITextField!{
+        didSet{
+            emailTF.borderStyle = .none
+        }
+    }
     @IBOutlet weak var labelError: UILabel!
     @IBOutlet weak var emailCheck: UIButton!{
         didSet{

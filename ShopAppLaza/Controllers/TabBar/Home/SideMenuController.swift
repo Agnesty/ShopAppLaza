@@ -44,6 +44,10 @@ class SideMenuController: UIViewController {
     }
     
     //MARK: IBAction
+    
+    @IBAction func dismissSideMenu(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
     @IBAction func logoutButtonAction(_ sender: UIButton) {
         showLogoutAlert()
     }

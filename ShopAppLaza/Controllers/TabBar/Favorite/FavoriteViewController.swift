@@ -9,6 +9,8 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
+    private var detailData: DetailViewController?
+    
     //MARK: IBOutlet
     @IBOutlet weak var collectionWishlist: UICollectionView!
     private func setupTabBarItemImage() {
@@ -59,6 +61,11 @@ extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let performDetailFavorite = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "WishlistDetailViewController") as? WishlistDetailViewController else { return }
+        self.navigationController?.pushViewController(performDetailFavorite, animated: true)
+    }
     
 }
+
+

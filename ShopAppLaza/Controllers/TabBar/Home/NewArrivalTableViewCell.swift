@@ -18,7 +18,7 @@ class NewArrivalTableViewCell: UITableViewCell {
         return UINib(nibName: "NewArrivalTableViewCell", bundle: nil)
     }
     var onReload: (() -> Void)?
-    private var product: Welcome = Welcome()
+    var product: Welcome = Welcome()
     private var newArrivalTableVM = NewArrivalTableViewModel()
     weak var delegate: NewArrivalDidSelectItemDelegate?
 

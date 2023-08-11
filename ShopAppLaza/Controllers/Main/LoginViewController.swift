@@ -12,8 +12,16 @@ class LoginViewController: UIViewController {
     private let loginVM = LoginViewModel()
     
     //MARK: IBOutlet
-    @IBOutlet weak var usernameTF: UITextField!
-    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var usernameTF: UITextField!{
+        didSet{
+            usernameTF.borderStyle = .none
+        }
+    }
+    @IBOutlet weak var passwordTF: UITextField!{
+        didSet{
+            passwordTF.borderStyle = .none
+        }
+    }
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var strongCheck: UILabel!{
         didSet{

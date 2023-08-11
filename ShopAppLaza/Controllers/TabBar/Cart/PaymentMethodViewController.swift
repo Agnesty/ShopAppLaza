@@ -26,6 +26,7 @@ class PaymentMethodViewController: UIViewController {
     
     @IBOutlet weak var gopayCheck: UIButton!
     @IBOutlet weak var creditCardCheck: UIButton!
+    @IBOutlet weak var savePaymentBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +43,14 @@ class PaymentMethodViewController: UIViewController {
            viewCreditCard.backgroundColor = UIColor(named: "Checkcolorview")
             contentCheckGopay = true
             contentCheckCreditCard = false
+            savePaymentBtn.isEnabled = true
+            savePaymentBtn.backgroundColor = UIColor(hex: "#9775FA")
          } else if gopayCheck.currentImage == UIImage(systemName: "checkmark.square") {
              contentCheckGopay = false
              gopayCheck.setImage(UIImage(systemName: "square"), for: .normal)
              viewGopay.backgroundColor = UIColor(named: "Checkcolorview")
+             savePaymentBtn.isEnabled = false
+             savePaymentBtn.backgroundColor = UIColor(hex: "#8E8E93")
          }
     }
     @IBAction func creditcardAction(_ sender: UIButton) {
@@ -56,12 +61,15 @@ class PaymentMethodViewController: UIViewController {
              gopayCheck.setImage(UIImage(systemName: "square"), for: .normal)
              viewCreditCard.backgroundColor = UIColor(named: "boxchecked")
              viewGopay.backgroundColor = UIColor(named: "Checkcolorview")
+            savePaymentBtn.isEnabled = true
+            savePaymentBtn.backgroundColor = UIColor(hex: "#9775FA")
            } else if creditCardCheck.currentImage == UIImage(systemName: "checkmark.square") {
                contentCheckCreditCard = false
                creditCardCheck.setImage(UIImage(systemName: "square"), for: .normal)
                viewCreditCard.backgroundColor = UIColor(named: "Checkcolorview")
+               savePaymentBtn.isEnabled = false
+               savePaymentBtn.backgroundColor = UIColor(hex: "#8E8E93")
            }
-     
     }
 
     @IBAction func savePaymentAction(_ sender: UIButton) {

@@ -10,8 +10,16 @@ import UIKit
 class NewPasswordViewController: UIViewController {
     
     //MARK: IBOutlet
-    @IBOutlet weak var passwordTF: UITextField!
-    @IBOutlet weak var confirmPassTF: UITextField!
+    @IBOutlet weak var passwordTF: UITextField!{
+        didSet{
+            passwordTF.borderStyle = .none
+        }
+    }
+    @IBOutlet weak var confirmPassTF: UITextField!{
+        didSet{
+            confirmPassTF.borderStyle = .none
+        }
+    }
     @IBOutlet weak var resetPassBtn: UIButton!
     @IBOutlet weak var strongCheck: UILabel!{
         didSet{
