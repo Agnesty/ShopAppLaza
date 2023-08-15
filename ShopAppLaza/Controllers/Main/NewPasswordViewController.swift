@@ -8,6 +8,10 @@
 import UIKit
 
 class NewPasswordViewController: UIViewController {
+    var email: String?
+    var code: String?
+    
+    private var newPasswordVM = NewPasswordViewModel()
     
     //MARK: IBOutlet
     @IBOutlet weak var passwordTF: UITextField!{
@@ -29,6 +33,7 @@ class NewPasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newPasswordVM.newPasswordViewCtr = self
         navigationItem.hidesBackButton = true
         resetPassBtn.isEnabled = false
         confirmPassTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
@@ -37,8 +42,8 @@ class NewPasswordViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func resetPassAction(_ sender: UIButton) {
-        guard let performLogin = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
-        self.navigationController?.pushViewController(performLogin, animated: true)
+        newPasswordVM.newPassword(newPassword: passwordTF.text!, rePassword: confirmPassTF.text!, email: email!, code: code!)
+        
     }
     @IBAction func hidePassButton(_ sender: UIButton) {
         hideEyePass(object: passwordTF, sender: sender)
@@ -87,5 +92,18 @@ class NewPasswordViewController: UIViewController {
         
         let imageName = isHidden ? "ic_hide_pass" : "ic_view_pass"
         sender.setImage(UIImage(named: imageName), for: .normal)
+    }
+    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func goToLogin() {
+        guard let loginAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
+        self.navigationController?.pushViewController(loginAction, animated: true)
+        loginAction.navigationItem.hidesBackButton = true
     }
 }

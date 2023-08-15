@@ -8,6 +8,7 @@
 import UIKit
 
 class ForgotPasswordViewController: UIViewController {
+    private let forgotPassVM = ForgotPassViewModel()
     
     //MARK: IBOutlet
     @IBOutlet weak var confirmBtn: UIButton!
@@ -40,13 +41,13 @@ class ForgotPasswordViewController: UIViewController {
         checkFormValidation()
     }
     @IBAction func confirmAction(_ sender: UIButton) {
+        forgotPassVM.forgotPassSendAPICode(email: emailTF.text!)
         resetForm()
-        guard let performVerifCode = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerificationCodeViewController") as? VerificationCodeViewController else { return }
-        self.navigationController?.pushViewController(performVerifCode, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        forgotPassVM.forgotPassViewCtr = self
         navigationItem.hidesBackButton = true
         confirmBtn.isEnabled = false
         emailTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
@@ -78,6 +79,21 @@ class ForgotPasswordViewController: UIViewController {
         labelError.isHidden = false
         labelError.text = "Required"
         emailTF.text = ""
+    }
+    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func goToVerificationCode(email: String) {
+        guard let verifAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerificationCodeViewController") as? VerificationCodeViewController else { return }
+        verifAction.navigationItem.hidesBackButton = true
+        verifAction.userEmail = email
+        self.navigationController?.pushViewController(verifAction, animated: true)
+        
     }
     
 }

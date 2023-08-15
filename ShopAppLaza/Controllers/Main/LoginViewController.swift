@@ -58,9 +58,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(forgotPass, animated: true)
     }
     @IBAction func loginAction(_ sender: UIButton) {
-        guard let username = usernameTF.text else { return }
-        guard let password = passwordTF.text else { return }
-        loginVM.login(username: username, password: password)
+        loginVM.loginUser()
     }
     
     @objc func disabledBtn(){
@@ -95,34 +93,17 @@ class LoginViewController: UIViewController {
     }
     
     //MARK: FUNCTION
-    func loginSuccessful(user: UserElement) {
-        // Navigasi ke halaman beranda
-        let homeViewController = HomeController()
-        homeViewController.loggedInUser = user // Mengirim data user ke halaman beranda jika diperlukan
-        guard let loginAction = UIStoryboard(name: "TabBar",bundle:nil).instantiateViewController(withIdentifier:"TabBarControllerViewController") as? TabBarControllerViewController else { return }
-        loginAction.navigationItem.hidesBackButton = true
-        self.navigationController?.pushViewController(loginAction,animated: true)
-        self.navigationController?.navigationBar.isHidden = true
-        
-        // Menampilkan pesan selamat datang
-        let welcomeMessage = "Welcome, \(user.username)!"
-        let alert = UIAlertController(title: "Login Successful", message: welcomeMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.view.window?.rootViewController?.present(alert, animated: true, completion: nil)
-        
-        // Menyimpan status login untuk digunakan di seluruh aplikasi
-        UserDefaults.standard.set(true, forKey: "isLoggedIn")
-        UserDefaults.standard.set(user.email, forKey: "loggedInEmail")
-        UserDefaults.standard.set(user.username, forKey: "loggedInUsername")
-        UserDefaults.standard.set(user.password, forKey: "loggedInPassword")
-        UserDefaults.standard.set(user.name.firstname, forKey: "loggedInFirstName")
-        UserDefaults.standard.synchronize()
-    }
-        
-    func showLoginError() {
-        // Tampilkan pesan error, misalnya dengan alert
-        let alert = UIAlertController(title: "Login Failed", message: "Invalid username or password", preferredStyle:.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
         present(alert, animated: true, completion: nil)
+    }
+    
+    func goToHome() {
+        guard let homeAction = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "TabBarControllerViewController") as? TabBarControllerViewController else { return }
+        self.navigationController?.pushViewController(homeAction, animated: true)
+        homeAction.navigationItem.hidesBackButton = true
     }
 }

@@ -10,8 +10,8 @@ import Foundation
 class CategoryTableViewModel {
     var categoryTableViewCell: CategoryTableViewCell?
     
-    func getDataCategories(completion: @escaping (Categories) -> Void) {
-        guard let url = URL(string: "https://fakestoreapi.com/products/categories") else { print("Invalid URL.")
+    func getDataCategories(completion: @escaping (Brand) -> Void) {
+        guard let url = URL(string: "https://lazaapp.shop/brand") else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -24,7 +24,7 @@ class CategoryTableViewModel {
                 return
             }
             do {
-                let categories = try JSONDecoder().decode(Categories.self, from: data)
+                let categories = try JSONDecoder().decode(Brand.self, from: data)
                 DispatchQueue.main.async {
                     completion(categories)
                 }

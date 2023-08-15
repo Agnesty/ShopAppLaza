@@ -18,7 +18,7 @@ class CategoryTableViewCell: UITableViewCell {
         return UINib(nibName: "CategoryTableViewCell", bundle: nil)
     }
     var onReload: (() -> Void)?
-    private var category: Categories = Categories()
+    private var category = [DescriptionBrand]()
     private var categoryTableVM = CategoryTableViewModel()
     weak var delegate: CategoryBrandSelectItemDelegate?
     
@@ -35,7 +35,8 @@ class CategoryTableViewCell: UITableViewCell {
         collectionBrand.register(BrandCollectionViewCell.nib(), forCellWithReuseIdentifier: BrandCollectionViewCell.identifier)
         DispatchQueue.main.async {
             self.categoryTableVM.getDataCategories { [weak self] category in
-                self?.category.append(contentsOf: category)
+                guard let categoryResponse = category else { return }
+                self?.category.append(contentsOf: categoryResponse.description)
                 self?.collectionBrand.reloadData()
                 self?.onReload?()
                 }
@@ -49,11 +50,12 @@ extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellBrand = collectionView.dequeueReusableCell(withReuseIdentifier: BrandCollectionViewCell.identifier, for: indexPath) as? BrandCollectionViewCell else { return UICollectionViewCell() }
-            cellBrand.labelBrand.text = category[indexPath.row].capitalized
+        cellBrand.labelBrand.text = category[indexPath.row].name.capitalized
+        cellBrand.imageBrand.setImageWithPlugin(url: category[indexPath.row].logo_url)
             return cellBrand
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 150, height: 50)
+            return CGSize(width: 150, height: 80)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

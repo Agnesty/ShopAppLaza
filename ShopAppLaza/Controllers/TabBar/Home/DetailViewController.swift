@@ -11,6 +11,7 @@ import SDWebImage
 class DetailViewController: UIViewController {
     private var detailVM = DetailViewModel()
     var product: WelcomeElement?
+    var sizes = [DataSizes]()
 
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
@@ -34,23 +35,32 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DispatchQueue.main.async {
+            self.detailVM.getSizes { [weak self] Sizes in
+                guard let sizesProduct = Sizes else { return }
+                self?.sizes.append(contentsOf: sizesProduct.data)
+                self?.sizeCollection.reloadData()
+            }
+        }
+        
 //        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
-        sizeCollection.reloadData()
+        
         
         setProduct()
-        ratingStarData(rating: product?.rating.rate ?? 0)
+//        ratingStarData(rating: product?.rating.rate ?? 0)
     }
     
     func setProduct() {
-        imageProduct.setImageWithPlugin(url: (product?.image)!)
-        categoryBrand.text = product?.category.rawValue.capitalized
-        titleBarang.text = product?.title
+        imageProduct.setImageWithPlugin(url: (product?.image_url)!)
+//        categoryBrand.text = product?.category.rawValue.capitalized
+        titleBarang.text = product?.name
         priceLabel.text = "$\(product?.price ?? 0)"
-        descriptionLabel.text = product?.description
-        ratingLabel.text = "\(product?.rating.rate ?? 0)"
+//        descriptionLabel.text = product?.description
+//        ratingLabel.text = "\(product?.rating.rate ?? 0)"
     }
     
     //MARK: IBAction
@@ -100,12 +110,12 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return detailVM.sizes.count
+        return sizes.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SizeDetailCollectionViewCell.identifier, for: indexPath) as? SizeDetailCollectionViewCell else {
             return UICollectionViewCell() }
-        cell.labelSize.text = detailVM.sizes[indexPath.row]
+        cell.labelSize.text = sizes[indexPath.row].size.uppercased()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

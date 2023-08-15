@@ -77,7 +77,7 @@ class PaymentMethodViewController: UIViewController {
             guard let performGopayPayment = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "GopayPaymentViewController") as? GopayPaymentViewController else { return }
             self.navigationController?.pushViewController(performGopayPayment, animated: true)
         } else if contentCheckCreditCard {
-            guard let performCreditCardPayment = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
+            guard let performCreditCardPayment = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
             self.navigationController?.pushViewController(performCreditCardPayment, animated: true)
         }
         

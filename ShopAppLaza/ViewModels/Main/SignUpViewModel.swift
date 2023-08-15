@@ -9,70 +9,81 @@ import Foundation
 import CryptoKit
 
 class SignUpViewModel {
-    private let encryptDescrypt = EncryptDescrypt()
     var signUpViewCtr: SignUpViewController?
     
-    func signUpUser() {
+    static func getHttpBodyRaw(param: [String:Any]) -> Data? {
+        let jsonData = try? JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
+        return jsonData
+    }
+    
+    func registerUser() {
         guard let unwrappedVC = signUpViewCtr else { return }
-        let key = SymmetricKey(size: .bits256)
-        // Prepare the data to be sent in JSON format
+        let urlString = "https://lazaapp.shop/register"
+
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+
         let userData: [String: Any] = [
+            "full_name": unwrappedVC.usernameTF.text ?? "",
             "username": unwrappedVC.usernameTF.text ?? "",
             "email": unwrappedVC.emailTF.text ?? "",
-            "confirmPass": unwrappedVC.confirmPassTF.text ?? ""
+            "password": unwrappedVC.passwordTF.text ?? "",
         ]
 
-        // Convert the user data to JSON
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
-            let encryptedUserData = try! encryptDescrypt.encryptData(jsonData, using: key)
-            let encryptedUserDataBase64 = encryptedUserData.base64EncodedString()
-            print("ini encrypt yang awal: \(encryptedUserDataBase64)")
-            var request = URLRequest(url: URL(string: "https://fakestoreapi.com/users")!)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
 
-            // Send the request
-            URLSession.shared.dataTask(with: request) { data, response, error in
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
-                    // Handle error here (showAlert)
                     return
                 }
                 if let data = data {
                     do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print("Response JSON: \(json)")
-                        if let jsonResponse = json as? [String: Any], let userID = jsonResponse["id"] as? Int {
-                            DispatchQueue.main.async {
-                               
+                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            print("Response: \(jsonResponse)")
+                            
+                            if let isError = jsonResponse["isError"] as? Int, isError != 0,
+                               let description = jsonResponse["description"] as? String,
+                               let status = jsonResponse["status"] as? String {
                                 
-                                // Save the user ID to UserDefaults
-                                UserDefaults.standard.set(userID, forKey: "userID")
-                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                                UserDefaults.standard.set(encryptedUserDataBase64, forKey: "userData")
-                                UserDefaults.standard.synchronize()
-
-                                // Get and print the saved data from UserDefaults
-                                if let savedData = UserDefaults.standard.object(forKey: "userData") as? [String: Any] {
-                                    print("Data saved in UserDefaults:")
-                                    for (key, value) in savedData {
-                                        print("\(key): \(value)")
-                                    }
+                                DispatchQueue.main.async {
+                                    unwrappedVC.showAlert(title: status, message: description)
                                 }
-                                unwrappedVC.showAlert(title: "Sign-Up Successful", message: "Congratulations! You have successfully signed up.") {
-                                unwrappedVC.goToHome()
+                            } else {
+                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
+                                    DispatchQueue.main.async {
+                                        unwrappedVC.showAlert(title: "Sign-Up Successful", message: "Please verify your email first") {
+                                            unwrappedVC.goToLogin()
+                                        }
+                                    }
+                                } else {
+                                    print("Sign-Up Error: Unexpected Response Code")
                                 }
                             }
                         }
                     } catch {
-                        print("Error parsing JSON: \(error)")
+                        print("JSON Serialization Error: \(error)")
                     }
                 }
-            }.resume()
+            }
+            task.resume()
         } catch {
             print("Error creating JSON data: \(error)")
         }
     }
+
+
+
+
+
+
+    
 }

@@ -8,6 +8,9 @@
 import UIKit
 
 class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
+    var userEmail: String?
+    
+    private var verificationCodeVM = VerficationCodeViewModel()
     
     //MARK: IBOutlet
     @IBOutlet weak var tf1: UITextField!
@@ -19,6 +22,7 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmCodeBtn.isEnabled = false
+        verificationCodeVM.verificationCodeViewCtr = self
         
         tf1.delegate = self
         tf2.delegate = self
@@ -33,9 +37,9 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: IBAction
     @IBAction func confirmCodeAction(_ sender: UIButton) {
-        guard let performNewPass = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewPasswordViewController") as? NewPasswordViewController else { return }
-        self.navigationController?.pushViewController(performNewPass, animated: true)
+        verificationCodeVM.verificationCode(email: userEmail!, tf1: tf1.text!, tf2: tf2.text!, tf3: tf3.text!, tf4: tf4.text!)
     }
+    
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -70,5 +74,21 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
         }
             
         return true
+    }
+    
+    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func goToNewPassword(emailHttp: String, codeHttp: String) {
+        guard let newPassAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewPasswordViewController") as? NewPasswordViewController else { return }
+        newPassAction.email = emailHttp
+        newPassAction.code = codeHttp
+        self.navigationController?.pushViewController(newPassAction, animated: true)
+        newPassAction.navigationItem.hidesBackButton = true
     }
 }

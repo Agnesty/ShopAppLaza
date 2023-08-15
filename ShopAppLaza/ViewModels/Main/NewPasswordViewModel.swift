@@ -1,18 +1,18 @@
 //
-//  LoginViewModel.swift
+//  NewPasswordViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 05/08/23.
+//  Created by Agnes Triselia Yudia on 15/08/23.
 //
 
 import Foundation
 
-class LoginViewModel {
-    var loginViewCtr: LoginViewController?
+class NewPasswordViewModel {
+    var newPasswordViewCtr: NewPasswordViewController?
     
-    func loginUser() {
-        guard let unwrappedVC = loginViewCtr else { return }
-        let urlString = "https://lazaapp.shop/login"
+    func newPassword(newPassword: String, rePassword: String, email: String, code: String) {
+        guard let unwrappedVC = newPasswordViewCtr else { return }
+        let urlString = "https://lazaapp.shop/auth/recover/password?email=\(email)&code=\(code)"
 
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -20,8 +20,8 @@ class LoginViewModel {
         }
 
         let userData: [String: Any] = [
-            "username": unwrappedVC.usernameTF.text ?? "",
-            "password": unwrappedVC.passwordTF.text ?? "",
+            "new_password": newPassword,
+            "re_password": rePassword,
         ]
 
         var request = URLRequest(url: url)
@@ -52,12 +52,12 @@ class LoginViewModel {
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                                     DispatchQueue.main.async {
-                                        unwrappedVC.showAlert(title: "Login Successful", message: "Congratulations! You have successfully Login.") {
-                                            unwrappedVC.goToHome()
+                                        unwrappedVC.showAlert(title: "Verification Code Successful", message: "Congratulations! You have successfully Verification.") {
+                                            unwrappedVC.goToLogin()
                                         }
                                     }
                                 } else {
-                                    print("Sign-Up Error: Unexpected Response Code")
+                                    print("Verification Code Error: Unexpected Response Code")
                                 }
                             }
                         }

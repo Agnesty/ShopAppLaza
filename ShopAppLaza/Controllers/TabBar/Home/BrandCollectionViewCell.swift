@@ -17,10 +17,11 @@ class BrandCollectionViewCell: UICollectionViewCell {
     //MARK: IBOutlet
     @IBOutlet weak var view: UIView!{
         didSet{
-            view.layer.cornerRadius = CGFloat(10)
+            view.layer.cornerRadius = CGFloat(30)
         }
     }
     @IBOutlet weak var labelBrand: UILabel!
+    @IBOutlet weak var imageBrand: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

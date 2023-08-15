@@ -1,27 +1,29 @@
 //
-//  LoginViewModel.swift
+//  VerificationCodeViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 05/08/23.
+//  Created by Agnes Triselia Yudia on 15/08/23.
 //
 
 import Foundation
 
-class LoginViewModel {
-    var loginViewCtr: LoginViewController?
+class VerficationCodeViewModel {
+    var verificationCodeViewCtr: VerificationCodeViewController?
     
-    func loginUser() {
-        guard let unwrappedVC = loginViewCtr else { return }
-        let urlString = "https://lazaapp.shop/login"
+    func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String) {
+        guard let unwrappedVC = verificationCodeViewCtr else { return }
+        let urlString = "https://lazaapp.shop/auth/recover/code"
 
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
+        
+        let combinedText = "\(tf1)\(tf2)\(tf3)\(tf4)"
 
         let userData: [String: Any] = [
-            "username": unwrappedVC.usernameTF.text ?? "",
-            "password": unwrappedVC.passwordTF.text ?? "",
+            "email": email,
+            "code": combinedText,
         ]
 
         var request = URLRequest(url: url)
@@ -50,14 +52,14 @@ class LoginViewModel {
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
-                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
+                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 202 {
                                     DispatchQueue.main.async {
-                                        unwrappedVC.showAlert(title: "Login Successful", message: "Congratulations! You have successfully Login.") {
-                                            unwrappedVC.goToHome()
+                                        unwrappedVC.showAlert(title: "Verification Code Successful", message: "Congratulations! You have successfully Verification.") {
+                                            unwrappedVC.goToNewPassword(emailHttp: email, codeHttp: combinedText)
                                         }
                                     }
                                 } else {
-                                    print("Sign-Up Error: Unexpected Response Code")
+                                    print("Verification Code Error: Unexpected Response Code")
                                 }
                             }
                         }

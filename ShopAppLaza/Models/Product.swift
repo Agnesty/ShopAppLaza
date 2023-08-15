@@ -8,31 +8,20 @@
 import Foundation
 import UIKit
 
-typealias Welcome = [WelcomeElement]
-typealias Categories = [String]
+typealias Welcome = ProductStatus?
 
-// MARK: - WelcomeElement
+struct ProductStatus: Codable {
+    let status: String
+    let isError: Bool
+    let data: [WelcomeElement]
+}
+
 struct WelcomeElement: Codable {
     let id: Int
-    let title: String
+    let name: String
+    let image_url: String
     let price: Double
-    let description: String
-    let category: Category
-    let image: String
-    let rating: Rating
-}
-
-enum Category: String, Codable {
-    case electronics = "electronics"
-    case jewelery = "jewelery"
-    case menSClothing = "men's clothing"
-    case womenSClothing = "women's clothing"
-}
-
-// MARK: - Rating
-struct Rating: Codable {
-    let rate: Double
-    let count: Int
+    let created_at: String
 }
 
 enum Star: String {

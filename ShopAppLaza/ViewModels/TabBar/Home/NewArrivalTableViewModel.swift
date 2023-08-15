@@ -11,7 +11,7 @@ class NewArrivalTableViewModel {
     var newArrivalTableViewCell: NewArrivalTableViewCell?
     
     func getDataProduct(completion: @escaping (Welcome) -> Void) {
-        guard let url = URL(string: "https://fakestoreapi.com/products") else { print("Invalid URL.")
+        guard let url = URL(string: "https://lazaapp.shop/products") else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -36,3 +36,5 @@ class NewArrivalTableViewModel {
         }.resume()
     }
 }
+
+//https://fakestoreapi.com/products

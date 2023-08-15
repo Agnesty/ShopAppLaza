@@ -46,3 +46,17 @@ extension UIImageView {
         self.sd_setImage(with: urlImage)
     }
 }
+
+//extension CGSize {
+//    func brandSizeForItemAt(sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let padding: CGFloat = 10
+//        guard let item = viewModel.getBrandOnIndex(index: indexPath.item) else {
+//            return CGSize(width: 50, height: 50)
+//        }
+//        let itemWidth = item.size(withAttributes: [
+//            NSAttributedString.Key.font : FontUtils.shared.getFont(font: .Poppins, weight: .semibold, size: 17)
+//        ]).width
+//        return CGSize(width: itemWidth + padding * 2, height: 50)
+//    }
+//}
+

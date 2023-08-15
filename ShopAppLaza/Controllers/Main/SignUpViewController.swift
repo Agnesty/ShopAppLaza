@@ -53,6 +53,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        signUpVM.registerUser()
         navigationItem.hidesBackButton = true
         signUpVM.signUpViewCtr = self
         signUp.isEnabled = false
@@ -96,7 +97,7 @@ class SignUpViewController: UIViewController {
         }
     }
     @IBAction func signUpAction(_ sender: UIButton) {
-        signUpVM.signUpUser()
+        signUpVM.registerUser()
     }
     
     @objc func disabledBtn(){
@@ -157,11 +158,11 @@ class SignUpViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     //SignUp berhasil
-    func goToHome() {
+    func goToLogin() {
         resetForm()
-        guard let signUpAction = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "TabBarControllerViewController") as? TabBarControllerViewController else { return }
-        self.navigationController?.pushViewController(signUpAction, animated: true)
-        signUpAction.navigationItem.hidesBackButton = true
+        guard let loginAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
+        self.navigationController?.pushViewController(loginAction, animated: true)
+        loginAction.navigationItem.hidesBackButton = true
     }
 
 }
