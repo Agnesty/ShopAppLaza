@@ -18,6 +18,16 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tf3: UITextField!
     @IBOutlet weak var tf4: UITextField!
     @IBOutlet weak var confirmCodeBtn: UIButton!
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +47,16 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: IBAction
     @IBAction func confirmCodeAction(_ sender: UIButton) {
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.verificationCodeVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+        }
         verificationCodeVM.verificationCode(email: userEmail!, tf1: tf1.text!, tf2: tf2.text!, tf3: tf3.text!, tf4: tf4.text!)
     }
     
@@ -60,30 +80,21 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
         let maxLength = 1
         let currentString = (textField.text ?? "") as NSString
         let newString = currentString.replacingCharacters(in: range, with: string)
-            
+
         // Check for maximum length
         if newString.count > maxLength {
             return false
         }
-            
+
         // Check for allowed characters (decimal digits)
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         if !allowedCharacters.isSuperset(of: characterSet) {
             return false
         }
-            
+
         return true
     }
-    
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true, completion: nil)
-    }
-    
     func goToNewPassword(emailHttp: String, codeHttp: String) {
         guard let newPassAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewPasswordViewController") as? NewPasswordViewController else { return }
         newPassAction.email = emailHttp

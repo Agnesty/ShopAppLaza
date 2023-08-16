@@ -9,6 +9,7 @@ import Foundation
 
 class VerficationCodeViewModel {
     var verificationCodeViewCtr: VerificationCodeViewController?
+    var loading: (() -> Void)?
     
     func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String) {
         guard let unwrappedVC = verificationCodeViewCtr else { return }
@@ -49,14 +50,17 @@ class VerficationCodeViewModel {
                                let status = jsonResponse["status"] as? String {
                                 
                                 DispatchQueue.main.async {
+                                    self.loading?()
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 202 {
                                     DispatchQueue.main.async {
+                                        self.loading?()
                                         unwrappedVC.showAlert(title: "Verification Code Successful", message: "Congratulations! You have successfully Verification.") {
                                             unwrappedVC.goToNewPassword(emailHttp: email, codeHttp: combinedText)
                                         }
+                                        print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
                                     print("Verification Code Error: Unexpected Response Code")

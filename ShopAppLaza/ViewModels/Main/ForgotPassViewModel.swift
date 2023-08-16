@@ -9,27 +9,29 @@ import Foundation
 
 class ForgotPassViewModel {
     var forgotPassViewCtr: ForgotPasswordViewController?
+    var loading: (() -> Void)?
     
     func forgotPassSendAPICode(email: String) {
         guard let unwrappedVC = forgotPassViewCtr else { return }
         let urlString = "https://lazaapp.shop/auth/forgotpassword"
-        
+
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
-        
+
         let userData: [String: Any] = [
             "email": email,
         ]
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type") // Set the content type
-        
-        if let jsonData = try? JSONSerialization.data(withJSONObject: userData) {
+        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
             request.httpBody = jsonData
-            
+
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
@@ -40,16 +42,26 @@ class ForgotPassViewModel {
                         if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                             print("Response: \(jsonResponse)")
                             
-                               if let data = jsonResponse["data"] as? [String: Any],
-                               let message = data["message"] as? String {
-
-                                   DispatchQueue.main.async {
-                                       unwrappedVC.showAlert(title: "Success", message: message){
-                                           unwrappedVC.goToVerificationCode(email: email)
-                                       }
-                                   }
+                            if let isError = jsonResponse["isError"] as? Int, isError != 0,
+                               let description = jsonResponse["description"] as? String,
+                               let status = jsonResponse["status"] as? String {
+                                
+                                DispatchQueue.main.async {
+                                    self.loading?()
+                                    unwrappedVC.showAlert(title: status, message: description.capitalized)
+                                }
                             } else {
-                                print("Request Error: Unexpected Response")
+                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
+                                    DispatchQueue.main.async {
+                                        self.loading?()
+                                        unwrappedVC.showAlert(title: "Email Sent", message: "Please check your email") {
+                                            unwrappedVC.goToVerificationCode(email: email)
+                                        }
+                                        print("BerhasilResponse: \(jsonResponse)")
+                                    }
+                                } else {
+                                    print("Sign-Up Error: Unexpected Response Code")
+                                }
                             }
                         }
                     } catch {
@@ -58,10 +70,10 @@ class ForgotPassViewModel {
                 }
             }
             task.resume()
-        } else {
-            print("Error creating JSON data")
+        } catch {
+            print("Error creating JSON data: \(error)")
         }
     }
-
     
+   
 }

@@ -9,6 +9,7 @@ import Foundation
 
 class LoginViewModel {
     var loginViewCtr: LoginViewController?
+    var loading: (() -> Void)?
     
     func loginUser() {
         guard let unwrappedVC = loginViewCtr else { return }
@@ -47,17 +48,21 @@ class LoginViewModel {
                                let status = jsonResponse["status"] as? String {
                                 
                                 DispatchQueue.main.async {
+                                    self.loading?()
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                                     DispatchQueue.main.async {
+                                        self.loading?()
+                                        self.loadUser()
                                         unwrappedVC.showAlert(title: "Login Successful", message: "Congratulations! You have successfully Login.") {
                                             unwrappedVC.goToHome()
                                         }
+                                        print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
-                                    print("Sign-Up Error: Unexpected Response Code")
+                                    print("Login Error: Unexpected Response Code")
                                 }
                             }
                         }
@@ -70,5 +75,9 @@ class LoginViewModel {
         } catch {
             print("Error creating JSON data: \(error)")
         }
+    }
+    
+    func loadUser() {
+        
     }
 }

@@ -50,10 +50,18 @@ class SignUpViewController: UIViewController {
             strongCheck.isHidden = true
         }
     }
-    
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        signUpVM.registerUser()
         navigationItem.hidesBackButton = true
         signUpVM.signUpViewCtr = self
         signUp.isEnabled = false
@@ -97,6 +105,16 @@ class SignUpViewController: UIViewController {
         }
     }
     @IBAction func signUpAction(_ sender: UIButton) {
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.signUpVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+        }
         signUpVM.registerUser()
     }
     
@@ -149,14 +167,7 @@ class SignUpViewController: UIViewController {
         emailTF.text = ""
         passwordTF.text = ""
     }
-    //Memunculkan alert
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true, completion: nil)
-    }
+
     //SignUp berhasil
     func goToLogin() {
         resetForm()

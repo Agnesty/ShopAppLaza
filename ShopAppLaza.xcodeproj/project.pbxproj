@@ -72,7 +72,7 @@
 		3378B53E2A70F27200420E00 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3378B53D2A70F27200420E00 /* TabBar.storyboard */; };
 		3378B5442A70F54700420E00 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5432A70F54700420E00 /* FavoriteViewController.swift */; };
 		3378B5462A70F56800420E00 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5452A70F56800420E00 /* CartViewController.swift */; };
-		3378B5482A70F58500420E00 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5472A70F58500420E00 /* WalletViewController.swift */; };
+		3378B5482A70F58500420E00 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5472A70F58500420E00 /* ProfileViewController.swift */; };
 		3378B54A2A70F86F00420E00 /* TabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5492A70F86F00420E00 /* TabBarControllerViewController.swift */; };
 		3378B5542A70FC5900420E00 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3378B54B2A70FC5900420E00 /* Inter-ExtraBold.ttf */; };
 		3378B5552A70FC5900420E00 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3378B54C2A70FC5900420E00 /* Inter-SemiBold.ttf */; };
@@ -159,7 +159,7 @@
 		3378B53D2A70F27200420E00 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3378B5432A70F54700420E00 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		3378B5452A70F56800420E00 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
-		3378B5472A70F58500420E00 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		3378B5472A70F58500420E00 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3378B5492A70F86F00420E00 /* TabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerViewController.swift; sourceTree = "<group>"; };
 		3378B54B2A70FC5900420E00 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
 		3378B54C2A70FC5900420E00 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -353,12 +353,12 @@
 			path = Cart;
 			sourceTree = "<group>";
 		};
-		3361219A2A74327E00F08F14 /* Wallet */ = {
+		3361219A2A74327E00F08F14 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				3378B5472A70F58500420E00 /* WalletViewController.swift */,
+				3378B5472A70F58500420E00 /* ProfileViewController.swift */,
 			);
-			path = Wallet;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		3361219B2A7432D600F08F14 /* ViewModels */ = {
@@ -410,7 +410,7 @@
 				334257DA2A723D1D000CD97A /* Home */,
 				336121982A74325900F08F14 /* Favorite */,
 				336121992A74327000F08F14 /* Cart */,
-				3361219A2A74327E00F08F14 /* Wallet */,
+				3361219A2A74327E00F08F14 /* Profile */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -631,7 +631,7 @@
 				334E61B02A83942F00DB3921 /* CardAddressTableViewCell.swift in Sources */,
 				332C98A72A701133003CAFD3 /* AppDelegate.swift in Sources */,
 				3354D3E72A808F3D00A9DB7F /* CartTableViewCell.swift in Sources */,
-				3378B5482A70F58500420E00 /* WalletViewController.swift in Sources */,
+				3378B5482A70F58500420E00 /* ProfileViewController.swift in Sources */,
 				33BA02E02A89E504003AEB76 /* Sizes.swift in Sources */,
 				339C5D0A2A79EE4300085359 /* IntrinsicTableView.swift in Sources */,
 				334BF3E02A7B6BE600755766 /* SizeDetailCollectionViewCell.swift in Sources */,

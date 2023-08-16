@@ -24,6 +24,17 @@ class ForgotPasswordViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     //MARK: IBAction
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -41,6 +52,16 @@ class ForgotPasswordViewController: UIViewController {
         checkFormValidation()
     }
     @IBAction func confirmAction(_ sender: UIButton) {
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.forgotPassVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+        }
         forgotPassVM.forgotPassSendAPICode(email: emailTF.text!)
         resetForm()
     }
@@ -80,14 +101,6 @@ class ForgotPasswordViewController: UIViewController {
         labelError.text = "Required"
         emailTF.text = ""
     }
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true, completion: nil)
-    }
-    
     func goToVerificationCode(email: String) {
         guard let verifAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerificationCodeViewController") as? VerificationCodeViewController else { return }
         verifAction.navigationItem.hidesBackButton = true

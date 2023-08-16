@@ -10,6 +10,7 @@ import CryptoKit
 
 class SignUpViewModel {
     var signUpViewCtr: SignUpViewController?
+    var loading: (() -> Void)?
     
     static func getHttpBodyRaw(param: [String:Any]) -> Data? {
         let jsonData = try? JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
@@ -55,14 +56,17 @@ class SignUpViewModel {
                                let status = jsonResponse["status"] as? String {
                                 
                                 DispatchQueue.main.async {
+                                    self.loading?()
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                     DispatchQueue.main.async {
+                                        self.loading?()
                                         unwrappedVC.showAlert(title: "Sign-Up Successful", message: "Please verify your email first") {
                                             unwrappedVC.goToLogin()
                                         }
+                                        print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
                                     print("Sign-Up Error: Unexpected Response Code")
@@ -79,11 +83,5 @@ class SignUpViewModel {
             print("Error creating JSON data: \(error)")
         }
     }
-
-
-
-
-
-
     
 }

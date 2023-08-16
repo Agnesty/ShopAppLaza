@@ -9,6 +9,7 @@ import Foundation
 
 class NewPasswordViewModel {
     var newPasswordViewCtr: NewPasswordViewController?
+    var loading: (() -> Void)?
     
     func newPassword(newPassword: String, rePassword: String, email: String, code: String) {
         guard let unwrappedVC = newPasswordViewCtr else { return }
@@ -47,14 +48,17 @@ class NewPasswordViewModel {
                                let status = jsonResponse["status"] as? String {
                                 
                                 DispatchQueue.main.async {
+                                    self.loading?()
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                                     DispatchQueue.main.async {
-                                        unwrappedVC.showAlert(title: "Verification Code Successful", message: "Congratulations! You have successfully Verification.") {
+                                        self.loading?()
+                                        unwrappedVC.showAlert(title: "New Password Changed", message: "You have successfully changed your password.") {
                                             unwrappedVC.goToLogin()
                                         }
+                                        print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
                                     print("Verification Code Error: Unexpected Response Code")

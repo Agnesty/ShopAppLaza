@@ -8,7 +8,7 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+//    private let screen2VM = Screen2ViewModel()
     var window: UIWindow?
 
 
@@ -16,7 +16,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+//        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        // Pastikan ini adalah UIWindowScene
+//               guard let windowScene = (scene as? UIWindowScene) else { return }
+//
+//               // Inisialisasi window
+//               let window = UIWindow(windowScene: windowScene)
+//               self.window = window
+//
+//               // Buat instance dari ViewController sesuai kebutuhan Anda
+//               let storyboardMain = UIStoryboard(name: "Main", bundle: nil)
+//               let storyboardTabBar = UIStoryboard(name: "TabBar", bundle: nil)
+//               let initialViewController: UIViewController
+//
+//               let isLoggedIn = screen2VM.isLoggedIn() // Ganti screen2VM dengan instance yang sesuai
+//               if isLoggedIn {
+//                   // Jika pengguna sudah login, arahkan ke TabBarController
+//                   initialViewController = storyboardTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController")
+//               } else {
+//                   // Jika pengguna belum login, arahkan ke ViewController lain atau sesuai kebutuhan
+//                   initialViewController = storyboardMain.instantiateViewController(withIdentifier: "LoginViewController")
+//               }
+//
+//               // Set root view controller
+//               window.rootViewController = initialViewController
+//
+//               // Tampilkan window
+//               window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

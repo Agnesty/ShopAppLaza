@@ -30,6 +30,16 @@ class NewPasswordViewController: UIViewController {
             strongCheck.isHidden = true
         }
     }
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +52,16 @@ class NewPasswordViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func resetPassAction(_ sender: UIButton) {
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.newPasswordVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+        }
         newPasswordVM.newPassword(newPassword: passwordTF.text!, rePassword: confirmPassTF.text!, email: email!, code: code!)
         
     }
@@ -93,14 +113,6 @@ class NewPasswordViewController: UIViewController {
         let imageName = isHidden ? "ic_hide_pass" : "ic_view_pass"
         sender.setImage(UIImage(named: imageName), for: .normal)
     }
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true, completion: nil)
-    }
-    
     func goToLogin() {
         guard let loginAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
         self.navigationController?.pushViewController(loginAction, animated: true)

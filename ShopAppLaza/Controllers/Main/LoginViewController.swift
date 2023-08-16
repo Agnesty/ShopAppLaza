@@ -34,6 +34,17 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
@@ -58,6 +69,17 @@ class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(forgotPass, animated: true)
     }
     @IBAction func loginAction(_ sender: UIButton) {
+        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.loginVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+        }
         loginVM.loginUser()
     }
     
@@ -92,15 +114,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    //MARK: FUNCTION
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?()
-        })
-        present(alert, animated: true, completion: nil)
-    }
-    
+    //MARK: FUNCTION    
     func goToHome() {
         guard let homeAction = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "TabBarControllerViewController") as? TabBarControllerViewController else { return }
         self.navigationController?.pushViewController(homeAction, animated: true)
