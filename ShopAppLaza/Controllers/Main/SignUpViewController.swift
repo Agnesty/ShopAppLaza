@@ -115,7 +115,7 @@ class SignUpViewController: UIViewController {
                 self.indicatorLoading.stopAnimating()
             }
         }
-        signUpVM.registerUser()
+        signUpVM.registerUser(fullname: usernameTF.text!, username: usernameTF.text!, email: emailTF.text!, password: passwordTF.text!)
     }
     
     @objc func disabledBtn(){

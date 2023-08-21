@@ -14,7 +14,7 @@ class VerficationCodeViewModel {
     func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String) {
         guard let unwrappedVC = verificationCodeViewCtr else { return }
         let urlString = "https://lazaapp.shop/auth/recover/code"
-
+        
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -29,7 +29,7 @@ class VerficationCodeViewModel {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+        request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])

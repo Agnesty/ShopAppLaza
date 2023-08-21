@@ -4,20 +4,13 @@
 //
 //  Created by Agnes Triselia Yudia on 05/08/23.
 //
-
 import Foundation
-import CryptoKit
 
 class SignUpViewModel {
     var signUpViewCtr: SignUpViewController?
     var loading: (() -> Void)?
     
-    static func getHttpBodyRaw(param: [String:Any]) -> Data? {
-        let jsonData = try? JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
-        return jsonData
-    }
-    
-    func registerUser() {
+    func registerUser(fullname: String, username: String, email: String, password: String) {
         guard let unwrappedVC = signUpViewCtr else { return }
         let urlString = "https://lazaapp.shop/register"
 
@@ -27,15 +20,15 @@ class SignUpViewModel {
         }
 
         let userData: [String: Any] = [
-            "full_name": unwrappedVC.usernameTF.text ?? "",
-            "username": unwrappedVC.usernameTF.text ?? "",
-            "email": unwrappedVC.emailTF.text ?? "",
-            "password": unwrappedVC.passwordTF.text ?? "",
+            "full_name": fullname,
+            "username": fullname,
+            "email": email,
+            "password": password,
         ]
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+        request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
@@ -83,5 +76,7 @@ class SignUpViewModel {
             print("Error creating JSON data: \(error)")
         }
     }
+    
+    
     
 }

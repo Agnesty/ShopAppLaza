@@ -1,37 +1,39 @@
 //
-//  LoginViewModel.swift
+//  AddReviewViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 05/08/23.
+//  Created by Agnes Triselia Yudia on 19/08/23.
 //
 
 import Foundation
 
-class LoginViewModel {
-    var loginViewCtr: LoginViewController?
+class AddReviewViewModel {
+    var addReviewCtr: AddReviewController?
     var loading: (() -> Void)?
     
-    func loginUser() {
-        guard let unwrappedVC = loginViewCtr else { return }
-        let urlString = "https://lazaapp.shop/login"
+    func AddReview(id: Int, accessTokenKey: String,comment: String, rating: Double) {
+        guard let unwrappedVC = addReviewCtr else { return }
+        let urlString = "https://lazaapp.shop/products/\(id)/reviews"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
         
-        let userData: [String: Any] = [
-            "username": unwrappedVC.usernameTF.text ?? "",
-            "password": unwrappedVC.passwordTF.text ?? "",
+        let userAddReviewData: [String: Any] = [
+            "comment": comment,
+            "rating": rating,
         ]
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = APIService.getHttpBodyRaw(param: userData)
+        request.httpBody = APIService.getHttpBodyRaw(param: userAddReviewData)
+        request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
+            let jsonData = try JSONSerialization.data(withJSONObject: userAddReviewData, options: [])
             request.httpBody = jsonData
+            print("ini adalah jsonData: \(jsonData)")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -52,21 +54,17 @@ class LoginViewModel {
                                     unwrappedVC.showAlert(title: status, message: description)
                                 }
                             } else {
-                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
+                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                     DispatchQueue.main.async {
                                         self.loading?()
-                                        unwrappedVC.showAlert(title: "Login Successful", message: "Congratulations! You have successfully Login.")
+                                        unwrappedVC.showAlert(title: "Added Review", message: "Your review is added.")
                                         {
-                                            if let data = jsonResponse["data"] as? [String: Any],
-                                               let accessToken = data["access_token"] as? String {
-                                                UserDefaults.standard.set(accessToken, forKey: "accessToken")
-                                                unwrappedVC.goToHome()
-                                            }
+                                            unwrappedVC.goToReview()
                                         }
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
-                                    print("Login Error: Unexpected Response Code")
+                                    print("Add Review Error: Unexpected Response Code")
                                 }
                             }
                         }
@@ -80,7 +78,4 @@ class LoginViewModel {
             print("Error creating JSON data: \(error)")
         }
     }
-    
-    
-    
 }

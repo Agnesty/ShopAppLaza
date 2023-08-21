@@ -7,39 +7,33 @@
 
 import Foundation
 
-typealias User = [UserElement]
+typealias User = UserElement
 
 // MARK: - WelcomeElement
 struct UserElement: Codable {
-    let address: Address
-    let id: Int
-    let email, username, password: String
-    let name: Name
-    let phone: String
-    let v: Int
+    let status: String
+    let isError: Bool
+    let data: DataUser
+}
 
+struct DataUser: Codable {
+    let id: Int
+    let fullName, username, email: String
+    let imageUrl: String
+    let isVerified: Bool
+    let createdAt, updatedAt: String
+    
     enum CodingKeys: String, CodingKey {
-        case address, id, email, username, password, name, phone
-        case v = "__v"
+        case id
+        case fullName = "full_name"
+        case username, email
+        case imageUrl = "image_url"
+        case isVerified = "is_verified"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
     }
 }
 
-// MARK: - Address
-struct Address: Codable {
-    let geolocation: Geolocation
-    let city, street: String
-    let number: Int
-    let zipcode: String
-}
 
-// MARK: - Geolocation
-struct Geolocation: Codable {
-    let lat, long: String
-}
-
-// MARK: - Name
-struct Name: Codable {
-    let firstname, lastname: String
-}
 
 

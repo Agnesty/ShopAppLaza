@@ -36,5 +36,3 @@ class NewArrivalTableViewModel {
         }.resume()
     }
 }
-
-//https://fakestoreapi.com/products

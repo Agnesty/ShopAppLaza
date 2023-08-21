@@ -8,10 +8,9 @@
 import Foundation
 
 class DetailViewModel {
-//    let sizes = ["S", "M", "L", "XL", "2XL"]
     
-    func getSizes(completion: @escaping (Sizes) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/size") else { print("Invalid URL.")
+    func getDetailProductById(id: Int, completion: @escaping (DetailProduct) -> Void) {
+        guard let url = URL(string: "https://lazaapp.shop/products/\(id)") else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -24,12 +23,14 @@ class DetailViewModel {
                 return
             }
             do {
-                let sizes = try JSONDecoder().decode(Sizes.self, from: data)
+                let detailProducts = try JSONDecoder().decode(DetailProduct.self, from: data)
+
                 DispatchQueue.main.async {
-                    completion(sizes)
+                    completion(detailProducts)
                 }
             } catch {
                 print("Error decoding JSON: \(error)")
+             
             }
         }.resume()
     }

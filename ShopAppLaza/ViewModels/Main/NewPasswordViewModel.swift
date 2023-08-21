@@ -13,6 +13,7 @@ class NewPasswordViewModel {
     
     func newPassword(newPassword: String, rePassword: String, email: String, code: String) {
         guard let unwrappedVC = newPasswordViewCtr else { return }
+        
         let urlString = "https://lazaapp.shop/auth/recover/password?email=\(email)&code=\(code)"
 
         guard let url = URL(string: urlString) else {
@@ -27,7 +28,7 @@ class NewPasswordViewModel {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+        request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])

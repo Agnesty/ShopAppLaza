@@ -26,7 +26,7 @@ class ForgotPassViewModel {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = SignUpViewModel.getHttpBodyRaw(param: userData)
+        request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])

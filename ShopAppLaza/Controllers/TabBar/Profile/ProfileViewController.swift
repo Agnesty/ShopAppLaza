@@ -1,26 +1,46 @@
 //
-//  WalletViewController.swift
+//  EditDataProfileViewController.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 26/07/23.
+//  Created by Agnes Triselia Yudia on 20/08/23.
 //
 
 import UIKit
-import CreditCardForm
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class ProfileViewController: UIViewController {
+    private let profileVM = ProfilViewModel()
+    var contentDataUser: UserElement?
     
-    let imagePicker = UIImagePickerController()
-    
-    @IBOutlet weak var fullnameTF: UITextField!
-    @IBOutlet weak var usernameTF: UITextField!
-    @IBOutlet weak var emailTF: UITextField!
+    //MARK: IBOutlet
     @IBOutlet weak var imagePhoto: UIImageView!{
         didSet{
-            imagePhoto.layer.cornerRadius = CGFloat(20)
+            imagePhoto.layer.cornerRadius = CGFloat(imagePhoto.frame.width/2)
         }
     }
-    
+    @IBOutlet weak var viewFullnanem: UIView!{
+        didSet{
+            viewFullnanem.layer.cornerRadius = CGFloat(10)
+        }
+    }
+    @IBOutlet weak var fullnameLabel: UILabel!
+    @IBOutlet weak var viewUsername: UIView!{
+        didSet{
+            viewUsername.layer.cornerRadius = CGFloat(10)
+        }
+    }
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var viewEmail: UIView!{
+        didSet{
+            viewEmail.layer.cornerRadius = CGFloat(10)
+        }
+    }
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var editProfileBtn: UIButton!{
+        didSet{
+            editProfileBtn.layer.cornerRadius = CGFloat(10)
+        }
+    }
+
     private func setupTabBarItemImage() {
         let label = UILabel()
         label.numberOfLines = 1
@@ -36,32 +56,33 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBarItemImage()
-        imagePicker.delegate = self
-        
-        
-    }
-
-    @IBAction func chooseImageAction(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-               
-        present(imagePicker, animated: true, completion: nil)
+        getDataProfile()
     }
     
-    //MARK: FUNCTIONS
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imagePhoto.contentMode = .scaleAspectFit
-            imagePhoto.image = pickedImage
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getDataProfile()
+    }
+    
+    //MARK: IBAction
+    @IBAction func editDataAction(_ sender: UIButton) {
+        guard let performEditPage = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else { return }
+        self.navigationController?.pushViewController(performEditPage, animated: true)
+    }
+    
+    //MARK: FUNCTION
+    func getDataProfile() {
+        profileVM.getUserProfile(accessTokenKey: APIService().token!) { [weak self] userdata in
+            self?.contentDataUser = userdata
+            print("apakah ini benar: \(userdata)")
+            
+            DispatchQueue.main.async {
+                self?.fullnameLabel.text = self?.contentDataUser?.data.fullName
+                self?.usernameLabel.text = self?.contentDataUser?.data.username
+                self?.emailLabel.text = self?.contentDataUser?.data.email
+                self?.imagePhoto.setImageWithPlugin(url: (self?.contentDataUser?.data.imageUrl)!)
+            }
         }
-
-        dismiss(animated: true, completion: nil)
     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
-
-
     
- 
+}

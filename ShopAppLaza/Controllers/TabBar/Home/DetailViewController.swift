@@ -11,8 +11,10 @@ import SDWebImage
 class DetailViewController: UIViewController {
     private var detailVM = DetailViewModel()
     var product: WelcomeElement?
-    var sizes = [DataSizes]()
-
+    var detailProductData: DetailProduct?
+    var detailProductSize = [Size]()
+    var detailProductReviews = [Review]()
+    
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
@@ -32,46 +34,54 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var star3: UIImageView!
     @IBOutlet weak var star4: UIImageView!
     @IBOutlet weak var star5: UIImageView!
+    @IBOutlet weak var commentReview: UILabel!
+    @IBOutlet weak var commentName: UILabel!
+    @IBOutlet weak var commentTime: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            self.detailVM.getSizes { [weak self] Sizes in
-                guard let sizesProduct = Sizes else { return }
-                self?.sizes.append(contentsOf: sizesProduct.data)
-                self?.sizeCollection.reloadData()
-            }
-        }
-        
-//        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
         
-        
-        setProduct()
-//        ratingStarData(rating: product?.rating.rate ?? 0)
+        detailVM.getDetailProductById(id: product!.id) {  detailById in
+            DispatchQueue.main.async { [weak self] in
+                self?.detailProductData = detailById
+                self?.detailProductSize.append(contentsOf: detailById.data.size)
+                self?.detailProductReviews.append(contentsOf: detailById.data.reviews)
+                self?.setProduct()
+                self?.sizeCollection.reloadData()
+            }
+        }
     }
     
     func setProduct() {
-        imageProduct.setImageWithPlugin(url: (product?.image_url)!)
-//        categoryBrand.text = product?.category.rawValue.capitalized
-        titleBarang.text = product?.name
-        priceLabel.text = "$\(product?.price ?? 0)"
-//        descriptionLabel.text = product?.description
-//        ratingLabel.text = "\(product?.rating.rate ?? 0)"
+        imageProduct.setImageWithPlugin(url: (detailProductData?.data.imageURL)!)
+        categoryBrand.text = detailProductData?.data.category.category.capitalized
+        titleBarang.text = detailProductData?.data.name
+        priceLabel.text = "$\(detailProductData?.data.price ?? 0)"
+        descriptionLabel.text = detailProductData?.data.description
+        if let reviews = detailProductReviews.first {
+            ratingLabel.text = String(reviews.rating)
+            ratingStarData(rating: Double(reviews.rating))
+            commentTime.text = DateTimeUtils.shared.formatReview(date: reviews.createdAt)
+            commentName.text = reviews.fullName
+            commentReview.text = reviews.comment
+        }
     }
+   
     
     //MARK: IBAction
     @IBAction func viewAllReviewAction(_ sender: UIButton) {
         guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
+        performReviews.idProduct = product?.id
         self.navigationController?.pushViewController(performReviews, animated: true)
     }
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-   
+    
     func ratingStarData(rating: Double) {
         var collectStar = [Star]()
         var colors = [UIColor]()
@@ -110,15 +120,15 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sizes.count
+        return detailProductSize.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SizeDetailCollectionViewCell.identifier, for: indexPath) as? SizeDetailCollectionViewCell else {
             return UICollectionViewCell() }
-        cell.labelSize.text = sizes[indexPath.row].size.uppercased()
+        cell.labelSize.text = detailProductSize[indexPath.row].size.uppercased()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 60, height: 60)
+        return CGSize(width: 60, height: 60)
     }
 }
