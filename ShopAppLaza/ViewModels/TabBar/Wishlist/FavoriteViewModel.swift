@@ -9,17 +9,9 @@ import Foundation
 
 class FavoriteViewModel{
     var favoriteViewCtr: FavoriteViewController?
-    func getFavoriteList(accessTokenKey: String, offset: Int, limit: Int, completion: @escaping (Wishlist) -> Void) {
-        guard var components = URLComponents(string: "https://lazaapp.shop/wishlists") else {
+    func getFavoriteList(accessTokenKey: String, completion: @escaping (Wishlist) -> Void) {
+        guard let url = URL(string: "https://lazaapp.shop/wishlists") else {
             print("Invalid URL.")
-            return
-        }
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
-        guard let url = components.url else {
-            print("Invalid URL components.")
             return
         }
         var request = URLRequest(url: url)

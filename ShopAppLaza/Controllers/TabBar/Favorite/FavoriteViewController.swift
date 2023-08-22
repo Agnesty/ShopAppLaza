@@ -32,7 +32,7 @@ class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         favoriteVM.favoriteViewCtr = self
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!, offset: 0, limit: 5) { [weak self] wishlist in
+        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async {
                 self?.wishlist = wishlist
                 self?.countWishlist.text = "\( wishlist.data.total)"
@@ -49,7 +49,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!, offset: 0, limit: 5) { [weak self] wishlist in
+        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async {
                 self?.wishlist = wishlist
                 self?.countWishlist.text = "\(wishlist.data.total)"

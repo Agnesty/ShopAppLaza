@@ -17,11 +17,11 @@ struct Wishlist: Codable {
 // MARK: - DataClass
 struct DataWishlist: Codable {
     let total: Int
-    let products: [Product]
+    let products: [ProductWishlist]
 }
 
 // MARK: - Product
-struct Product: Codable {
+struct ProductWishlist: Codable {
     let id: Int
     let name: String
     let imageURL: String

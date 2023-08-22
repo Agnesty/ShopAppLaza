@@ -10,22 +10,24 @@ import SDWebImage
 
 class DetailViewController: UIViewController {
     private var detailVM = DetailViewModel()
+    private var favoriteVM = FavoriteViewModel()
     var product: WelcomeElement?
     var detailProductData: DetailProduct?
     var detailProductSize = [Size]()
     var detailProductReviews = [Review]()
     var updateWishlist: UpdateWishlist?
+    var wishlist: DataWishlist?
     let imgFavorite = UserDefaults.standard.string(forKey: "imageFavorite")
-    
+    var imageName: String = ""
     
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
     @IBOutlet weak var favorite: UIButton!{
         didSet{
-            guard let imgFav = imgFavorite else { return }
+            //            guard let imgFav = imgFavorite else { return }
             favorite.layer.cornerRadius = 22
-            favorite.setImage(UIImage(systemName: imgFav), for: .normal)
+            //            favorite.setImage(UIImage(systemName: imgFav), for: .normal)
         }
     }
     @IBOutlet weak var imageProduct: UIImageView!
@@ -45,6 +47,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Determine the image name based on the message received
         
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
@@ -56,7 +59,36 @@ class DetailViewController: UIViewController {
                 self?.detailProductSize.append(contentsOf: detailById.data.size)
                 self?.detailProductReviews.append(contentsOf: detailById.data.reviews)
                 self?.setProduct()
+                
                 self?.sizeCollection.reloadData()
+            }
+        }
+        isProductInWishlists { isInWishlist in
+            if isInWishlist == true {
+                self.imageName = "heart.fill"
+            } else {
+                self.imageName = "heart"
+            }
+            // Update the button image
+            let image = UIImage(systemName: self.imageName)
+            self.favorite.setImage(image, for: .normal)
+        }
+    }
+    
+    func isProductInWishlists(completion: @escaping (Bool) -> Void) {
+        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.wishlist = wishlist.data
+                guard let productId = self.product?.id else { return }
+                let products = wishlist.data.products
+                if products.contains(where: { productWishlist in
+                    productWishlist.id == productId
+                }){
+                    completion(true)
+                } else {
+                    completion(false)
+                }
             }
         }
     }
@@ -75,40 +107,34 @@ class DetailViewController: UIViewController {
             commentReview.text = reviews.comment
         }
     }
-   
+    
     
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
         detailVM.putFavorite(accessTokenKey: APIService().token!, productId: product!.id) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
-                
-                // Determine the image name based on the message received
-                var imageName: String
                 if let message = self?.updateWishlist?.data {
                     if message == "successfully delete wishlist" {
-                        imageName = "heart"
+                        self?.imageName = "heart"
                     } else if message == "successfully added wishlist" {
-                        imageName = "heart.fill"
+                        self?.imageName = "heart.fill"
                     } else {
-                        imageName = "heart" // Default image
+                        self?.imageName = "heart"
                     }
                 } else {
-                    imageName = "heart" // Default image
+                    self?.imageName = "heart"
                 }
-                
                 // Update the button image
-                let image = UIImage(systemName: imageName)
+                let image = UIImage(systemName: self?.imageName ?? "heart")
                 self?.favorite.setImage(image, for: .normal)
-                UserDefaults.standard.set(imageName, forKey: "imageFavorite")
-                
                 // Show an alert if needed
                 if let message = self?.updateWishlist?.data {
                     self?.showAlert(title: "Wishlist Update", message: message)
                 }
             }
         }
-
+        
     }
     
     @IBAction func viewAllReviewAction(_ sender: UIButton) {
@@ -154,12 +180,6 @@ class DetailViewController: UIViewController {
         star4.tintColor = colors[3]
         star5.tintColor = colors[4]
     }
-//    func getImageFromFavorites(productId: Int) -> UIImage? {
-//        if let imageData = UserDefaults.standard.data(forKey: "\(productId)_imageFavorite") {
-//            return UIImage(data: imageData)
-//        }
-//        return nil
-//    }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
