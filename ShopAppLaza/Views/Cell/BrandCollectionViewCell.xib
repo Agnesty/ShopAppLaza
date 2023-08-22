@@ -65,7 +65,7 @@
                 <outlet property="labelBrand" destination="rQY-8W-N6W" id="1rT-fp-oik"/>
                 <outlet property="view" destination="f0O-iX-JSi" id="Rr8-Ta-4b1"/>
             </connections>
-            <point key="canvasLocation" x="277" y="68"/>
+            <point key="canvasLocation" x="275.57251908396944" y="67.605633802816911"/>
         </collectionViewCell>
     </objects>
     <resources>

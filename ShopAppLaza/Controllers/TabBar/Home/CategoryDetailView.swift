@@ -8,6 +8,9 @@
 import UIKit
 
 class CategoryDetailView: UIViewController {
+    private let categoryDetailVM = CategoryDetailViewModel()
+    var idProduct: Int?
+    var categoryDetail: DetailBrand?
     
     //MARK: IBOutlet
     @IBOutlet weak var logoImage: UIImageView!{
@@ -19,10 +22,19 @@ class CategoryDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoryDetailVM.categoryDetailVC = self
+        categoryDetailVM.getCategoryDetailById(id: idProduct!) { [weak self] detailBrand in
+            DispatchQueue.main.async {
+                self?.categoryDetail = detailBrand
+                self?.logoImage.setImageWithPlugin(url: detailBrand.data.logo_url)
+                self?.categoryBrandCollection.reloadData()
+            }
+        }
+        
         categoryBrandCollection.dataSource = self
         categoryBrandCollection.delegate = self
         categoryBrandCollection.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
-        categoryBrandCollection.reloadData()
+        
     }
     
     //MARK: IBAction
@@ -34,13 +46,14 @@ class CategoryDetailView: UIViewController {
 
 extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
-        cell.imageProduct.image = UIImage(named: "orang1")
-        cell.titleProduk.text = "CategoryProductTitle"
-        cell.priceProduk.text = "Rp 20.000"
+        if let categoryBrand = categoryDetail?.data {
+            cell.imageProduct.setImageWithPlugin(url: categoryBrand.logo_url)
+            cell.titleProduk.text = categoryBrand.name.capitalized
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -94,6 +94,11 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeController: NewArrivalDidSelectItemDelegate {
+    func ViewAllNewArrivalPush() {
+        guard let performViewAllNewArrival = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "NewArriveVAViewController") as? NewArriveVAViewController else { return }
+        self.navigationController?.pushViewController(performViewAllNewArrival, animated: true)
+    }
+    
     func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement) {
         guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
@@ -102,8 +107,14 @@ extension HomeController: NewArrivalDidSelectItemDelegate {
 }
 
 extension HomeController: CategoryBrandSelectItemDelegate {
-    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath) {
+    func ViewAllBrandPush() {
+        guard let performVABrand = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "BrandVAViewController") as? BrandVAViewController else { return }
+        self.navigationController?.pushViewController(performVABrand, animated: true)
+    }
+    
+    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath, category: DescriptionBrand) {
         guard let categoryDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "CategoryDetailView") as? CategoryDetailView else { return }
+        categoryDetailView.idProduct = category.id
         self.navigationController?.pushViewController(categoryDetailView, animated: true)
     }
 }

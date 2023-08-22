@@ -8,7 +8,8 @@
 import UIKit
 
 protocol CategoryBrandSelectItemDelegate: AnyObject {
-    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath)
+    func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath, category: DescriptionBrand)
+    func ViewAllBrandPush()
 }
 
 class CategoryTableViewCell: UITableViewCell {
@@ -24,7 +25,6 @@ class CategoryTableViewCell: UITableViewCell {
     
     //MARK: IBOutlet
     @IBOutlet weak var labelBrand: UILabel!
-    @IBOutlet weak var labelNewArrival: UILabel!
     @IBOutlet weak var collectionBrand: UICollectionView!
     
     override func awakeFromNib() {
@@ -43,6 +43,13 @@ class CategoryTableViewCell: UITableViewCell {
         }
     }
     
+    //MARK: IBAction
+    
+    @IBAction func viewAllBrand(_ sender: UIButton) {
+        delegate?.ViewAllBrandPush()
+//        self.navigationController?.pushViewController(performVABrand, animated: true)
+    }
+    
 //        func brandSizeForItemAt(sizeForItemAt indexPath: IndexPath) -> CGSize {
 //            let padding: CGFloat = 10
 //            guard let item = viewModel.getBrandOnIndex(index: indexPath.item) else {
@@ -57,13 +64,16 @@ class CategoryTableViewCell: UITableViewCell {
 
 extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return category.count
+        return min(3, category.count)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellBrand = collectionView.dequeueReusableCell(withReuseIdentifier: BrandCollectionViewCell.identifier, for: indexPath) as? BrandCollectionViewCell else { return UICollectionViewCell() }
-        cellBrand.labelBrand.text = category[indexPath.row].name.capitalized
-        cellBrand.imageBrand.setImageWithPlugin(url: category[indexPath.row].logo_url)
+        if indexPath.row < category.count {
+            cellBrand.labelBrand.text = category[indexPath.row].name.capitalized
+            cellBrand.imageBrand.setImageWithPlugin(url: category[indexPath.row].logo_url)
+        }
             return cellBrand
+            
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 150, height: 80)
@@ -75,6 +85,7 @@ extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectio
             return 10
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.CategoryItemSelectNavigation(didSelectItem: indexPath)
+        let category = category[indexPath.row]
+        delegate?.CategoryItemSelectNavigation(didSelectItem: indexPath, category: category)
     }
 }

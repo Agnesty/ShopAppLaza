@@ -14,13 +14,18 @@ class DetailViewController: UIViewController {
     var detailProductData: DetailProduct?
     var detailProductSize = [Size]()
     var detailProductReviews = [Review]()
+    var updateWishlist: UpdateWishlist?
+    let imgFavorite = UserDefaults.standard.string(forKey: "imageFavorite")
+    
     
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
     @IBOutlet weak var favorite: UIButton!{
         didSet{
+            guard let imgFav = imgFavorite else { return }
             favorite.layer.cornerRadius = 22
+            favorite.setImage(UIImage(systemName: imgFav), for: .normal)
         }
     }
     @IBOutlet weak var imageProduct: UIImageView!
@@ -73,6 +78,39 @@ class DetailViewController: UIViewController {
    
     
     //MARK: IBAction
+    @IBAction func favoriteAction(_ sender: UIButton) {
+        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: product!.id) { [weak self] updateWishlist in
+            DispatchQueue.main.async {
+                self?.updateWishlist = updateWishlist
+                
+                // Determine the image name based on the message received
+                var imageName: String
+                if let message = self?.updateWishlist?.data {
+                    if message == "successfully delete wishlist" {
+                        imageName = "heart"
+                    } else if message == "successfully added wishlist" {
+                        imageName = "heart.fill"
+                    } else {
+                        imageName = "heart" // Default image
+                    }
+                } else {
+                    imageName = "heart" // Default image
+                }
+                
+                // Update the button image
+                let image = UIImage(systemName: imageName)
+                self?.favorite.setImage(image, for: .normal)
+                UserDefaults.standard.set(imageName, forKey: "imageFavorite")
+                
+                // Show an alert if needed
+                if let message = self?.updateWishlist?.data {
+                    self?.showAlert(title: "Wishlist Update", message: message)
+                }
+            }
+        }
+
+    }
+    
     @IBAction func viewAllReviewAction(_ sender: UIButton) {
         guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
         performReviews.idProduct = product?.id
@@ -116,6 +154,12 @@ class DetailViewController: UIViewController {
         star4.tintColor = colors[3]
         star5.tintColor = colors[4]
     }
+//    func getImageFromFavorites(productId: Int) -> UIImage? {
+//        if let imageData = UserDefaults.standard.data(forKey: "\(productId)_imageFavorite") {
+//            return UIImage(data: imageData)
+//        }
+//        return nil
+//    }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -42,6 +42,11 @@
 		3335D8832A8B20560091376B /* ForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3335D8822A8B20560091376B /* ForgotPassViewModel.swift */; };
 		3335D8852A8B30C30091376B /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3335D8842A8B30C30091376B /* VerificationCodeViewModel.swift */; };
 		3335D8872A8B4CB10091376B /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3335D8862A8B4CB10091376B /* NewPasswordViewModel.swift */; };
+		333843952A92FA040092ACC8 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333843942A92FA040092ACC8 /* CategoryDetailViewModel.swift */; };
+		333843972A93118F0092ACC8 /* BrandVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333843962A93118F0092ACC8 /* BrandVAViewController.swift */; };
+		333843992A9311A80092ACC8 /* NewArriveVAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333843982A9311A80092ACC8 /* NewArriveVAViewController.swift */; };
+		3338439C2A933C240092ACC8 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3338439B2A933C240092ACC8 /* FavoriteViewModel.swift */; };
+		3338439E2A933FF50092ACC8 /* Wishlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3338439D2A933FF50092ACC8 /* Wishlist.swift */; };
 		334257DD2A723D5B000CD97A /* NewArraivalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334257DB2A723D5B000CD97A /* NewArraivalCollectionViewCell.swift */; };
 		334257DE2A723D5B000CD97A /* NewArraivalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 334257DC2A723D5B000CD97A /* NewArraivalCollectionViewCell.xib */; };
 		334257E12A723E68000CD97A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334257E02A723E68000CD97A /* Extensions.swift */; };
@@ -138,6 +143,11 @@
 		3335D8822A8B20560091376B /* ForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassViewModel.swift; sourceTree = "<group>"; };
 		3335D8842A8B30C30091376B /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
 		3335D8862A8B4CB10091376B /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
+		333843942A92FA040092ACC8 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
+		333843962A93118F0092ACC8 /* BrandVAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandVAViewController.swift; sourceTree = "<group>"; };
+		333843982A9311A80092ACC8 /* NewArriveVAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewArriveVAViewController.swift; sourceTree = "<group>"; };
+		3338439B2A933C240092ACC8 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		3338439D2A933FF50092ACC8 /* Wishlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wishlist.swift; sourceTree = "<group>"; };
 		334257DB2A723D5B000CD97A /* NewArraivalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewArraivalCollectionViewCell.swift; sourceTree = "<group>"; };
 		334257DC2A723D5B000CD97A /* NewArraivalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewArraivalCollectionViewCell.xib; sourceTree = "<group>"; };
 		334257E02A723E68000CD97A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -232,6 +242,7 @@
 				332291D22A7FC4A40035D65F /* DetailViewModel.swift */,
 				33BA02E12A8A0539003AEB76 /* ReviewsViewModel.swift */,
 				3311D4C12A90D269001718BA /* AddReviewViewModel.swift */,
+				333843942A92FA040092ACC8 /* CategoryDetailViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -293,6 +304,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		3338439A2A933BEF0092ACC8 /* Wishlist */ = {
+			isa = PBXGroup;
+			children = (
+				3338439B2A933C240092ACC8 /* FavoriteViewModel.swift */,
+			);
+			path = Wishlist;
+			sourceTree = "<group>";
+		};
 		334257DA2A723D1D000CD97A /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +327,8 @@
 				334BF3DE2A7B6BE600755766 /* SizeDetailCollectionViewCell.swift */,
 				334BF3E62A7B875800755766 /* ReviewsTableViewCell.swift */,
 				3322C1192A81D77800EEF0C7 /* CategoryDetailView.swift */,
+				333843962A93118F0092ACC8 /* BrandVAViewController.swift */,
+				333843982A9311A80092ACC8 /* NewArriveVAViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -338,6 +359,7 @@
 				33100F422A8F494C00DE9A2F /* DetailProduct.swift */,
 				33100F442A8F662200DE9A2F /* AllReviews.swift */,
 				335990A52A925B0D00972213 /* Media.swift */,
+				3338439D2A933FF50092ACC8 /* Wishlist.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -476,6 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				332291D12A7F89BD0035D65F /* Home */,
+				3338439A2A933BEF0092ACC8 /* Wishlist */,
 				338C67EF2A8CCDDC00762160 /* Profile */,
 			);
 			path = TabBar;
@@ -675,6 +698,8 @@
 				33BA02E22A8A0539003AEB76 /* ReviewsViewModel.swift in Sources */,
 				334BF3E82A7B875800755766 /* ReviewsTableViewCell.swift in Sources */,
 				332C0B622A7CACD4008ECB27 /* CustomSlider.swift in Sources */,
+				3338439C2A933C240092ACC8 /* FavoriteViewModel.swift in Sources */,
+				333843972A93118F0092ACC8 /* BrandVAViewController.swift in Sources */,
 				33304B652A78F453000804A8 /* NewArrivalTableViewCell.swift in Sources */,
 				334BF3E32A7B7F8000755766 /* PeopleReviews.swift in Sources */,
 				3378B5442A70F54700420E00 /* FavoriteViewController.swift in Sources */,
@@ -687,6 +712,7 @@
 				334257E12A723E68000CD97A /* Extensions.swift in Sources */,
 				334BF3DB2A7B5EEA00755766 /* ReviewsViewController.swift in Sources */,
 				332C98BC2A7023D4003CAFD3 /* Screen2ViewController.swift in Sources */,
+				333843952A92FA040092ACC8 /* CategoryDetailViewModel.swift in Sources */,
 				3323CE202A85EA29004A21BC /* WishlistDetailViewController.swift in Sources */,
 				339C5D0C2A79EE9600085359 /* DynamicHeightCollectionView.swift in Sources */,
 				33304B5E2A78DAEC000804A8 /* HomeController.swift in Sources */,
@@ -701,10 +727,12 @@
 				33CE6F292A7E601E00FA8084 /* LoginViewModel.swift in Sources */,
 				3354D3EC2A80975B00A9DB7F /* AddAddressViewController.swift in Sources */,
 				33BA02DE2A89CC33003AEB76 /* Brand.swift in Sources */,
+				3338439E2A933FF50092ACC8 /* Wishlist.swift in Sources */,
 				33308AF22A74C155005E819D /* User.swift in Sources */,
 				33308AF42A74F595005E819D /* SideMenu.swift in Sources */,
 				3354D3EE2A809CCB00A9DB7F /* PaymentViewController.swift in Sources */,
 				336A2F102A7BEE9400C639FD /* VerificationCodeViewController.swift in Sources */,
+				333843992A9311A80092ACC8 /* NewArriveVAViewController.swift in Sources */,
 				3335D8852A8B30C30091376B /* VerificationCodeViewModel.swift in Sources */,
 				3378B54A2A70F86F00420E00 /* TabBarControllerViewController.swift in Sources */,
 				3378B53C2A70EE0200420E00 /* NewPasswordViewController.swift in Sources */,

@@ -15,8 +15,16 @@ struct BrandStatus: Codable {
     let description: [DescriptionBrand]
 }
 
+struct DetailBrand: Codable {
+    let status: String
+    let isError: Bool
+    let data: DescriptionBrand
+}
+
 struct DescriptionBrand: Codable {
     let id: Int
     let name: String
     let logo_url: String
 }
+
+

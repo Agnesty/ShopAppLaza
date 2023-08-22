@@ -1,68 +1,57 @@
 //
-//  NewArrivalTableViewCell.swift
+//  NewArriveVAViewController.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 01/08/23.
+//  Created by Agnes Triselia Yudia on 21/08/23.
 //
 
 import UIKit
 
-protocol NewArrivalDidSelectItemDelegate: AnyObject {
-    func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement)
-    func ViewAllNewArrivalPush()
-}
-
-class NewArrivalTableViewCell: UITableViewCell {
+class NewArriveVAViewController: UIViewController {
     
-    static let identifier = "newArrivalTableViewCell"
-    static func nib() -> UINib {
-        return UINib(nibName: "NewArrivalTableViewCell", bundle: nil)
-    }
-    var onReload: (() -> Void)?
-    var productAPI = [WelcomeElement]()
     private var newArrivalTableVM = NewArrivalTableViewModel()
-    weak var delegate: NewArrivalDidSelectItemDelegate?
+    var productAPI = [WelcomeElement]()
 
     //MARK: IBOutlet
-    @IBOutlet weak var collectionNewArrival: DynamicHeightCollectionView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        newArrivalTableVM.newArrivalTableViewCell = self
-        collectionNewArrival.delegate = self
-        collectionNewArrival.dataSource = self
-        collectionNewArrival.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
+    @IBOutlet weak var countItems: UILabel!
+    @IBOutlet weak var newArrivalCollection: UICollectionView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        newArrivalCollection.dataSource = self
+        newArrivalCollection.delegate = self
+        newArrivalCollection.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
         DispatchQueue.main.async {
             self.newArrivalTableVM.getDataProduct { [weak self] produk in
                 guard let produkResponse = produk else { return }
                 self?.productAPI.append(contentsOf: produkResponse.data)
-                self?.collectionNewArrival.reloadData()
-                self?.onReload?()
+                self?.countItems.text = String((self?.productAPI.count)!)
+                self?.newArrivalCollection.reloadData()
             }
         }
     }
     
-    @IBAction func viewAllNewArrival(_ sender: UIButton) {
-        delegate?.ViewAllNewArrivalPush()
+    //MARK: IBAction
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
 
-extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension NewArriveVAViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(6, productAPI.count)
+        return productAPI.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellNewArraival = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
-        if indexPath.row < productAPI.count {
             let newArraival = productAPI[indexPath.row]
             cellNewArraival.imageProduct.setImageWithPlugin(url: newArraival.image_url)
             cellNewArraival.titleProduk.text = newArraival.name
             cellNewArraival.priceProduk.text = "$\(String(newArraival.price))"
-        }
             return cellNewArraival
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: 160, height: 295) 
+        let size = CGSize(width: 160, height: 295)
         return size
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -70,9 +59,5 @@ extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let productModel = productAPI[indexPath.item]
-        delegate?.NewArrivalItemSelectNavigation(didSelectItemAt: indexPath, productModel: productModel)
     }
 }
