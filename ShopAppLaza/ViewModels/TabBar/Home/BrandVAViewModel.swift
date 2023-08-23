@@ -1,16 +1,16 @@
 //
-//  CategoryDetailViewModel.swift
+//  BrandVAViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 21/08/23.
+//  Created by Agnes Triselia Yudia on 22/08/23.
 //
 
 import Foundation
 
-class CategoryDetailViewModel {
-    var categoryDetailVC: CategoryDetailView?
+class BrandVAViewModel {
+    var brandVAVC: BrandVAViewController?
     
-    func getDetailBrandById(name: String, completion: @escaping (ProductBrand) -> Void) {
+    func getDetailProductById(name: String, completion: @escaping (ProductBrand) -> Void) {
         guard let url = URL(string: "https://lazaapp.shop/products/brand?name=\(name)") else { print("Invalid URL.")
             return
         }

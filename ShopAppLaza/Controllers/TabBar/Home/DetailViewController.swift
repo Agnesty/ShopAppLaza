@@ -8,26 +8,31 @@
 import UIKit
 import SDWebImage
 
+protocol DetailViewControllerDelegate: AnyObject {
+    func didSelectSize(_ sizeId: Int)
+}
+
 class DetailViewController: UIViewController {
     private var detailVM = DetailViewModel()
     private var favoriteVM = FavoriteViewModel()
+    weak var delegate: DetailViewControllerDelegate?
+    var productId: Int?
     var product: WelcomeElement?
     var detailProductData: DetailProduct?
     var detailProductSize = [Size]()
     var detailProductReviews = [Review]()
     var updateWishlist: UpdateWishlist?
     var wishlist: DataWishlist?
-    let imgFavorite = UserDefaults.standard.string(forKey: "imageFavorite")
+    var idSizeChoose: Int?
     var imageName: String = ""
+    var selectedIndexPath: IndexPath?
     
     //MARK: IBOutlet
     @IBOutlet weak var viewAllReviews: UIButton!
     @IBOutlet weak var sizeCollection: UICollectionView!
     @IBOutlet weak var favorite: UIButton!{
         didSet{
-            //            guard let imgFav = imgFavorite else { return }
             favorite.layer.cornerRadius = 22
-            //            favorite.setImage(UIImage(systemName: imgFav), for: .normal)
         }
     }
     @IBOutlet weak var imageProduct: UIImageView!
@@ -48,12 +53,13 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Determine the image name based on the message received
-        
+        guard let id = productId else { return }
+        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
         
-        detailVM.getDetailProductById(id: product!.id) {  detailById in
+        detailVM.getDetailProductById(id: id) {  detailById in
             DispatchQueue.main.async { [weak self] in
                 self?.detailProductData = detailById
                 self?.detailProductSize.append(contentsOf: detailById.data.size)
@@ -75,43 +81,9 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func isProductInWishlists(completion: @escaping (Bool) -> Void) {
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.wishlist = wishlist.data
-                guard let productId = self.product?.id else { return }
-                let products = wishlist.data.products
-                if products.contains(where: { productWishlist in
-                    productWishlist.id == productId
-                }){
-                    completion(true)
-                } else {
-                    completion(false)
-                }
-            }
-        }
-    }
-    
-    func setProduct() {
-        imageProduct.setImageWithPlugin(url: (detailProductData?.data.imageURL)!)
-        categoryBrand.text = detailProductData?.data.category.category.capitalized
-        titleBarang.text = detailProductData?.data.name
-        priceLabel.text = "$\(detailProductData?.data.price ?? 0)"
-        descriptionLabel.text = detailProductData?.data.description
-        if let reviews = detailProductReviews.first {
-            ratingLabel.text = String(reviews.rating)
-            ratingStarData(rating: Double(reviews.rating))
-            commentTime.text = DateTimeUtils.shared.formatReview(date: reviews.createdAt)
-            commentName.text = reviews.fullName
-            commentReview.text = reviews.comment
-        }
-    }
-    
-    
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
-        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: product!.id) { [weak self] updateWishlist in
+        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
                 if let message = self?.updateWishlist?.data {
@@ -136,7 +108,6 @@ class DetailViewController: UIViewController {
         }
         
     }
-    
     @IBAction func viewAllReviewAction(_ sender: UIButton) {
         guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
         performReviews.idProduct = product?.id
@@ -145,7 +116,17 @@ class DetailViewController: UIViewController {
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func addToCartAction(_ sender: UIButton) {
+        print("AddToCartAction")
+        guard let idSize = idSizeChoose else {
+            print("id for size is nil")
+            showAlert(title: "Sorry!", message: "Please choose your size product")
+            return
+        }
+        self.detailVM.addToCart(productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!)
+    }
     
+    //MARK: FUNCTIONS
     func ratingStarData(rating: Double) {
         var collectStar = [Star]()
         var colors = [UIColor]()
@@ -180,6 +161,37 @@ class DetailViewController: UIViewController {
         star4.tintColor = colors[3]
         star5.tintColor = colors[4]
     }
+    func isProductInWishlists(completion: @escaping (Bool) -> Void) {
+        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.wishlist = wishlist.data
+                guard let productId = self.productId else { return }
+                let products = wishlist.data.products
+                if ((products?.contains(where: { productWishlist in
+                    productWishlist.id == productId
+                })) != nil){
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
+        }
+    }
+    func setProduct() {
+        imageProduct.setImageWithPlugin(url: (detailProductData?.data.imageURL)!)
+        categoryBrand.text = detailProductData?.data.category.category.capitalized
+        titleBarang.text = detailProductData?.data.name
+        priceLabel.text = "$\(detailProductData?.data.price ?? 0)"
+        descriptionLabel.text = detailProductData?.data.description
+        if let reviews = detailProductReviews.first {
+            ratingLabel.text = String(reviews.rating)
+            ratingStarData(rating: Double(reviews.rating))
+            commentTime.text = DateTimeUtils.shared.formatReview(date: reviews.createdAt)
+            commentName.text = reviews.fullName
+            commentReview.text = reviews.comment
+        }
+    }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -190,9 +202,24 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SizeDetailCollectionViewCell.identifier, for: indexPath) as? SizeDetailCollectionViewCell else {
             return UICollectionViewCell() }
         cell.labelSize.text = detailProductSize[indexPath.row].size.uppercased()
+        if indexPath == selectedIndexPath {
+            cell.viewSize.backgroundColor = UIColor(hex: "#9775FA")
+            cell.labelSize.textColor = .white
+            } else {
+                cell.viewSize.backgroundColor = UIColor(named: "colorbrand")
+            cell.labelSize.textColor = UIColor(named: "FontSetColor")
+            }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 60)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        let selectedProduct = detailProductSize[indexPath.row]
+        
+        self.idSizeChoose = selectedProduct.id
+        print("ketika pilihan size diklik isinya:", String(idSizeChoose!))
+        collectionView.reloadData()
     }
 }

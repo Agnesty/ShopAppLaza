@@ -114,11 +114,10 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.peopleName.text = "\(reviews.fullName)"
             cell.textReviews.text = "\(reviews.comment)"
             cell.reviews.text = "\(reviews.rating)"
+            cell.ratingStarData(rating: reviews.rating)
             cell.waktuReview.text = "\(DateTimeUtils.shared.formatReview(date: reviews.createdAt))"
         }
-        if let ratingAvrg = self.allReviews?.data.ratingAvrg {
-            cell.ratingStarData(rating: ratingAvrg)
-        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

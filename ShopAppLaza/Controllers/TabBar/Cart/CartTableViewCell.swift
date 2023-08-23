@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol deleteProductInCartProtocol: AnyObject {
+    func deleteProductCart(cell: CartTableViewCell)
+}
+
 class CartTableViewCell: UITableViewCell {
-    
+    private let cartTableVM = CartTableViewModel()
     static let identifier = "tableViewCart"
     static func nib() -> UINib {
         return UINib(nibName: "CartTableViewCell", bundle: nil)
     }
-    
+    weak var delegate: deleteProductInCartProtocol?
     var currentNumber = 0
     
     //MARK: IBOutlet
@@ -27,6 +31,7 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var jumlahProduct: UILabel!
     @IBOutlet weak var increaseBtn: UIButton!
     @IBOutlet weak var decreaseBtn: UIButton!
+    @IBOutlet weak var sizeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,8 +40,6 @@ class CartTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     //MARK: IBAction
@@ -53,6 +56,9 @@ class CartTableViewCell: UITableViewCell {
         currentNumber += 1
         updateLabelJumlahProduct()
         increaseBtn.tintColor = UIColor(hex: "#8F959E")
+    }
+    @IBAction func deleteCartProductAction(_ sender: UIButton) {
+        delegate?.deleteProductCart(cell: self)
     }
     
     //MARK: FUNCTION

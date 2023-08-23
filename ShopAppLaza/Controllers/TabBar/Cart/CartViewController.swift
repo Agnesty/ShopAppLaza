@@ -8,6 +8,10 @@
 import UIKit
 
 class CartViewController: UIViewController {
+    private let cartVM = CartViewModel()
+    private let cartTableVM = CartTableViewModel()
+    var dataCart: DataCart?
+    var allSizes: AllSize?
     
     //MARK: IBOutlet
     @IBOutlet weak var tableView: UITableView!
@@ -40,10 +44,36 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cartTableVM.cartTableVC = self
         setupTabBarItemImage()
+        cartVM.getProducInCart(accessTokenKey: APIService().token!) { cartProduct in
+            DispatchQueue.main.async { [weak self] in
+                self?.dataCart = cartProduct.data
+                self?.tableView.reloadData()
+            }
+        }
+        
+        cartVM.getAllSize { allSize in
+            DispatchQueue.main.async { [weak self] in
+                self?.allSizes = allSize
+                print("apakah ini allSizes ke get", allSize)
+            }
+        }
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CartTableViewCell.nib(), forCellReuseIdentifier: CartTableViewCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cartVM.getProducInCart(accessTokenKey: APIService().token!) { cartProduct in
+            DispatchQueue.main.async { [weak self] in
+                self?.dataCart = cartProduct.data
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     //MARK: IBAction
@@ -63,17 +93,49 @@ class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return dataCart?.products?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CartTableViewCell.identifier, for: indexPath) as? CartTableViewCell else { return UITableViewCell() }
-        
+        if let dataCart = dataCart?.products?[indexPath.row] {
+            cell.labelNameProduct.text = dataCart.productName
+            cell.imageProduct.setImageWithPlugin(url: dataCart.imageURL)
+            cell.jumlahProduct.text = "\(dataCart.quantity)"
+            cell.priceProduct.text = "$\(dataCart.price)"
+            cell.sizeLabel.text = "Size: \(dataCart.size)"
+        }
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
+    
+}
+
+extension CartViewController: deleteProductInCartProtocol {
+    func deleteProductCart(cell: CartTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if let dataCart = dataCart?.products?[indexPath.row] {
+            
+            var sizeId = -1
+            guard let allSizeData = allSizes?.data else { return }
+            for index in 0..<allSizeData.count {
+                print("ini index:", index)
+                if allSizeData[index].size == dataCart.size {
+                    print("ini ke2 index:", allSizeData[index].size)
+                    print("ini ke 3 index", dataCart.size)
+                    sizeId = allSizeData[index].id
+                    break
+                }
+            }
+            print(sizeId)
+            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: sizeId, accessTokenKey: APIService().token!)
+            
+        }
+    }
+    
     
 }

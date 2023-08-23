@@ -47,7 +47,6 @@ class CategoryTableViewCell: UITableViewCell {
     
     @IBAction func viewAllBrand(_ sender: UIButton) {
         delegate?.ViewAllBrandPush()
-//        self.navigationController?.pushViewController(performVABrand, animated: true)
     }
     
 //        func brandSizeForItemAt(sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -64,7 +63,7 @@ class CategoryTableViewCell: UITableViewCell {
 
 extension CategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(3, category.count)
+        return min(5, category.count)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellBrand = collectionView.dequeueReusableCell(withReuseIdentifier: BrandCollectionViewCell.identifier, for: indexPath) as? BrandCollectionViewCell else { return UICollectionViewCell() }

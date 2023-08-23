@@ -9,10 +9,12 @@ import UIKit
 
 class CategoryDetailView: UIViewController {
     private let categoryDetailVM = CategoryDetailViewModel()
-    var idProduct: Int?
-    var categoryDetail: DetailBrand?
+    var name: String = ""
+    var img: String = ""
+    var categoryDetail = [Datum]()
     
     //MARK: IBOutlet
+    @IBOutlet weak var countItems: UILabel!
     @IBOutlet weak var logoImage: UIImageView!{
         didSet{
             logoImage.layer.cornerRadius = CGFloat(10)
@@ -23,18 +25,19 @@ class CategoryDetailView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryDetailVM.categoryDetailVC = self
-        categoryDetailVM.getCategoryDetailById(id: idProduct!) { [weak self] detailBrand in
+        categoryDetailVM.getDetailBrandById(name: name) { [weak self] produkBrand in
             DispatchQueue.main.async {
-                self?.categoryDetail = detailBrand
-                self?.logoImage.setImageWithPlugin(url: detailBrand.data.logo_url)
+                self?.categoryDetail = produkBrand.data
+                print("ini adalah produk brand", produkBrand)
+                self?.countItems.text = String((self?.categoryDetail.count)!) + " items"
+                self?.logoImage.setImageWithPlugin(url: self!.img)
                 self?.categoryBrandCollection.reloadData()
             }
+            
         }
-        
         categoryBrandCollection.dataSource = self
         categoryBrandCollection.delegate = self
         categoryBrandCollection.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
-        
     }
     
     //MARK: IBAction
@@ -46,14 +49,15 @@ class CategoryDetailView: UIViewController {
 
 extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return categoryDetail.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
-        if let categoryBrand = categoryDetail?.data {
-            cell.imageProduct.setImageWithPlugin(url: categoryBrand.logo_url)
-            cell.titleProduk.text = categoryBrand.name.capitalized
-        }
+        let categoryBrand = categoryDetail[indexPath.row]
+        cell.imageProduct.setImageWithPlugin(url: categoryBrand.imageURL)
+        cell.titleProduk.text = categoryBrand.name.capitalized
+        cell.priceProduk.text = "$\(String(categoryBrand.price))"
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

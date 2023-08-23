@@ -62,3 +62,10 @@ struct Size: Codable {
     let id: Int
     let size: String
 }
+
+//MARK: - Get All Size
+struct AllSize: Codable {
+    let status: String
+    let isError: Bool
+    let data: [Size]
+}

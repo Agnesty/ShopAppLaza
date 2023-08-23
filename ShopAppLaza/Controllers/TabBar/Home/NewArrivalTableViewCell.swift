@@ -13,7 +13,6 @@ protocol NewArrivalDidSelectItemDelegate: AnyObject {
 }
 
 class NewArrivalTableViewCell: UITableViewCell {
-    
     static let identifier = "newArrivalTableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: "NewArrivalTableViewCell", bundle: nil)
@@ -22,6 +21,8 @@ class NewArrivalTableViewCell: UITableViewCell {
     var productAPI = [WelcomeElement]()
     private var newArrivalTableVM = NewArrivalTableViewModel()
     weak var delegate: NewArrivalDidSelectItemDelegate?
+    var searchTextActive: Bool = false
+    var filterProduct: [WelcomeElement] = []
 
     //MARK: IBOutlet
     @IBOutlet weak var collectionNewArrival: DynamicHeightCollectionView!
@@ -49,15 +50,24 @@ class NewArrivalTableViewCell: UITableViewCell {
 
 extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(6, productAPI.count)
+        if searchTextActive == true {
+            print("apakah ini ada isinya:", filterProduct.count)
+            return filterProduct.count
+        } else {
+            return min(6, productAPI.count)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellNewArraival = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
-        if indexPath.row < productAPI.count {
-            let newArraival = productAPI[indexPath.row]
-            cellNewArraival.imageProduct.setImageWithPlugin(url: newArraival.image_url)
-            cellNewArraival.titleProduk.text = newArraival.name
-            cellNewArraival.priceProduk.text = "$\(String(newArraival.price))"
+        if searchTextActive == true {
+            _ = filterProduct[indexPath.item]
+        } else {
+            if indexPath.row < productAPI.count {
+                let newArraival = productAPI[indexPath.row]
+                cellNewArraival.imageProduct.setImageWithPlugin(url: newArraival.image_url)
+                cellNewArraival.titleProduk.text = newArraival.name
+                cellNewArraival.priceProduk.text = "$\(String(newArraival.price))"
+            }
         }
             return cellNewArraival
     }
@@ -73,6 +83,18 @@ extension NewArrivalTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productModel = productAPI[indexPath.item]
-        delegate?.NewArrivalItemSelectNavigation(didSelectItemAt: indexPath, productModel: productModel)
+        if searchTextActive == true {
+            delegate?.NewArrivalItemSelectNavigation(didSelectItemAt: indexPath, productModel: productModel)
+        } else {
+            delegate?.NewArrivalItemSelectNavigation(didSelectItemAt: indexPath, productModel: productModel)
+        }
+    }
+}
+
+extension NewArrivalTableViewCell: searchProductHomeProtocol {
+    func searchProdFetch(isActive: Bool, textString: String) {
+        searchTextActive = isActive
+        filterProduct = productAPI.filter{$0.name.contains(textString)}
+        self.collectionNewArrival.reloadData()
     }
 }

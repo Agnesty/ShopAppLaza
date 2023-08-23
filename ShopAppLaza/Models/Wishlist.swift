@@ -17,7 +17,7 @@ struct Wishlist: Codable {
 // MARK: - DataClass
 struct DataWishlist: Codable {
     let total: Int
-    let products: [ProductWishlist]
+    let products: [ProductWishlist]?
 }
 
 // MARK: - Product

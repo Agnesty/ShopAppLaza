@@ -86,11 +86,22 @@
                                 <color key="tintColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="trash.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="deleteCartProductAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dWP-EY-L2t"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UU1-OH-iST">
+                                <rect key="frame" x="135" y="67" width="21.666666666666657" height="13.333333333333329"/>
+                                <fontDescription key="fontDescription" name="Inter-Light" family="Inter" pointSize="11"/>
+                                <color key="textColor" red="0.56078431370000004" green="0.58431372550000005" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="UU1-OH-iST" firstAttribute="top" secondItem="3cV-iz-Sz7" secondAttribute="bottom" constant="2" id="7eu-OV-HIK"/>
                             <constraint firstAttribute="bottom" secondItem="wC5-8u-Ucr" secondAttribute="bottom" constant="10" id="FCK-VP-CVQ"/>
                             <constraint firstItem="wC5-8u-Ucr" firstAttribute="leading" secondItem="Vru-7J-478" secondAttribute="trailing" constant="9" id="Hqd-bk-zjr"/>
+                            <constraint firstItem="UU1-OH-iST" firstAttribute="leading" secondItem="G4E-aO-EVN" secondAttribute="trailing" constant="15" id="JjU-tS-uPB"/>
                             <constraint firstAttribute="bottom" secondItem="Vru-7J-478" secondAttribute="bottom" constant="13" id="Kha-gr-sdC"/>
                             <constraint firstItem="3cV-iz-Sz7" firstAttribute="leading" secondItem="G4E-aO-EVN" secondAttribute="trailing" constant="15" id="RP0-DV-D1W"/>
                             <constraint firstAttribute="trailing" secondItem="EO8-Rc-UdT" secondAttribute="trailing" constant="20" id="WoI-PD-eo2"/>
@@ -123,6 +134,7 @@
                 <outlet property="jumlahProduct" destination="Vru-7J-478" id="tL0-He-Eyo"/>
                 <outlet property="labelNameProduct" destination="3Sn-BF-XaE" id="SFC-IK-k7K"/>
                 <outlet property="priceProduct" destination="3cV-iz-Sz7" id="4SM-kL-5kN"/>
+                <outlet property="sizeLabel" destination="UU1-OH-iST" id="m9A-yp-qIV"/>
             </connections>
             <point key="canvasLocation" x="147.32824427480915" y="15.140845070422536"/>
         </tableViewCell>

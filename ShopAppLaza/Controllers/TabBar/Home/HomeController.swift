@@ -8,11 +8,17 @@
 import UIKit
 import SideMenu
 
+protocol searchProductHomeProtocol: AnyObject {
+    func searchProdFetch(isActive: Bool, textString: String)
+}
+
 class HomeController: UIViewController {
     var loggedInUser: UserElement?
     private var sideMenuNav: SideMenuNavigationController?
+    private var homeVM = HomeViewModel()
     
     //MARK: IBOutlet
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     private lazy var menuButton: UIButton = {
         let menuButton = UIButton.init(type: .custom)
@@ -51,6 +57,14 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         setupTabBarItemImage()
         view.addSubview(menuButton)
+        
+        searchBar.delegate = self
+        
+//        homeVM?.getSeacrhByName(key: searchBar.text!, completion: { searchProduct in
+//            DispatchQueue.main.async { [weak self] in
+//
+//            }
+//        })
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -80,6 +94,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             cellProduct.onReload = { [weak self] in
                 self?.tableView.reloadData()
             cellProduct.delegate = self
+                self?.homeVM.delegateSearch = cellProduct
             }
             return cellProduct
         }
@@ -102,6 +117,7 @@ extension HomeController: NewArrivalDidSelectItemDelegate {
     func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement) {
         guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
+        newArrivalDetailView.productId = productModel.id
         newArrivalDetailView.product = productModel
     }
 }
@@ -114,7 +130,8 @@ extension HomeController: CategoryBrandSelectItemDelegate {
     
     func CategoryItemSelectNavigation(didSelectItem indexPath: IndexPath, category: DescriptionBrand) {
         guard let categoryDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "CategoryDetailView") as? CategoryDetailView else { return }
-        categoryDetailView.idProduct = category.id
+        categoryDetailView.name = category.name
+        categoryDetailView.img = category.logo_url
         self.navigationController?.pushViewController(categoryDetailView, animated: true)
     }
 }
@@ -123,5 +140,12 @@ extension HomeController: SideMenuControllerDelegate {
     func logoutPressed() {
         sideMenuNav?.dismiss(animated: true)
         navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension HomeController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        homeVM.performSearch(with: searchText)
+        tableView.reloadData()
     }
 }
