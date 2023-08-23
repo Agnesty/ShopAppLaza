@@ -11,7 +11,7 @@ class CartTableViewModel {
     var cartTableVC: CartViewController?
     var loading: (() -> Void)?
     
-    func deleteProductCart(productId: Int, sizeId: Int, accessTokenKey: String) {
+    func deleteProductCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
         print("awalan")
         guard let unwrappedVC = cartTableVC else { return }
         guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
@@ -42,13 +42,16 @@ class CartTableViewModel {
                             let status = jsonResponse["status"] as? String {
                                DispatchQueue.main.async {
                                    self.loading?()
-                                   unwrappedVC.showAlert(title: "Cart Update", message: data)
-                                   print("Status Check:", status)
+                                   unwrappedVC.showAlert(title: "Cart Update", message: data) {
+                                       print("Status Check:", status)
+                                       completion(status == "OK")
+                                   }
                                }
                            }
                        }
                 } catch {
                     print("JSON Serialization Error: \(error)")
+                    completion(false)
                 }
             }
         }.resume()

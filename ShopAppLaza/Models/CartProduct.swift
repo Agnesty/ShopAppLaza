@@ -16,7 +16,7 @@ struct CartProduct: Codable {
 
 // MARK: - DataCart
 struct DataCart: Codable {
-    let products: [ProductCart]?
+    var products: [ProductCart]?
     let orderInfo: OrderInfo
 
     enum CodingKeys: String, CodingKey {

@@ -83,7 +83,7 @@ class DetailViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
-        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
+        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: product!.id) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
                 if let message = self?.updateWishlist?.data {

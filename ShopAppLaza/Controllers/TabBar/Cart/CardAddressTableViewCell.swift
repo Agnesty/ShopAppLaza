@@ -13,11 +13,17 @@ class CardAddressTableViewCell: UITableViewCell {
     static func nib() -> UINib {
         return UINib(nibName: "CardAddressTableViewCell", bundle: nil)
     }
+    
+    //MARK: IBOutlet
     @IBOutlet weak var viewContainer: UIView!{
         didSet{
             viewContainer.layer.cornerRadius = CGFloat(10)
         }
     }
+    @IBOutlet weak var receiveName: UILabel!
+    @IBOutlet weak var phoneNo: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var cityCountry: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,5 +35,6 @@ class CardAddressTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     
 }

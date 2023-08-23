@@ -33,14 +33,7 @@ class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         favoriteVM.favoriteViewCtr = self
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
-            DispatchQueue.main.async {
-                self?.wishlist = wishlist
-                self?.countWishlist.text = "\(wishlist.data.total) items"
-                self?.collectionWishlist.reloadData()
-            }
-        }
-        
+        getFavorite()
         setupTabBarItemImage()
         collectionWishlist.dataSource = self
         collectionWishlist.delegate = self
@@ -50,6 +43,11 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getFavorite()
+    }
+    
+    //MARK: FUNCTION
+    func getFavorite() {
         self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async {
                 self?.wishlist = wishlist
@@ -58,8 +56,6 @@ class FavoriteViewController: UIViewController {
             }
         }
     }
-    
-    //MARK: IBAction
     
     
 }

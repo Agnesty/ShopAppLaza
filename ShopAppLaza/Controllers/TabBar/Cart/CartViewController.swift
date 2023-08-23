@@ -37,7 +37,7 @@ class CartViewController: UIViewController {
         label.text = "Order"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
-
+        
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
         tabBarItem.selectedImage = UIImage(view: label)
     }
@@ -46,20 +46,13 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
         cartTableVM.cartTableVC = self
         setupTabBarItemImage()
-        cartVM.getProducInCart(accessTokenKey: APIService().token!) { cartProduct in
-            DispatchQueue.main.async { [weak self] in
-                self?.dataCart = cartProduct.data
-                self?.tableView.reloadData()
-            }
-        }
+        getAllCartData()
         
         cartVM.getAllSize { allSize in
             DispatchQueue.main.async { [weak self] in
                 self?.allSizes = allSize
-                print("apakah ini allSizes ke get", allSize)
             }
         }
-        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -68,12 +61,7 @@ class CartViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cartVM.getProducInCart(accessTokenKey: APIService().token!) { cartProduct in
-            DispatchQueue.main.async { [weak self] in
-                self?.dataCart = cartProduct.data
-                self?.tableView.reloadData()
-            }
-        }
+        getAllCartData()
     }
     
     //MARK: IBAction
@@ -88,6 +76,16 @@ class CartViewController: UIViewController {
     @IBAction func paymentBtnAction(_ sender: UIButton) {
         guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentMethodViewController") as? PaymentMethodViewController else { return }
         self.navigationController?.pushViewController(performPaymentMethod, animated: true)
+    }
+    
+    //MARK: FUNCTION
+    func getAllCartData() {
+        DispatchQueue.main.async {
+            self.cartVM.getProducInCart(accessTokenKey: APIService().token!) { [weak self] cartProduct in
+                self?.dataCart = cartProduct.data
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -132,7 +130,12 @@ extension CartViewController: deleteProductInCartProtocol {
                 }
             }
             print(sizeId)
-            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: sizeId, accessTokenKey: APIService().token!)
+            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: sizeId, accessTokenKey: APIService().token!) { bool in
+                if bool == true {
+                    self.getAllCartData()
+                }
+            }
+            
             
         }
     }
