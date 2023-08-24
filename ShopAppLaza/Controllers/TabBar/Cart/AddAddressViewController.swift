@@ -9,7 +9,8 @@ import UIKit
 
 class AddAddressViewController: UIViewController {
     private let addAddressVM = AddAddressViewModel()
-    
+    var userAddresses: DataAllAddress?
+    var trueUpdate: Bool?
     
     //MARK: IBOutlet
     
@@ -24,6 +25,13 @@ class AddAddressViewController: UIViewController {
         super.viewDidLoad()
         
         addAddressVM.addAddressCtr = self
+        if let previousValue = userAddresses {
+            nameTF.text = previousValue.receiverName
+            countryTF.text = previousValue.country
+            cityTF.text = previousValue.city
+            phoneNoTF.text = previousValue.phoneNumber
+            addressTF.text = previousValue.city
+        }
         
     }
     
@@ -34,7 +42,20 @@ class AddAddressViewController: UIViewController {
     @IBAction func saveAddressAction(_ sender: UIButton) {
         print("save address")
         let isSwitchOn = savePrimaryAddress.isOn
-        addAddressVM.addAddressCart(country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNumber: phoneNoTF.text!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
+        if trueUpdate == true {
+            print("isi true update")
+            if let address = userAddresses {
+                addAddressVM.editAddressById(id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn) { bool in
+                    if bool == true {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                trueUpdate = false
+            }
+        } else {
+            print("isi false update")
+            addAddressVM.addAddressCart(country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNumber: phoneNoTF.text!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
+        }
     }
     
     

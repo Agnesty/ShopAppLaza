@@ -83,7 +83,7 @@ class DetailViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
-        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: product!.id) { [weak self] updateWishlist in
+        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
                 if let message = self?.updateWishlist?.data {
@@ -123,7 +123,8 @@ class DetailViewController: UIViewController {
             showAlert(title: "Sorry!", message: "Please choose your size product")
             return
         }
-        self.detailVM.addToCart(productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!)
+        self.detailVM.addToCart(productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!) { _ in
+        }
     }
     
     //MARK: FUNCTIONS
@@ -167,10 +168,12 @@ class DetailViewController: UIViewController {
                 guard let self = self else { return }
                 self.wishlist = wishlist.data
                 guard let productId = self.productId else { return }
-                let products = wishlist.data.products
-                if ((products?.contains(where: { productWishlist in
+                guard let products = wishlist.data.products else { return }
+                print(productId)
+                print(products)
+                if ((products.contains(where: { productWishlist in
                     productWishlist.id == productId
-                })) != nil){
+                }))) {
                     completion(true)
                 } else {
                     completion(false)

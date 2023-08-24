@@ -7,12 +7,18 @@
 
 import UIKit
 
+protocol deleteAddressProtocol: AnyObject {
+    func deleteAddress(cell: CardAddressTableViewCell)
+    func editAddress(cell: CardAddressTableViewCell)
+}
+
 class CardAddressTableViewCell: UITableViewCell {
     
     static let identifier = "cardAddress"
     static func nib() -> UINib {
         return UINib(nibName: "CardAddressTableViewCell", bundle: nil)
     }
+    weak var delegate: deleteAddressProtocol?
     
     //MARK: IBOutlet
     @IBOutlet weak var viewContainer: UIView!{
@@ -36,5 +42,14 @@ class CardAddressTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //MARK: IBAction
+    
+    @IBAction func editAddress(_ sender: UIButton) {
+        delegate?.editAddress(cell: self)
+    }
+    
+    @IBAction func deleteAddress(_ sender: UIButton) {
+        delegate?.deleteAddress(cell: self)
+    }
     
 }

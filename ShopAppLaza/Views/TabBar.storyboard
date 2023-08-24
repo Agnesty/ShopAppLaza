@@ -815,19 +815,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1d0-4k-YE2">
-                                <rect key="frame" x="20" y="99" width="79" height="32.666666666666657"/>
+                                <rect key="frame" x="20" y="99" width="87.333333333333329" height="34"/>
                                 <fontDescription key="fontDescription" name="Inter-SemiBold" family="Inter" pointSize="28"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tell about yourself" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHt-H9-Jrv">
-                                <rect key="frame" x="20.000000000000007" y="136.66666666666666" width="121.66666666666669" height="17.666666666666657"/>
+                                <rect key="frame" x="20" y="138" width="130.66666666666666" height="18.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CyB-k7-6GQ">
-                                <rect key="frame" x="106.66666666666669" y="174.33333333333337" width="180" height="180"/>
+                                <rect key="frame" x="106.66666666666669" y="176.33333333333337" width="180" height="180"/>
                                 <color key="backgroundColor" name="FontSetColor2"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="K72-kz-A7W"/>
@@ -835,16 +835,16 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyo-8K-2hZ">
-                                <rect key="frame" x="20" y="374.33333333333331" width="353" height="20"/>
+                                <rect key="frame" x="20" y="376.33333333333331" width="353" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldz-gz-k1E" userLabel="ViewFullname">
-                                <rect key="frame" x="20" y="399.33333333333331" width="353" height="50"/>
+                                <rect key="frame" x="20" y="402" width="353" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fullname" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JzF-wU-Yvw">
-                                        <rect key="frame" x="10" y="15" width="333" height="20"/>
+                                        <rect key="frame" x="10" y="15.000000000000002" width="333" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                         <color key="textColor" name="FontSetColor"/>
                                         <nil key="highlightedColor"/>
@@ -859,16 +859,16 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35b-Co-LfW" userLabel="Username Label">
-                                <rect key="frame" x="20" y="469.33333333333331" width="353" height="20"/>
+                                <rect key="frame" x="20" y="472" width="353" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yaq-8Q-eDg" userLabel="ViewUsername">
-                                <rect key="frame" x="20" y="494.33333333333326" width="353" height="50"/>
+                                <rect key="frame" x="20" y="497.66666666666674" width="353" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzh-Fw-xZm">
-                                        <rect key="frame" x="10" y="15" width="333" height="20"/>
+                                        <rect key="frame" x="10" y="14.999999999999945" width="333" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                         <color key="textColor" name="FontSetColor"/>
                                         <nil key="highlightedColor"/>
@@ -883,16 +883,16 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6b-tP-8ef" userLabel="Email Label">
-                                <rect key="frame" x="20" y="564.33333333333337" width="353" height="20"/>
+                                <rect key="frame" x="20" y="567.66666666666663" width="353" height="20.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXu-rH-zbu" userLabel="ViewEmail">
-                                <rect key="frame" x="20" y="589.33333333333337" width="353" height="50"/>
+                                <rect key="frame" x="20" y="593.33333333333337" width="353" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDV-KN-F4b">
-                                        <rect key="frame" x="10" y="15" width="333" height="20"/>
+                                        <rect key="frame" x="10" y="15.000000000000002" width="333" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                         <color key="textColor" name="FontSetColor"/>
                                         <nil key="highlightedColor"/>
@@ -1435,7 +1435,10 @@
                         <outlet property="checkoutBtn" destination="LTN-VP-ZNV" id="m1D-83-1Ll"/>
                         <outlet property="imageDelivery" destination="LKK-wC-RNq" id="pRA-kJ-c1r"/>
                         <outlet property="imagePayment" destination="RB8-ge-xQo" id="xH7-cz-sxF"/>
+                        <outlet property="shippingCost" destination="1kV-cw-nHL" id="Zse-nL-Xq5"/>
+                        <outlet property="subtotalPrice" destination="tYP-z3-IdD" id="JUt-iT-i7j"/>
                         <outlet property="tableView" destination="kNi-So-I33" id="sWA-pC-Klx"/>
+                        <outlet property="totalPrice" destination="9By-EQ-9q3" id="P2r-9C-DMi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9n-KQ-zKE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

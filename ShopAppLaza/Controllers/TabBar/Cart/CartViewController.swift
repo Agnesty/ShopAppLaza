@@ -30,6 +30,10 @@ class CartViewController: UIViewController {
             imagePayment.layer.cornerRadius = CGFloat(10)
         }
     }
+    @IBOutlet weak var subtotalPrice: UILabel!
+    @IBOutlet weak var shippingCost: UILabel!
+    @IBOutlet weak var totalPrice: UILabel!
+    
     private func setupTabBarItemImage() {
         let label = UILabel()
         label.numberOfLines = 1
@@ -83,9 +87,25 @@ class CartViewController: UIViewController {
         DispatchQueue.main.async {
             self.cartVM.getProducInCart(accessTokenKey: APIService().token!) { [weak self] cartProduct in
                 self?.dataCart = cartProduct.data
+                if let orderInfo = self?.dataCart?.orderInfo {
+                    self?.subtotalPrice.text = "$\(orderInfo.subTotal)"
+                    self?.shippingCost.text = "$\(orderInfo.shippingCost)"
+                    self?.totalPrice.text = "$\(orderInfo.total)"
+                }
                 self?.tableView.reloadData()
             }
         }
+    }
+    func getSizeId(forSize size: String) -> Int {
+        var sizeId = -1
+        guard let allSizeData = allSizes?.data else { return sizeId }
+        for index in 0..<allSizeData.count {
+            if allSizeData[index].size == size {
+                sizeId = allSizeData[index].id
+                break
+            }
+        }
+        return sizeId
     }
 }
 
@@ -114,23 +134,44 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate{
 }
 
 extension CartViewController: deleteProductInCartProtocol {
+    func updateCountProduct(cell: CartTableViewCell, completion: @escaping (Int) -> Void) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if let dataCart = dataCart?.products?[indexPath.row] {
+            completion(dataCart.quantity)
+        }
+    }
+    
+    func increaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if let dataCart = dataCart?.products?[indexPath.row] {
+            let getSizeId = getSizeId(forSize: dataCart.size)
+            cartTableVM.increaseQuantityCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+                if bool == true {
+                    self.getAllCartData()
+                    completion(dataCart.quantity)
+                }
+            }
+        }
+    }
+    
+    func decreaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        if let dataCart = dataCart?.products?[indexPath.row] {
+            let getSizeId = getSizeId(forSize: dataCart.size)
+            cartTableVM.decreaseQuantityCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+                if bool == true {
+                    self.getAllCartData()
+                    completion(dataCart.quantity)
+                }
+            }
+        }
+    }
+    
     func deleteProductCart(cell: CartTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
-            
-            var sizeId = -1
-            guard let allSizeData = allSizes?.data else { return }
-            for index in 0..<allSizeData.count {
-                print("ini index:", index)
-                if allSizeData[index].size == dataCart.size {
-                    print("ini ke2 index:", allSizeData[index].size)
-                    print("ini ke 3 index", dataCart.size)
-                    sizeId = allSizeData[index].id
-                    break
-                }
-            }
-            print(sizeId)
-            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: sizeId, accessTokenKey: APIService().token!) { bool in
+            let getSizeId = getSizeId(forSize: dataCart.size)
+            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
                 if bool == true {
                     self.getAllCartData()
                 }

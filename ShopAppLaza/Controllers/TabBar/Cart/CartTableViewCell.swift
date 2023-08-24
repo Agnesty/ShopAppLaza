@@ -9,6 +9,9 @@ import UIKit
 
 protocol deleteProductInCartProtocol: AnyObject {
     func deleteProductCart(cell: CartTableViewCell)
+    func decreaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void)
+    func increaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void)
+    func updateCountProduct(cell: CartTableViewCell, completion: @escaping (Int) -> Void)
 }
 
 class CartTableViewCell: UITableViewCell {
@@ -50,12 +53,18 @@ class CartTableViewCell: UITableViewCell {
         }
         updateLabelJumlahProduct()
         decreaseBtn.tintColor = UIColor(hex: "#8F959E")
+        delegate?.decreaseQuantityCart(cell: self, completion: { currentNo in
+            self.currentNumber = currentNo
+        })
     }
     @IBAction func increaseBtnTapped(_ sender: UIButton) {
         increaseBtn.tintColor = UIColor(hex: "#AF52DE")
         currentNumber += 1
         updateLabelJumlahProduct()
         increaseBtn.tintColor = UIColor(hex: "#8F959E")
+        delegate?.increaseQuantityCart(cell: self, completion: { currentNo in
+            self.currentNumber = currentNo
+        })
     }
     @IBAction func deleteCartProductAction(_ sender: UIButton) {
         delegate?.deleteProductCart(cell: self)
@@ -63,6 +72,9 @@ class CartTableViewCell: UITableViewCell {
     
     //MARK: FUNCTION
     func updateLabelJumlahProduct() {
+        delegate?.updateCountProduct(cell: self, completion: { currentNo in
+            self.currentNumber = currentNo
+        })
         jumlahProduct.text = "\(currentNumber)"
     }
     

@@ -10,6 +10,7 @@ import Foundation
 class DetailViewModel {
     var detailViewCtr: DetailViewController?
     var loading: (() -> Void)?
+//    var fungsi: ((Bool) -> Void)?
     
     func getDetailProductById(id: Int, completion: @escaping (DetailProduct) -> Void) {
         guard let url = URL(string: "https://lazaapp.shop/products/\(id)") else { print("Invalid URL.")
@@ -75,8 +76,8 @@ class DetailViewModel {
         }.resume()
     }
     
-    func addToCart(productId: Int, sizeId: Int, accessTokenKey: String) {
-        print("awalan")
+    func addToCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        print("post add")
         guard let unwrappedVC = detailViewCtr else { return }
         guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
             print("Invalid URL.")
@@ -110,22 +111,28 @@ class DetailViewModel {
                             
                             DispatchQueue.main.async {
                                 self.loading?()
-                                unwrappedVC.showAlert(title: status, message: description)
+                                unwrappedVC.showAlert(title: status, message: description) {
+                                    completion(false)
+                                }
                             }
                         } else {
                             if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                 DispatchQueue.main.async {
                                     self.loading?()
-                                    unwrappedVC.showAlert(title: "Added to cart", message: "You have successfully added this product.")
+                                    unwrappedVC.showAlert(title: "Added to cart", message: "You have successfully added this product.") {
+                                        completion(true)
+                                    }
                                     print("BerhasilResponse: \(jsonResponse)")
                                 }
                             } else {
                                 print("Added to cart error: Unexpected Response Code")
+                                completion(false)
                             }
                         }
                     }
                 } catch {
                     print("JSON Serialization Error: \(error)")
+                    completion(false)
                 }
             }
         }.resume()
