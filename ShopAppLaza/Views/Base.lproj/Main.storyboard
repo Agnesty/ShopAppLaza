@@ -87,30 +87,8 @@
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8N-C8-tMF">
-                                <rect key="frame" x="20" y="359" width="353" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="k9l-e3-szf"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="facebook"/>
-                                <connections>
-                                    <action selector="facebookAction:" destination="nZW-wh-Ejx" eventType="touchUpInside" id="wmQ-wK-kH7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyQ-En-Zug">
-                                <rect key="frame" x="20" y="419" width="353" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="gUj-Uo-Bgu"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="twitter"/>
-                                <connections>
-                                    <action selector="twitterAction:" destination="nZW-wh-Ejx" eventType="touchUpInside" id="YeM-He-JOW"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-JS-Zhz">
-                                <rect key="frame" x="20" y="479" width="353" height="50"/>
+                                <rect key="frame" x="20" y="401" width="353" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MP3-Dw-k32"/>
                                 </constraints>
@@ -126,28 +104,21 @@
                         <constraints>
                             <constraint firstItem="Rbi-sM-o0q" firstAttribute="top" secondItem="4a2-eP-ry0" secondAttribute="top" constant="140" id="1GM-BQ-R8l"/>
                             <constraint firstItem="Rbi-sM-o0q" firstAttribute="leading" secondItem="Idf-VU-hnq" secondAttribute="leading" constant="60" id="625-MX-F06"/>
+                            <constraint firstItem="zXQ-JS-Zhz" firstAttribute="centerY" secondItem="4a2-eP-ry0" secondAttribute="centerY" id="6mp-ft-FMd"/>
                             <constraint firstItem="zXQ-JS-Zhz" firstAttribute="leading" secondItem="Idf-VU-hnq" secondAttribute="leading" constant="20" id="F4F-TG-W7j"/>
                             <constraint firstItem="WHE-A7-UMd" firstAttribute="leading" secondItem="Idf-VU-hnq" secondAttribute="leading" id="Ffl-8K-Lrs"/>
-                            <constraint firstItem="z8N-C8-tMF" firstAttribute="leading" secondItem="Idf-VU-hnq" secondAttribute="leading" constant="20" id="Gq6-g5-gH2"/>
                             <constraint firstAttribute="bottom" secondItem="WHE-A7-UMd" secondAttribute="bottom" id="I1C-PK-wMb"/>
                             <constraint firstItem="WHE-A7-UMd" firstAttribute="top" secondItem="Inl-r5-f0D" secondAttribute="bottom" constant="25" id="Ksg-qB-M4z"/>
                             <constraint firstItem="Idf-VU-hnq" firstAttribute="trailing" secondItem="Rbi-sM-o0q" secondAttribute="trailing" constant="60" id="NOU-14-c10"/>
-                            <constraint firstItem="Idf-VU-hnq" firstAttribute="trailing" secondItem="wyQ-En-Zug" secondAttribute="trailing" constant="20" id="Rkv-lE-fPk"/>
-                            <constraint firstItem="wyQ-En-Zug" firstAttribute="top" secondItem="z8N-C8-tMF" secondAttribute="bottom" constant="10" id="WGU-Sg-vzR"/>
-                            <constraint firstItem="Idf-VU-hnq" firstAttribute="trailing" secondItem="z8N-C8-tMF" secondAttribute="trailing" constant="20" id="dG8-Hw-tQi"/>
                             <constraint firstItem="Idf-VU-hnq" firstAttribute="trailing" secondItem="WHE-A7-UMd" secondAttribute="trailing" id="ef7-fA-9oL"/>
-                            <constraint firstItem="z8N-C8-tMF" firstAttribute="top" secondItem="Rbi-sM-o0q" secondAttribute="bottom" constant="185" id="h6F-EN-wRU"/>
-                            <constraint firstItem="zXQ-JS-Zhz" firstAttribute="top" secondItem="wyQ-En-Zug" secondAttribute="bottom" constant="10" id="hMX-qC-bIA"/>
                             <constraint firstItem="Inl-r5-f0D" firstAttribute="centerX" secondItem="4a2-eP-ry0" secondAttribute="centerX" id="lEo-0a-KWK"/>
                             <constraint firstItem="Idf-VU-hnq" firstAttribute="trailing" secondItem="zXQ-JS-Zhz" secondAttribute="trailing" constant="20" id="o2X-zq-GNd"/>
-                            <constraint firstItem="wyQ-En-Zug" firstAttribute="leading" secondItem="Idf-VU-hnq" secondAttribute="leading" constant="20" id="vpm-KI-wMU"/>
+                            <constraint firstItem="zXQ-JS-Zhz" firstAttribute="centerX" secondItem="4a2-eP-ry0" secondAttribute="centerX" id="uBs-UM-cxd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UNA-ag-vuO"/>
                     <connections>
-                        <outlet property="facebookUI" destination="z8N-C8-tMF" id="Am7-TC-160"/>
                         <outlet property="googleUI" destination="zXQ-JS-Zhz" id="2c3-VM-Bor"/>
-                        <outlet property="twitterUI" destination="wyQ-En-Zug" id="odi-uG-gtO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ck2-UE-1Si" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1286,11 +1257,9 @@
     <resources>
         <image name="backButton" width="45" height="45"/>
         <image name="check" width="20" height="20"/>
-        <image name="facebook" width="335" height="50"/>
         <image name="forgotPassImg" width="325" height="228"/>
         <image name="google" width="335" height="50"/>
         <image name="ic_view_pass" width="20" height="20"/>
-        <image name="twitter" width="335" height="50"/>
         <namedColor name="FontSetColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

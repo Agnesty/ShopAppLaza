@@ -54,6 +54,7 @@
 		334257E52A7245D0000CD97A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334257E42A7245D0000CD97A /* Product.swift */; };
 		334257E82A724BD3000CD97A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 334257E72A724BD3000CD97A /* SDWebImage */; };
 		334257EA2A724BD3000CD97A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 334257E92A724BD3000CD97A /* SDWebImageMapKit */; };
+		3343C24A2A96FF69008AEA92 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3343C2492A96FF69008AEA92 /* GoogleSignIn */; };
 		3347DF7E2A95B2C4002E70DE /* AddAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3347DF7D2A95B2C4002E70DE /* AddAddressViewModel.swift */; };
 		3347DF802A95BD97002E70DE /* AllAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3347DF7F2A95BD97002E70DE /* AllAddress.swift */; };
 		3347DF822A95BE42002E70DE /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3347DF812A95BE42002E70DE /* AddressViewModel.swift */; };
@@ -240,6 +241,7 @@
 				3322C1222A81E54400EEF0C7 /* StripeApplePay in Frameworks */,
 				3322C12E2A81E54400EEF0C7 /* StripePaymentsUI in Frameworks */,
 				334257EA2A724BD3000CD97A /* SDWebImageMapKit in Frameworks */,
+				3343C24A2A96FF69008AEA92 /* GoogleSignIn in Frameworks */,
 				3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */,
 				3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */,
 				334257E82A724BD3000CD97A /* SDWebImage in Frameworks */,
@@ -585,6 +587,7 @@
 				3322C1292A81E54400EEF0C7 /* StripePaymentSheet */,
 				3322C12B2A81E54400EEF0C7 /* StripePayments */,
 				3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */,
+				3343C2492A96FF69008AEA92 /* GoogleSignIn */,
 			);
 			productName = ShopAppLaza;
 			productReference = 332C98A32A701133003CAFD3 /* ShopAppLaza.app */;
@@ -617,6 +620,7 @@
 			packageReferences = (
 				334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
+				3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 332C98A42A701133003CAFD3 /* Products */;
 			projectDirPath = "";
@@ -945,7 +949,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = latihanAppSwift.ShopAppLaza;
+				PRODUCT_BUNDLE_IDENTIFIER = com.latihanAppSwift.ShopAppLaza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -974,7 +978,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = latihanAppSwift.ShopAppLaza;
+				PRODUCT_BUNDLE_IDENTIFIER = com.latihanAppSwift.ShopAppLaza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1020,6 +1024,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1074,6 +1086,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		3343C2492A96FF69008AEA92 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

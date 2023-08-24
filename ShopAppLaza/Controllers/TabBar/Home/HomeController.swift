@@ -59,13 +59,6 @@ class HomeController: UIViewController {
         view.addSubview(menuButton)
         
         searchBar.delegate = self
-        
-//        homeVM?.getSeacrhByName(key: searchBar.text!, completion: { searchProduct in
-//            DispatchQueue.main.async { [weak self] in
-//
-//            }
-//        })
-
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
@@ -86,16 +79,16 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             guard let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as? CategoryTableViewCell else { return UITableViewCell() }
             cellCategory.onReload = { [weak self] in
                 self?.tableView.reloadData()
-            cellCategory.delegate = self
             }
+            cellCategory.delegate = self
             return cellCategory
         } else {
             guard let cellProduct = tableView.dequeueReusableCell(withIdentifier: NewArrivalTableViewCell.identifier, for: indexPath) as? NewArrivalTableViewCell else { return UITableViewCell() }
             cellProduct.onReload = { [weak self] in
                 self?.tableView.reloadData()
-            cellProduct.delegate = self
                 self?.homeVM.delegateSearch = cellProduct
             }
+            cellProduct.delegate = self
             return cellProduct
         }
     }
@@ -110,11 +103,12 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeController: NewArrivalDidSelectItemDelegate {
     func ViewAllNewArrivalPush() {
+        print("ViewAllNewArrivalPush")
         guard let performViewAllNewArrival = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "NewArriveVAViewController") as? NewArriveVAViewController else { return }
         self.navigationController?.pushViewController(performViewAllNewArrival, animated: true)
     }
-    
     func NewArrivalItemSelectNavigation(didSelectItemAt indexPath: IndexPath, productModel: WelcomeElement) {
+        print("NewArrivalItemSelectNavigation")
         guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
         newArrivalDetailView.productId = productModel.id

@@ -60,4 +60,11 @@ extension NewArriveVAViewController: UICollectionViewDelegateFlowLayout, UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newArraival = productAPI[indexPath.row]
+        guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
+        newArrivalDetailView.productId = newArraival.id
+        newArrivalDetailView.product = newArraival
+    }
 }

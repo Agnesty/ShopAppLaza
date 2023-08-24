@@ -14,11 +14,18 @@ class AddressViewController: UIViewController {
     //MARK: IBOutlet
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var cardAddress: UITableView!
+    @IBOutlet weak var emptyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addressVM.detailViewCtr = self
         getAllAddress()
+        let countAddress = allAddresses?.data?.count
+        if countAddress == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
         
         cardAddress.dataSource = self
         cardAddress.delegate = self
@@ -28,6 +35,12 @@ class AddressViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllAddress()
+        let countAddress = allAddresses?.data?.count
+        if countAddress == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
     }
     
     //MARK: IBAction
@@ -54,7 +67,13 @@ class AddressViewController: UIViewController {
 
 extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allAddresses?.data?.count ?? 0
+        let countAddress = allAddresses?.data?.count
+        if countAddress == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
+        return countAddress ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

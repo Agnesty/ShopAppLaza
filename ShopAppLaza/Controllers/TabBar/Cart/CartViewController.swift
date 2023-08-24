@@ -14,6 +14,7 @@ class CartViewController: UIViewController {
     var allSizes: AllSize?
     
     //MARK: IBOutlet
+    @IBOutlet weak var emptyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var checkoutBtn: UIButton!{
         didSet{
@@ -51,6 +52,12 @@ class CartViewController: UIViewController {
         cartTableVM.cartTableVC = self
         setupTabBarItemImage()
         getAllCartData()
+        let countProduct = dataCart?.products?.count
+        if countProduct == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
         
         cartVM.getAllSize { allSize in
             DispatchQueue.main.async { [weak self] in
@@ -66,6 +73,12 @@ class CartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllCartData()
+        let countProduct = dataCart?.products?.count
+        if countProduct == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
     }
     
     //MARK: IBAction
@@ -111,7 +124,13 @@ class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataCart?.products?.count ?? 0
+        let countProduct = dataCart?.products?.count
+        if countProduct == 0 {
+            self.emptyLabel.isHidden = false
+        } else {
+            self.emptyLabel.isHidden = true
+        }
+        return countProduct ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,7 +159,6 @@ extension CartViewController: deleteProductInCartProtocol {
             completion(dataCart.quantity)
         }
     }
-    
     func increaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
@@ -153,7 +171,6 @@ extension CartViewController: deleteProductInCartProtocol {
             }
         }
     }
-    
     func decreaseQuantityCart(cell: CartTableViewCell, completion: @escaping (Int) -> Void) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
@@ -166,7 +183,6 @@ extension CartViewController: deleteProductInCartProtocol {
             }
         }
     }
-    
     func deleteProductCart(cell: CartTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
@@ -176,8 +192,6 @@ extension CartViewController: deleteProductInCartProtocol {
                     self.getAllCartData()
                 }
             }
-            
-            
         }
     }
     

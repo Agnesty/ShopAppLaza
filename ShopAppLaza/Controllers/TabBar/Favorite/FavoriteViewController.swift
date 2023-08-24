@@ -39,11 +39,22 @@ class FavoriteViewController: UIViewController {
         collectionWishlist.delegate = self
         collectionWishlist.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
         
+        if wishlist?.data.total == 0 {
+            self.emptyDataLabel.isHidden = false
+        } else {
+            self.emptyDataLabel.isHidden = true
+            }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getFavorite()
+        if wishlist?.data.total == 0 {
+            self.emptyDataLabel.isHidden = false
+        } else {
+            self.emptyDataLabel.isHidden = true
+            }
     }
     
     //MARK: FUNCTION
@@ -62,13 +73,13 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let countProduct = wishlist?.data.products
-        if countProduct?.count == 0 {
-        self.emptyDataLabel.isHidden = false
+        let countProduct = wishlist?.data.total
+        if countProduct == 0 {
+            self.emptyDataLabel.isHidden = false
         } else {
-        self.emptyDataLabel.isHidden = true
-        }
-        return countProduct?.count ?? 0
+            self.emptyDataLabel.isHidden = true
+            }
+        return countProduct ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -92,15 +103,6 @@ extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
-//        if let product = wishlist?.data.products?[indexPath.item] {
-//            let welcomeElement = WelcomeElement(
-//                id: product.id,
-//                name: product.name,
-//                image_url: product.imageURL,
-//                price: Double(product.price),
-//                created_at: product.createdAt)
-//            newArrivalDetailView.product = welcomeElement
-//        }
         newArrivalDetailView.productId = wishlist?.data.products?[indexPath.item].id
         self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
         

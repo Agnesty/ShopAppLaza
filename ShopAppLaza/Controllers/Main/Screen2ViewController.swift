@@ -6,22 +6,13 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class Screen2ViewController: UIViewController {
     
     private let screen2VM = Screen2ViewModel()
     
     //MARK: IBOutlet
-    @IBOutlet weak var facebookUI: UIButton!{
-        didSet{
-            facebookUI.layer.cornerRadius = CGFloat(10)
-        }
-    }
-    @IBOutlet weak var twitterUI: UIButton!{
-        didSet{
-            twitterUI.layer.cornerRadius = CGFloat(10)
-        }
-    }
     @IBOutlet weak var googleUI: UIButton!{
         didSet{
             googleUI.layer.cornerRadius = CGFloat(10)
@@ -47,9 +38,18 @@ class Screen2ViewController: UIViewController {
     }
     
     //MARK: IBAction
-    @IBAction func facebookAction(_ sender: UIButton) {}
-    @IBAction func twitterAction(_ sender: UIButton) {}
-    @IBAction func googleAction(_ sender: UIButton) {}
+    @IBAction func googleAction(_ sender: UIButton) {
+//        openSharedURL(appURL: "googlegmail://", webURL: "https://mail.google.com/")
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+                   guard error == nil else { return }
+                   guard let signInResult = signInResult else { return }
+                   
+                   // If sign in succeeded, display the app's main content View.
+                   print("Sign in success: \(String(describing: signInResult.user.profile?.email))")
+               }
+        
+        
+    }
     @IBAction func signInAction(_ sender: UIButton) {
         guard let signIn = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
         self.navigationController?.pushViewController(signIn, animated: true)
@@ -58,5 +58,27 @@ class Screen2ViewController: UIViewController {
         guard let createAccount = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return }
         self.navigationController?.pushViewController(createAccount, animated: true)
     }
+    
+    //MARK: FUNCTION
+    private func openSharedURL(appURL: String, webURL: String) {
+            guard let appURL = URL(string: appURL) else {
+                print("Invalid URL: \(appURL)")
+                return
+            }
+            let application = UIApplication.shared
+        
+            if application.canOpenURL(appURL) {
+                application.open(appURL)
+            } else {
+                // if app is not installed, open URL inside Safari
+                guard let webURL = URL(string: webURL) else {
+                    print("Invalid URL: \(webURL)")
+                    return
+                }
+                application.open(webURL)
+            }
+        }
+    
+
 
 }
