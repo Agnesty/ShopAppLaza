@@ -7,12 +7,13 @@
 import Foundation
 
 class SignUpViewModel {
-    var signUpViewCtr: SignUpViewController?
     var loading: (() -> Void)?
-    
-    func registerUser(fullname: String, username: String, email: String, password: String) {
-        guard let unwrappedVC = signUpViewCtr else { return }
-        let urlString = "https://lazaapp.shop/register"
+    var presentAlert: ((String, String) -> Void)?
+
+    func registerUser(fullname: String, username: String, email: String, password: String, isMockApi: Bool) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let register = EndpointPath.Register.rawValue
+        let urlString = "\(baseUrl)\(register)"
 
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -27,7 +28,7 @@ class SignUpViewModel {
         ]
 
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
@@ -48,17 +49,15 @@ class SignUpViewModel {
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
                                 
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "Sign-Up Successful", message: "Please verify your email first") {
-                                            unwrappedVC.goToLogin()
-                                        }
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("Sign-Up Successful", "Please verify your email first")
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {

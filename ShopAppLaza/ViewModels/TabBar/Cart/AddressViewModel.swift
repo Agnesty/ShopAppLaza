@@ -8,16 +8,19 @@
 import Foundation
 
 class AddressViewModel {
-    var detailViewCtr: AddressViewController?
     var loading: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func getAllAddress(accessTokenKey: String, completion: @escaping (AllAddress) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/address") else {
+    func getAllAddress(isMockApi: Bool, accessTokenKey: String, completion: @escaping (AllAddress) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let address = EndpointPath.Address.rawValue
+        let urlString = "\(baseUrl)\(address)"
+        guard let url = URL(string: urlString) else {
             print("Invalid URL.")
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = HttpMethod.GET.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -40,14 +43,16 @@ class AddressViewModel {
             }
         }.resume()
     }
-    func deleteAddressById(id: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
-        guard let unwrappedVC = detailViewCtr else { return }
-        guard let url = URL(string: "https://lazaapp.shop/address/\(id)") else {
+    func deleteAddressById(isMockApi: Bool, id: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let address = EndpointPath.Address.rawValue
+        let urlString = "\(baseUrl)\(address)"
+        guard let url = URL(string: "\(urlString)/\(id)") else {
             print("Invalid URL.")
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
+        request.httpMethod = HttpMethod.DELETE.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -63,13 +68,13 @@ class AddressViewModel {
                 if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let data = jsonResponse["data"] as? String,
                        let status = jsonResponse["status"] as? String{
-                        DispatchQueue.main.async {
-                            self.loading?()
-                            unwrappedVC.showAlert(title: "Cart Updated", message: data) {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.loading?()
+                            self?.presentAlert?("Cart Updated", data, {
                                 completion(status == "OK")
                                 print("Status Check:", status)
                                 print("Berhasil Response Please:", jsonResponse)
-                            }
+                            })
                         }
                     }
                 }

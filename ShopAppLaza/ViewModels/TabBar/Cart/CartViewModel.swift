@@ -8,8 +8,11 @@
 import Foundation
 
 class CartViewModel {
-    func getProducInCart(accessTokenKey: String, completion: @escaping (CartProduct) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/carts") else {
+    func getProducInCart(isMockApi: Bool, accessTokenKey: String, completion: @escaping (CartProduct) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let cart = EndpointPath.Cart.rawValue
+        let urlString = "\(baseUrl)\(cart)"
+        guard let url = URL(string: urlString) else {
             print("Invalid url.")
             return
         }
@@ -40,8 +43,11 @@ class CartViewModel {
         
     }
     
-    func getAllSize(completion: @escaping (AllSize) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/size") else {
+    func getAllSize(isMockApi: Bool, completion: @escaping (AllSize) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let size = EndpointPath.ProductSize.rawValue
+        let urlString = "\(baseUrl)\(size)"
+        guard let url = URL(string: urlString) else {
             print("Invalid url.")
             return
         }

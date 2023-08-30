@@ -13,11 +13,17 @@ class Screen2ViewController: UIViewController {
     private let screen2VM = Screen2ViewModel()
     
     //MARK: IBOutlet
+    
+    @IBOutlet weak var facebookUI: UIButton!
+    
+    @IBOutlet weak var twitterUI: UIButton!
+    
     @IBOutlet weak var googleUI: UIButton!{
         didSet{
             googleUI.layer.cornerRadius = CGFloat(10)
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

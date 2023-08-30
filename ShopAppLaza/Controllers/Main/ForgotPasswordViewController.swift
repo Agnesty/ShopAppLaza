@@ -9,6 +9,7 @@ import UIKit
 
 class ForgotPasswordViewController: UIViewController {
     private let forgotPassVM = ForgotPassViewModel()
+    private var emailValue: String?
     
     //MARK: IBOutlet
     @IBOutlet weak var confirmBtn: UIButton!
@@ -35,6 +36,8 @@ class ForgotPasswordViewController: UIViewController {
             indicatorLoading.isHidden = true
         }
     }
+    
+    
     //MARK: IBAction
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -52,6 +55,7 @@ class ForgotPasswordViewController: UIViewController {
         checkFormValidation()
     }
     @IBAction func confirmAction(_ sender: UIButton) {
+        emailValue = emailTF.text
         viewLoading.isHidden = false
         indicatorLoading.isHidden = false
         indicatorLoading.startAnimating()
@@ -62,13 +66,20 @@ class ForgotPasswordViewController: UIViewController {
                 self.indicatorLoading.stopAnimating()
             }
         }
-        forgotPassVM.forgotPassSendAPICode(email: emailTF.text!)
+        
+        forgotPassVM.forgotPassSendAPICode(email: emailTF.text!, isMockApi: false)
         resetForm()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        forgotPassVM.forgotPassViewCtr = self
+        forgotPassVM.navigateToVerificationCode = { [weak self] in
+            guard let email = self?.emailValue else { return }
+            self?.goToVerificationCode(email: email)
+        }
+        forgotPassVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
         navigationItem.hidesBackButton = true
         confirmBtn.isEnabled = false
         emailTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)

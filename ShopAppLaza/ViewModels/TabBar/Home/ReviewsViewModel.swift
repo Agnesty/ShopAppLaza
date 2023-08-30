@@ -8,8 +8,11 @@
 import Foundation
 
 class ReviewsViewModel {
-    func getAllReviews(id: Int, completion: @escaping (AllReviews) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/products/\(id)/reviews") else { print("Invalid URL.")
+    func getAllReviews(isMockApi: Bool, id: Int, completion: @escaping (AllReviews) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let products = EndpointPath.Products.rawValue
+        let urlString = "\(baseUrl)\(products)"
+        guard let url = URL(string: "\(urlString)/\(id)/reviews") else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in

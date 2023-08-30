@@ -56,21 +56,19 @@ class SideMenuController: UIViewController {
         let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
         tabbar.selectedIndex = 2
         
-        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
+        self.navigationController?.pushViewController(tabbar, animated: true)
     }
     @IBAction func myCardsButtonAction(_ sender: UIButton) {
         let performMyTabBar = UIStoryboard(name: "TabBar", bundle: nil)
         let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
         tabbar.selectedIndex = 3
         
-        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
+        self.navigationController?.pushViewController(tabbar, animated: true)
     }
     @IBAction func wishlist(_ sender: UIButton) {
         let performMyTabBar = UIStoryboard(name: "TabBar", bundle: nil)
         let tabbar: UITabBarController = performMyTabBar.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
         tabbar.selectedIndex = 1
-        
-        self.navigationController?.view.window?.windowScene?.keyWindow?.rootViewController = tabbar
     }
     @IBAction func switchMode(_ sender: UISwitch) {
         if let window = UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first?.windows.first {

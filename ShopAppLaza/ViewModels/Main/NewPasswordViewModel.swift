@@ -8,26 +8,33 @@
 import Foundation
 
 class NewPasswordViewModel {
-    var newPasswordViewCtr: NewPasswordViewController?
     var loading: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
+    var navigateToLogin: (() -> Void)?
     
-    func newPassword(newPassword: String, rePassword: String, email: String, code: String) {
-        guard let unwrappedVC = newPasswordViewCtr else { return }
-        
-        let urlString = "https://lazaapp.shop/auth/recover/password?email=\(email)&code=\(code)"
-
-        guard let url = URL(string: urlString) else {
-            print("Invalid URL")
+    func newPassword(newPass: String, rePassword: String, email: String, code: String, isMockApi: Bool) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let newPassword = EndpointPath.NewPassword.rawValue
+        guard var components = URLComponents(string: "\(baseUrl)\(newPassword)") else {
+            print("Invalid URL.")
+            return
+        }
+        components.queryItems = [
+            URLQueryItem(name: "email", value: "\(email)"),
+            URLQueryItem(name: "code", value: "\(code)")
+        ]
+        guard let url = components.url else {
+            print("Invalid URL components.")
             return
         }
 
         let userData: [String: Any] = [
-            "new_password": newPassword,
+            "new_password": newPass,
             "re_password": rePassword,
         ]
 
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
@@ -48,17 +55,17 @@ class NewPasswordViewModel {
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
                                 
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "New Password Changed", message: "You have successfully changed your password.") {
-                                            unwrappedVC.goToLogin()
-                                        }
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("New Password Changed", "You have successfully changed your password.", {
+                                            self?.navigateToLogin?()
+                                        })
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {

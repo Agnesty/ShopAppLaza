@@ -26,8 +26,14 @@ class AddReviewController: UIViewController {
     @IBOutlet weak var contentStar: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        addReviewVM.addReviewCtr = self
+//        addReviewVM.addReviewCtr = self
         updateRating()
+        addReviewVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
+        addReviewVM.navigateToReview = { [weak self] in
+            self?.goToReview()
+        }
         
     }
     
@@ -41,7 +47,7 @@ class AddReviewController: UIViewController {
     }
     
     @IBAction func submitReviewAction(_ sender: UIButton) {
-        addReviewVM.AddReview(id: self.idProduct!, accessTokenKey: APIService().token!, comment: textView.text!, rating: Double(formatValue(Double(slider.value)))!)
+        addReviewVM.AddReview(isMockApi: false, id: self.idProduct!, accessTokenKey: APIService().token!, comment: textView.text!, rating: Double(formatValue(Double(slider.value)))!)
         
     }
     private func updateRating() {

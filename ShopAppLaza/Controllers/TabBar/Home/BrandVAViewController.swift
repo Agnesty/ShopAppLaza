@@ -10,19 +10,26 @@ import UIKit
 class BrandVAViewController: UIViewController {
     private var categoryTableVM = CategoryTableViewModel()
     private var categoryBrandVA = [DescriptionBrand]()
+    var isAscendingOrder = true
     
     //MARK: IBOutlet
+    @IBOutlet weak var sortBtn: UIButton!{
+        didSet{
+            sortBtn.setImage(UIImage(systemName: ""), for: .normal)
+            sortBtn.setTitle("Sort", for: .normal)
+        }
+    }
     @IBOutlet weak var countItems: UILabel!
     @IBOutlet weak var brandCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        sortData()
         DispatchQueue.main.async {
-            self.categoryTableVM.getDataCategories { [weak self] category in
+            self.categoryTableVM.getDataCategories(isMockApi: false) { [weak self] category in
                 guard let categoryResponse = category else { return }
                 self?.categoryBrandVA.append(contentsOf: categoryResponse.description)
-                self?.countItems.text = String((self?.categoryBrandVA.count)!)
+                self?.countItems.text = String((self?.categoryBrandVA.count)!) + " items"
                 self?.brandCollection.reloadData()
             }
         }
@@ -34,10 +41,34 @@ class BrandVAViewController: UIViewController {
     }
     
     //MARK: IBAction
-    
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func sortAction(_ sender: UIButton) {
+        toggleSortOrder()
+    }
+    
+    //MARK: FUNCTION
+    func toggleSortOrder() {
+        isAscendingOrder.toggle()
+        sortData()
+    }
+    func sortData() {
+        if sortBtn.currentImage == UIImage(systemName: ""){
+            sortBtn.setTitle(" Sort", for: .normal)
+            sortBtn.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
+        } else if isAscendingOrder {
+            categoryBrandVA.sort { $0.name < $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.first.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" A-Z", for: .normal)
+        } else if !isAscendingOrder {
+            categoryBrandVA.sort { $0.name > $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.last.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" Z-A", for: .normal)
+        }
+        brandCollection.reloadData()
+    }
+    
     
 }
 

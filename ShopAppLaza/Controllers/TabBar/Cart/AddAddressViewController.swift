@@ -24,7 +24,7 @@ class AddAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addAddressVM.addAddressCtr = self
+//        addAddressVM.addAddressCtr = self
         if let previousValue = userAddresses {
             nameTF.text = previousValue.receiverName
             countryTF.text = previousValue.country
@@ -33,6 +33,12 @@ class AddAddressViewController: UIViewController {
             addressTF.text = previousValue.city
         }
         
+        addAddressVM.navigateToBack = { [weak self] in
+            self?.goBackAfterAddAddress()
+        }
+        addAddressVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
     }
     
     //MARK: IBAction
@@ -45,7 +51,7 @@ class AddAddressViewController: UIViewController {
         if trueUpdate == true {
             print("isi true update")
             if let address = userAddresses {
-                addAddressVM.editAddressById(id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn) { bool in
+                addAddressVM.editAddressById(isMockApi: false, id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn) { bool in
                     if bool == true {
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -54,7 +60,7 @@ class AddAddressViewController: UIViewController {
             }
         } else {
             print("isi false update")
-            addAddressVM.addAddressCart(country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNumber: phoneNoTF.text!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
+            addAddressVM.addAddressCart(isMockApi: false, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNumber: phoneNoTF.text!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
         }
     }
     

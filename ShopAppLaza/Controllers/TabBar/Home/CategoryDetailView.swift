@@ -12,8 +12,16 @@ class CategoryDetailView: UIViewController {
     var name: String = ""
     var img: String = ""
     var categoryDetail = [Datum]()
+    var isAscendingOrder = true
     
     //MARK: IBOutlet
+    
+    @IBOutlet weak var sortBtn: UIButton!{
+        didSet{
+            sortBtn.setImage(UIImage(systemName: ""), for: .normal)
+            sortBtn.setTitle(" Sort", for: .normal)
+        }
+    }
     @IBOutlet weak var countItems: UILabel!
     @IBOutlet weak var logoImage: UIImageView!{
         didSet{
@@ -24,8 +32,8 @@ class CategoryDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoryDetailVM.categoryDetailVC = self
-        categoryDetailVM.getDetailBrandById(name: name) { [weak self] produkBrand in
+        sortData()
+        categoryDetailVM.getDetailBrandById(isMockApi: false, name: name) { [weak self] produkBrand in
             DispatchQueue.main.async {
                 self?.categoryDetail = produkBrand.data
                 print("ini adalah produk brand", produkBrand)
@@ -44,6 +52,30 @@ class CategoryDetailView: UIViewController {
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func sortAction(_ sender: UIButton) {
+        toggleSortOrder()
+    }
+    
+    //MARK: FUNCTION
+    func toggleSortOrder() {
+        isAscendingOrder.toggle()
+        sortData()
+    }
+    func sortData() {
+        if sortBtn.currentImage == UIImage(systemName: ""){
+            sortBtn.setTitle(" Sort", for: .normal)
+            sortBtn.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
+        } else if isAscendingOrder {
+            categoryDetail.sort { $0.name < $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.first.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" A-Z", for: .normal)
+        } else if !isAscendingOrder {
+            categoryDetail.sort { $0.name > $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.last.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" Z-A", for: .normal)
+        }
+        categoryBrandCollection.reloadData()
+    }
     
 }
 
@@ -56,7 +88,7 @@ extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelega
         let categoryBrand = categoryDetail[indexPath.row]
         cell.imageProduct.setImageWithPlugin(url: categoryBrand.imageURL)
         cell.titleProduk.text = categoryBrand.name.capitalized
-        cell.priceProduk.text = "$\(String(categoryBrand.price))"
+        cell.priceProduk.text = "Rp \(String(categoryBrand.price))"
         
         return cell
     }
@@ -70,6 +102,11 @@ extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailCategoryView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
+        self.navigationController?.pushViewController(detailCategoryView, animated: true)
+        let categoryBrand = categoryDetail[indexPath.row]
+        detailCategoryView.productId = categoryBrand.id
+    }
     
 }

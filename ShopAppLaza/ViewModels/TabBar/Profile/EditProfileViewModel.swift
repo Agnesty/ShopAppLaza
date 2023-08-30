@@ -7,12 +7,14 @@
 import UIKit
 
 class EditProfileViewModel {
-    var profileViewCtr: EditProfileViewController?
+//    var profileViewCtr: EditProfileViewController?
     var loading: (() -> Void)?
+    var navigateToBack: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func putRequest(image: UIImage, accessTokenKey: String, fullname: String, username: String, email: String) {
-        print("Calling putRequest...")
-        guard let unwrappedVC = profileViewCtr else { return }
+    func putRequest(isMockApi: Bool, image: UIImage, accessTokenKey: String, fullname: String, username: String, email: String) {
+//        print("Calling putRequest...")
+//        guard let unwrappedVC = profileViewCtr else { return }
         let parameters = ["full_name": fullname,
                           "username": username,
                           "email": email,
@@ -21,11 +23,14 @@ class EditProfileViewModel {
             print("Media creation failed")
             return }
         
-        guard let url = URL(string: "https://lazaapp.shop/user/update") else {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let userUpdate = EndpointPath.UserUpdate.rawValue
+        let urlString = "\(baseUrl)\(userUpdate)"
+        guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return }
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = HttpMethod.PUT.rawValue
         
         let boundary = generateBoundary()
         
@@ -44,11 +49,14 @@ class EditProfileViewModel {
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
                         if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
-                            DispatchQueue.main.async {
-                                self.loading?()
-                                unwrappedVC.showAlert(title: "Profile Data Changed", message: "Successfully changed your data profile") {
-                                    unwrappedVC.backBtn()
-                                }
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?("Profile Data Changed", "Successfully changed your data profile", {
+                                    self?.navigateToBack?()
+                                })
+//                                unwrappedVC.showAlert(title: "Profile Data Changed", message: "Successfully changed your data profile") {
+//                                    unwrappedVC.backBtn()
+//                                }
                             }
                             print("ini data response: \(json)")
                         }

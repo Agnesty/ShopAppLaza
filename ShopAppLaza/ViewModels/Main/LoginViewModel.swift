@@ -8,12 +8,15 @@
 import Foundation
 
 class LoginViewModel {
-    var loginViewCtr: LoginViewController?
     var loading: (() -> Void)?
+    var navigateToHome: (() -> Void)?
+    var navigateToVerifyEmail: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func loginUser() {
-        guard let unwrappedVC = loginViewCtr else { return }
-        let urlString = "https://lazaapp.shop/login"
+    func loginUser(username: String, password: String, isMockApi: Bool) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let login = EndpointPath.Login.rawValue
+        let urlString = "\(baseUrl)\(login)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -21,12 +24,12 @@ class LoginViewModel {
         }
         
         let userData: [String: Any] = [
-            "username": unwrappedVC.usernameTF.text ?? "",
-            "password": unwrappedVC.passwordTF.text ?? "",
+            "username": username,
+            "password": password,
         ]
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
         
         do {
@@ -46,23 +49,31 @@ class LoginViewModel {
                             if let isError = jsonResponse["isError"] as? Int, isError != 0,
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
-                                
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                if description == "please verify your account" {
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?(status, description, {
+                                            self?.navigateToVerifyEmail?()
+                                        })
+                                    }
+                                } else if description == "username or password is invalid" {
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?(status, description, nil)
+                                    }
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "Login Successful", message: "Congratulations! You have successfully Login.")
-                                        {
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("Login Successful", "Congratulations! You have successfully Login.", {
                                             if let data = jsonResponse["data"] as? [String: Any],
                                                let accessToken = data["access_token"] as? String {
                                                 UserDefaults.standard.set(accessToken, forKey: "accessToken")
-                                                unwrappedVC.goToHome()
+                                                self?.navigateToHome?()
                                             }
-                                        }
+                                        })
+                                        
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {

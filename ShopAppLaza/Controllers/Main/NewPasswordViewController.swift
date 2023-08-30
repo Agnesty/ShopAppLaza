@@ -43,11 +43,16 @@ class NewPasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        newPasswordVM.newPasswordViewCtr = self
         navigationItem.hidesBackButton = true
         resetPassBtn.isEnabled = false
         confirmPassTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         passwordTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
+        newPasswordVM.navigateToLogin = { [weak self] in
+            self?.goToLogin()
+        }
+        newPasswordVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
     }
     
     //MARK: IBAction
@@ -62,7 +67,7 @@ class NewPasswordViewController: UIViewController {
                 self.indicatorLoading.stopAnimating()
             }
         }
-        newPasswordVM.newPassword(newPassword: passwordTF.text!, rePassword: confirmPassTF.text!, email: email!, code: code!)
+        newPasswordVM.newPassword(newPass: passwordTF.text!, rePassword: confirmPassTF.text!, email: email!, code: code!, isMockApi: false)
         
     }
     @IBAction func hidePassButton(_ sender: UIButton) {

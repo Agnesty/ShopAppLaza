@@ -54,12 +54,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Determine the image name based on the message received
         guard let id = productId else { return }
-        detailVM.detailViewCtr = self
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
         
-        detailVM.getDetailProductById(id: id) {  detailById in
+        detailVM.getDetailProductById(id: id, isMockApi: false) {  detailById in
             DispatchQueue.main.async { [weak self] in
                 self?.detailProductData = detailById
                 self?.detailProductSize.append(contentsOf: detailById.data.size)
@@ -79,11 +78,14 @@ class DetailViewController: UIViewController {
             let image = UIImage(systemName: self.imageName)
             self.favorite.setImage(image, for: .normal)
         }
+        detailVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
     }
     
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
-        detailVM.putFavorite(accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
+        detailVM.putFavorite(isMockApi: false, accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
                 if let message = self?.updateWishlist?.data {
@@ -110,7 +112,7 @@ class DetailViewController: UIViewController {
     }
     @IBAction func viewAllReviewAction(_ sender: UIButton) {
         guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
-        performReviews.idProduct = product?.id
+        performReviews.idProduct = productId
         self.navigationController?.pushViewController(performReviews, animated: true)
     }
     @IBAction func backButton(_ sender: UIButton) {
@@ -123,7 +125,7 @@ class DetailViewController: UIViewController {
             showAlert(title: "Sorry!", message: "Please choose your size product")
             return
         }
-        self.detailVM.addToCart(productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!) { _ in
+        self.detailVM.addToCart(isMockApi: false, productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!) { _ in
         }
     }
     
@@ -163,7 +165,7 @@ class DetailViewController: UIViewController {
         star5.tintColor = colors[4]
     }
     func isProductInWishlists(completion: @escaping (Bool) -> Void) {
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
+        self.favoriteVM.getFavoriteList(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.wishlist = wishlist.data
@@ -185,7 +187,7 @@ class DetailViewController: UIViewController {
         imageProduct.setImageWithPlugin(url: (detailProductData?.data.imageURL)!)
         categoryBrand.text = detailProductData?.data.category.category.capitalized
         titleBarang.text = detailProductData?.data.name
-        priceLabel.text = "$\(detailProductData?.data.price ?? 0)"
+        priceLabel.text = "Rp \(detailProductData?.data.price ?? 0)"
         descriptionLabel.text = detailProductData?.data.description
         if let reviews = detailProductReviews.first {
             ratingLabel.text = String(reviews.rating)

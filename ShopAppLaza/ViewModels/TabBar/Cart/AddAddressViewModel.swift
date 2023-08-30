@@ -8,14 +8,15 @@
 import Foundation
 
 class AddAddressViewModel {
-    var addAddressCtr: AddAddressViewController?
-    var loading: (() -> Void)?
     
-    func addAddressCart(country: String, city: String, receiverName: String, phoneNumber: String, isPrimary: Bool, accessTokenKey: String) {
-        
-        print("apakah ini jalan addnya")
-        guard let unwrappedVC = addAddressCtr else { return }
-        let urlString = "https://lazaapp.shop/address"
+    var loading: (() -> Void)?
+    var navigateToBack: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
+    
+    func addAddressCart(isMockApi: Bool, country: String, city: String, receiverName: String, phoneNumber: String, isPrimary: Bool, accessTokenKey: String) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let address = EndpointPath.Address.rawValue
+        let urlString = "\(baseUrl)\(address)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -31,7 +32,7 @@ class AddAddressViewModel {
         ]
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: addressData)
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
@@ -53,18 +54,17 @@ class AddAddressViewModel {
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
                                 
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "New Address Added", message: "You have successfully added new address.")
-                                        {
-                                                unwrappedVC.goBackAfterAddAddress()
-                                        }
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("New Address Added", "You have successfully added new address.", {
+                                            self?.navigateToBack?()
+                                        })
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
@@ -83,10 +83,11 @@ class AddAddressViewModel {
         }
     }
     
-    func editAddressById(id: Int, accessTokenKey: String, country: String, city: String, receiverName: String, phoneNo: String, isPrimary: Bool, completion: @escaping (Bool) -> Void) {
-        print("ini editAddress Function")
-        guard let unwrappedVC = addAddressCtr else { return }
-        guard let url = URL(string: "https://lazaapp.shop/address/\(id)") else {
+    func editAddressById(isMockApi: Bool, id: Int, accessTokenKey: String, country: String, city: String, receiverName: String, phoneNo: String, isPrimary: Bool, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let address = EndpointPath.Address.rawValue
+        let urlString = "\(baseUrl)\(address)"
+        guard let url = URL(string: "\(urlString)/\(id)") else {
             print("Invalid URL.")
             return
         }
@@ -100,7 +101,7 @@ class AddAddressViewModel {
         ]
         
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = HttpMethod.PUT.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userAddress)
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
@@ -118,18 +119,17 @@ class AddAddressViewModel {
                     if let isError = jsonResponse["isError"] as? Int, isError != 0,
                        let description = jsonResponse["description"] as? String,
                        let status = jsonResponse["status"] as? String {
-                        DispatchQueue.main.async {
-                            self.loading?()
-                            unwrappedVC.showAlert(title: status, message: description)
+                        DispatchQueue.main.async { [weak self] in
+                            self?.loading?()
+                            self?.presentAlert?(status, description, nil)
                         } 
                     } else {
                         if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
-                            DispatchQueue.main.async {
-                                self.loading?()
-                                unwrappedVC.showAlert(title: "Updated Address", message: "You have successfully update.")
-                                {
-                                unwrappedVC.goBackAfterAddAddress()
-                                }
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?("Updated Address", "You have successfully update.", {
+                                    self?.navigateToBack?()
+                                })
                                 print("BerhasilResponse: \(jsonResponse)")
                             }
                         } else {

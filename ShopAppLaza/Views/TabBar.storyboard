@@ -434,7 +434,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You haven't any favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGL-8k-slz">
-                                <rect key="frame" x="100.66666666666669" y="459" width="192" height="20.666666666666686"/>
+                                <rect key="frame" x="100.66666666666669" y="459" width="192" height="20"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
@@ -688,7 +688,7 @@
                                     <constraint firstAttribute="width" constant="180" id="tiP-xD-Zw0"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yv2-IF-fIQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yv2-IF-fIQ" userLabel="takePhotolibrary">
                                 <rect key="frame" x="257.33333333333331" y="349" width="55.666666666666686" height="34.333333333333314"/>
                                 <color key="tintColor" name="FontSetColor"/>
                                 <state key="normal" title="Button"/>
@@ -1227,8 +1227,8 @@
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chhatak, Sunamgonj 12/8AB" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvy-rV-kk0">
-                                <rect key="frame" x="79.999999999999986" y="421.33333333333331" width="198.66666666666663" height="18.333333333333314"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your set address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvy-rV-kk0">
+                                <rect key="frame" x="80" y="421.33333333333331" width="117.66666666666669" height="18.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Inter-Light" family="Inter" pointSize="15"/>
                                 <color key="textColor" name="FontSetColor"/>
                                 <nil key="highlightedColor"/>
@@ -1262,8 +1262,8 @@
                                     <constraint firstAttribute="height" constant="50" id="gn2-qA-sma"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sylhet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bf-Wu-GfG">
-                                <rect key="frame" x="80" y="447.66666666666669" width="38.333333333333343" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bf-Wu-GfG">
+                                <rect key="frame" x="80" y="447.66666666666669" width="24.333333333333329" height="16"/>
                                 <fontDescription key="fontDescription" name="Inter-Light" family="Inter" pointSize="13"/>
                                 <color key="textColor" red="0.5607843137254902" green="0.58431372549019611" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1449,7 +1449,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="keranjang" id="CPd-Ja-LsJ"/>
                     <connections>
+                        <outlet property="addressLabel" destination="Tvy-rV-kk0" id="oeX-bT-jc2"/>
                         <outlet property="checkoutBtn" destination="LTN-VP-ZNV" id="m1D-83-1Ll"/>
+                        <outlet property="cityLabel" destination="3bf-Wu-GfG" id="Y6B-nz-HRN"/>
                         <outlet property="emptyLabel" destination="7f2-Qj-iTt" id="v1A-j4-jaH"/>
                         <outlet property="imageDelivery" destination="LKK-wC-RNq" id="pRA-kJ-c1r"/>
                         <outlet property="imagePayment" destination="RB8-ge-xQo" id="xH7-cz-sxF"/>
@@ -1629,30 +1631,37 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="F2P-zz-gpF">
-                                <rect key="frame" x="20" y="160" width="74" height="45.666666666666657"/>
+                                <rect key="frame" x="19.999999999999993" y="160" width="119.33333333333331" height="45.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwu-nF-T66">
-                                        <rect key="frame" x="0.0" y="0.0" width="74" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="119.33333333333333" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in wishlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wr0-ah-IEU">
-                                        <rect key="frame" x="0.0" y="25.333333333333343" width="74" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in Category List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wr0-ah-IEU">
+                                        <rect key="frame" x="0.0" y="25.333333333333343" width="119.33333333333333" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTB-xc-G2q" userLabel="Edit Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTB-xc-G2q" userLabel="Edit Button">
                                 <rect key="frame" x="313" y="160" width="60" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="8Il-5p-GPf"/>
                                     <constraint firstAttribute="width" constant="60" id="FW2-Vp-WJ1"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="sort"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Sort" image="line.3.horizontal" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sortAction:" destination="M6o-0y-yV9" eventType="touchUpInside" id="JNp-If-tG1"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6AT-Zq-Ven">
                                 <rect key="frame" x="10" y="235.66666666666669" width="373" height="582.33333333333326"/>
@@ -1687,6 +1696,7 @@
                         <outlet property="categoryBrandCollection" destination="6AT-Zq-Ven" id="UCy-Be-AhB"/>
                         <outlet property="countItems" destination="uwu-nF-T66" id="orV-ZQ-4sl"/>
                         <outlet property="logoImage" destination="A80-ee-A95" id="1Zl-gr-MQP"/>
+                        <outlet property="sortBtn" destination="hTB-xc-G2q" id="fNJ-RD-Jpi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jvJ-5s-XJG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2581,30 +2591,37 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vnM-w0-Kj2">
-                                <rect key="frame" x="20" y="160" width="74" height="45.666666666666657"/>
+                                <rect key="frame" x="19.999999999999993" y="160" width="94.333333333333314" height="45.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ta-q6-hBL">
-                                        <rect key="frame" x="0.0" y="0.0" width="74" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in wishlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KrJ-pI-1Ug">
-                                        <rect key="frame" x="0.0" y="25.333333333333343" width="74" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in Brand List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KrJ-pI-1Ug">
+                                        <rect key="frame" x="0.0" y="25.333333333333343" width="94.333333333333329" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7b-V7-1M5" userLabel="Edit Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7b-V7-1M5" userLabel="Edit Button">
                                 <rect key="frame" x="313" y="160" width="60" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="2yd-Gz-wGP"/>
                                     <constraint firstAttribute="width" constant="60" id="Lnh-Rq-QUC"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="sort"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Sort" image="line.3.horizontal" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sortAction:" destination="b6Y-GR-JvP" eventType="touchUpInside" id="XeB-PP-hqg"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lvh-xG-FxP">
                                 <rect key="frame" x="10" y="235.66666666666669" width="373" height="582.33333333333326"/>
@@ -2636,6 +2653,7 @@
                     <connections>
                         <outlet property="brandCollection" destination="Lvh-xG-FxP" id="634-fb-G2G"/>
                         <outlet property="countItems" destination="2ta-q6-hBL" id="Hsv-Ph-W69"/>
+                        <outlet property="sortBtn" destination="Q7b-V7-1M5" id="qtA-3n-E5W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zzN-5R-2ys" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2663,30 +2681,37 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7p5-vm-C5A">
-                                <rect key="frame" x="20" y="160" width="74" height="45.666666666666657"/>
+                                <rect key="frame" x="20" y="160" width="145" height="45.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlr-Bp-YfD">
-                                        <rect key="frame" x="0.0" y="0.0" width="74" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="145" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in wishlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bU-6C-EBR">
-                                        <rect key="frame" x="0.0" y="25.333333333333343" width="74" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in New Arraival List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bU-6C-EBR">
+                                        <rect key="frame" x="0.0" y="25.333333333333343" width="145" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POt-bU-bgl" userLabel="Edit Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POt-bU-bgl" userLabel="Edit Button">
                                 <rect key="frame" x="313" y="160" width="60" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="P0V-FC-I6y"/>
                                     <constraint firstAttribute="width" constant="60" id="rJT-Yw-aUW"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="sort"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Sort" image="line.3.horizontal" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sortAction:" destination="Ufh-bG-d6t" eventType="touchUpInside" id="sLx-TD-1KS"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-Jh-7OY">
                                 <rect key="frame" x="10" y="235.66666666666669" width="373" height="582.33333333333326"/>
@@ -2706,6 +2731,7 @@
                             <constraint firstItem="7p5-vm-C5A" firstAttribute="top" secondItem="j9R-iL-nuK" secondAttribute="bottom" constant="25" id="0DO-vo-qOE"/>
                             <constraint firstItem="j9R-iL-nuK" firstAttribute="top" secondItem="Do5-Zi-kzo" secondAttribute="top" constant="90" id="6Nw-GW-jij"/>
                             <constraint firstItem="rqV-Fb-3gS" firstAttribute="trailing" secondItem="FOv-Jh-7OY" secondAttribute="trailing" constant="10" id="BJD-KH-Pzc"/>
+                            <constraint firstItem="POt-bU-bgl" firstAttribute="top" secondItem="rqV-Fb-3gS" secondAttribute="top" constant="101" id="EIj-9r-xb4"/>
                             <constraint firstAttribute="trailing" secondItem="POt-bU-bgl" secondAttribute="trailing" constant="20" id="fFA-Wa-9Nf"/>
                             <constraint firstItem="FOv-Jh-7OY" firstAttribute="leading" secondItem="rqV-Fb-3gS" secondAttribute="leading" constant="10" id="hRw-SE-35P"/>
                             <constraint firstItem="rqV-Fb-3gS" firstAttribute="bottom" secondItem="FOv-Jh-7OY" secondAttribute="bottom" id="n6E-sh-kIj"/>
@@ -2717,6 +2743,7 @@
                     <connections>
                         <outlet property="countItems" destination="wlr-Bp-YfD" id="hng-mO-5AZ"/>
                         <outlet property="newArrivalCollection" destination="FOv-Jh-7OY" id="Akb-6a-40f"/>
+                        <outlet property="sortBtn" destination="POt-bU-bgl" id="SiJ-BO-QND"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r7s-fx-T8x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2752,12 +2779,12 @@
         <image name="house" width="21" height="22"/>
         <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="keranjang" width="21" height="22"/>
+        <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="lock" catalog="system" width="125" height="128"/>
         <image name="paymentcard" width="512" height="512"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="peta" width="347" height="331"/>
-        <image name="sort" width="71" height="37"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

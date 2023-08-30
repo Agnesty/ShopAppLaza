@@ -9,13 +9,16 @@ import Foundation
 
 class FavoriteViewModel{
     var favoriteViewCtr: FavoriteViewController?
-    func getFavoriteList(accessTokenKey: String, completion: @escaping (Wishlist) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/wishlists") else {
+    func getFavoriteList(isMockApi: Bool, accessTokenKey: String, completion: @escaping (Wishlist) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let wishlist = EndpointPath.Wishlist.rawValue
+        let urlString = "\(baseUrl)\(wishlist)"
+        guard let url = URL(string: urlString) else {
             print("Invalid URL.")
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = HttpMethod.GET.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in

@@ -34,7 +34,7 @@ class CategoryTableViewCell: UITableViewCell {
         collectionBrand.dataSource = self
         collectionBrand.register(BrandCollectionViewCell.nib(), forCellWithReuseIdentifier: BrandCollectionViewCell.identifier)
         DispatchQueue.main.async {
-            self.categoryTableVM.getDataCategories { [weak self] category in
+            self.categoryTableVM.getDataCategories(isMockApi: false) { [weak self] category in
                 guard let categoryResponse = category else { return }
                 self?.category.append(contentsOf: categoryResponse.description)
                 self?.collectionBrand.reloadData()

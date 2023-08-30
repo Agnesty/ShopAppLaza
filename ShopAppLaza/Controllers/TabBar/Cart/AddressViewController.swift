@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol PassingDataAddresDelegate: AnyObject {
+    func didFinishPassingData(city: String, country: String)
+}
+
 class AddressViewController: UIViewController {
     private let addressVM = AddressViewModel()
     var allAddresses: AllAddress?
+    weak var delegate: PassingDataAddresDelegate?
+    var selectedIndexPath: IndexPath?
+    var clickCount = 0
     
     //MARK: IBOutlet
     @IBOutlet weak var addBtn: UIButton!
@@ -18,7 +25,6 @@ class AddressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addressVM.detailViewCtr = self
         getAllAddress()
         let countAddress = allAddresses?.data?.count
         if countAddress == 0 {
@@ -30,6 +36,10 @@ class AddressViewController: UIViewController {
         cardAddress.dataSource = self
         cardAddress.delegate = self
         cardAddress.register(CardAddressTableViewCell.nib(), forCellReuseIdentifier: CardAddressTableViewCell.identifier)
+        addressVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +64,7 @@ class AddressViewController: UIViewController {
     
     //MARK: FUNCTION
     func getAllAddress() {
-        addressVM.getAllAddress(accessTokenKey: APIService().token!) { allAddress in
+        addressVM.getAllAddress(isMockApi: false, accessTokenKey: APIService().token!) { allAddress in
             DispatchQueue.main.async { [weak self] in
                 self?.allAddresses = allAddress
                 print("ini bagian allAddress:", allAddress)
@@ -78,16 +88,57 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardAddressTableViewCell.identifier, for: indexPath) as? CardAddressTableViewCell else { return UITableViewCell() }
-        let addressCell = allAddresses?.data?[indexPath.row]
-        cell.receiveName.text = addressCell?.receiverName
-        cell.phoneNo.text = addressCell?.phoneNumber
-        cell.address.text = addressCell?.city
-        cell.cityCountry.text = addressCell?.country
+        if let addressCell = allAddresses?.data?[indexPath.row] {
+            cell.receiveName.text = ": " + addressCell.receiverName
+            cell.phoneNo.text = ": " + addressCell.phoneNumber
+            cell.address.text = ": " + addressCell.city
+            cell.cityCountry.text = ": " + addressCell.country
+        }
         cell.delegate = self
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        clickCount += 1
+        if selectedIndexPath == indexPath {
+            if clickCount == 2 {
+                if let addressCell = allAddresses?.data?[indexPath.row] {
+                    delegate?.didFinishPassingData(city: addressCell.city, country: addressCell.country)
+                }
+                self.navigationController?.popViewController(animated: true)
+                clickCount = 0
+            }
+        } else {
+            if let previousSelectedIndexPath = selectedIndexPath {
+                if let cell = tableView.cellForRow(at: previousSelectedIndexPath) as? CardAddressTableViewCell {
+                    cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
+                    cell.receiveName.textColor = .black
+                    cell.phoneNo.textColor = .black
+                    cell.address.textColor = .black
+                    cell.cityCountry.textColor = .black
+                    cell.labelName.textColor = .black
+                    cell.labelPhoneNo.textColor = .black
+                    cell.labelAddress.textColor = .black
+                    cell.labelCountry.textColor = .black
+                }
+            }
+            selectedIndexPath = indexPath
+            if let cell = tableView.cellForRow(at: indexPath) as? CardAddressTableViewCell {
+                cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")
+                cell.contentView.backgroundColor = .white
+                cell.receiveName.textColor = .white
+                cell.phoneNo.textColor = .white
+                cell.address.textColor = .white
+                cell.cityCountry.textColor = .white
+                cell.labelName.textColor = .white
+                cell.labelPhoneNo.textColor = .white
+                cell.labelAddress.textColor = .white
+                cell.labelCountry.textColor = .white
+            }
+            clickCount = 1
+        }
     }
 }
 
@@ -103,8 +154,8 @@ extension AddressViewController: deleteAddressProtocol {
     func deleteAddress(cell: CardAddressTableViewCell) {
         guard let indexPath = cardAddress.indexPath(for: cell) else { return }
         if let addressCell = allAddresses?.data?[indexPath.row] {
-            addressVM.deleteAddressById(id: addressCell.id, accessTokenKey: APIService().token!) { bool in
-                if bool == true {
+            addressVM.deleteAddressById(isMockApi: false, id: addressCell.id, accessTokenKey: APIService().token!) { status in
+                if status == true {
                     self.getAllAddress()
                 }
             }

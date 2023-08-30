@@ -8,10 +8,18 @@
 import Foundation
 
 class CategoryDetailViewModel {
-    var categoryDetailVC: CategoryDetailView?
-    
-    func getDetailBrandById(name: String, completion: @escaping (ProductBrand) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/products/brand?name=\(name)") else { print("Invalid URL.")
+    func getDetailBrandById(isMockApi: Bool, name: String, completion: @escaping (ProductBrand) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let productsByBrand = EndpointPath.ProductsByBrand.rawValue
+        let urlString = "\(baseUrl)\(productsByBrand)"
+        guard var components = URLComponents(string: urlString) else { print("Invalid URL.")
+            return
+        }
+        components.queryItems = [
+            URLQueryItem(name: "name", value: "\(name)")
+        ]
+        guard let url = components.url else {
+            print("Invalid URL components.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in

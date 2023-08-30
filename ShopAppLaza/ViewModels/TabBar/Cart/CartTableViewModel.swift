@@ -8,11 +8,14 @@
 import Foundation
 
 class CartTableViewModel {
-    var cartTableVC: CartViewController?
     var loading: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func increaseQuantityCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
-        guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
+    func increaseQuantityCart(isMockApi: Bool, productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let cart = EndpointPath.Cart.rawValue
+        let urlString = "\(baseUrl)\(cart)"
+        guard var components = URLComponents(string: urlString) else {
             print("Invalid URL.")
             return
         }
@@ -25,7 +28,7 @@ class CartTableViewModel {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -63,9 +66,11 @@ class CartTableViewModel {
         }.resume()
     }
     
-    func decreaseQuantityCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
-        print("kepanggil nih")
-        guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
+    func decreaseQuantityCart(isMockApi: Bool, productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let cart = EndpointPath.Cart.rawValue
+        let urlString = "\(baseUrl)\(cart)"
+        guard var components = URLComponents(string: urlString) else {
             print("Invalid URL.")
             return
         }
@@ -78,7 +83,7 @@ class CartTableViewModel {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = HttpMethod.PUT.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -116,10 +121,11 @@ class CartTableViewModel {
         }.resume()
     }
     
-    func deleteProductCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
-        print("awalan")
-        guard let unwrappedVC = cartTableVC else { return }
-        guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
+    func deleteProductCart(isMockApi: Bool, productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let cart = EndpointPath.Cart.rawValue
+        let urlString = "\(baseUrl)\(cart)"
+        guard var components = URLComponents(string: urlString) else {
             print("Invalid URL.")
             return
         }
@@ -132,7 +138,7 @@ class CartTableViewModel {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
+        request.httpMethod = HttpMethod.DELETE.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -145,12 +151,12 @@ class CartTableViewModel {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                            if let data = jsonResponse["data"] as? String,
                             let status = jsonResponse["status"] as? String {
-                               DispatchQueue.main.async {
-                                   self.loading?()
-                                   unwrappedVC.showAlert(title: "Cart Update", message: data) {
+                               DispatchQueue.main.async { [weak self] in
+                                   self?.loading?()
+                                   self?.presentAlert?("Cart Update", data, {
                                        print("Status Check:", status)
                                        completion(status == "OK")
-                                   }
+                                   })
                                }
                            }
                        }

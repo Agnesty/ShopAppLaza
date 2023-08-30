@@ -91,15 +91,18 @@ class ReviewsViewController: UIViewController {
     }
     func getReviews() {
         guard let idProduk = idProduct else { return }
-        reviewsVM.getAllReviews(id: idProduk) { allReview in
+        reviewsVM.getAllReviews(isMockApi: false, id: idProduk) { allReview in
             DispatchQueue.main.async { [weak self] in
                 self?.allReviews = allReview
-                self?.totalItem.text = "\(allReview.data.total)"
+                self?.totalItem.text = "\(allReview.data.total) reviews"
                 self?.averageRatingLabel.text = "\(allReview.data.ratingAvrg)"
                 self?.ratingStarData(rating: allReview.data.ratingAvrg)
                 self?.tableViewReviews.reloadData()
             }
         }
+    }
+    func formatValue(_ value: Double) -> String {
+        return String(format: "%.1f", value)
     }
 }
 
@@ -113,7 +116,7 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageUser.setImageWithPlugin(url: reviews.imageURL)
             cell.peopleName.text = "\(reviews.fullName)"
             cell.textReviews.text = "\(reviews.comment)"
-            cell.reviews.text = "\(reviews.rating)"
+            cell.reviews.text = formatValue(reviews.rating)
             cell.ratingStarData(rating: reviews.rating)
             cell.waktuReview.text = "\(DateTimeUtils.shared.formatReview(date: reviews.createdAt))"
         }

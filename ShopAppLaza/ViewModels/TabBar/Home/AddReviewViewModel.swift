@@ -8,13 +8,14 @@
 import Foundation
 
 class AddReviewViewModel {
-    var addReviewCtr: AddReviewController?
     var loading: (() -> Void)?
+    var navigateToReview: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func AddReview(id: Int, accessTokenKey: String,comment: String, rating: Double) {
-        guard let unwrappedVC = addReviewCtr else { return }
-        let urlString = "https://lazaapp.shop/products/\(id)/reviews"
-        
+    func AddReview(isMockApi: Bool, id: Int, accessTokenKey: String,comment: String, rating: Double) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let products = EndpointPath.Products.rawValue
+        let urlString = "\(baseUrl)\(products)/\(id)/reviews"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -26,7 +27,7 @@ class AddReviewViewModel {
         ]
         
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userAddReviewData)
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
@@ -49,18 +50,17 @@ class AddReviewViewModel {
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
                                 
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "Added Review", message: "Your review is added.")
-                                        {
-                                            unwrappedVC.goToReview()
-                                        }
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("Added Review", "Your review is added.", {
+                                            self?.navigateToReview?()
+                                        })
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {

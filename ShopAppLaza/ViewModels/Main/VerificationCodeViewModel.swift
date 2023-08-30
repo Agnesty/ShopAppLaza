@@ -8,12 +8,14 @@
 import Foundation
 
 class VerficationCodeViewModel {
-    var verificationCodeViewCtr: VerificationCodeViewController?
     var loading: (() -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
+    var navigateToNewPassword: (() -> Void)?
     
-    func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String) {
-        guard let unwrappedVC = verificationCodeViewCtr else { return }
-        let urlString = "https://lazaapp.shop/auth/recover/code"
+    func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String, isMockApi: Bool) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let verifCode = EndpointPath.AuthVerificationCode.rawValue
+        let urlString = "\(baseUrl)\(verifCode)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -21,14 +23,13 @@ class VerficationCodeViewModel {
         }
         
         let combinedText = "\(tf1)\(tf2)\(tf3)\(tf4)"
-
         let userData: [String: Any] = [
             "email": email,
             "code": combinedText,
         ]
 
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
         do {
@@ -49,17 +50,17 @@ class VerficationCodeViewModel {
                                let description = jsonResponse["description"] as? String,
                                let status = jsonResponse["status"] as? String {
                                 
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: status, message: description)
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 202 {
-                                    DispatchQueue.main.async {
-                                        self.loading?()
-                                        unwrappedVC.showAlert(title: "Verification Code Successful", message: "Congratulations! You have successfully Verification.") {
-                                            unwrappedVC.goToNewPassword(emailHttp: email, codeHttp: combinedText)
-                                        }
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.loading?()
+                                        self?.presentAlert?("Verification Code Successful", "Congratulations! You have successfully Verification.", {
+                                            self?.navigateToNewPassword?()
+                                        })
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {

@@ -1,39 +1,38 @@
 //
-//  ForgotPassViewModel.swift
+//  VerifyEmailViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 15/08/23.
+//  Created by Agnes Triselia Yudia on 28/08/23.
 //
 
 import Foundation
 
-class ForgotPassViewModel {
+class verifyEmailViewModel {
     var loading: (() -> Void)?
-    var navigateToVerificationCode: (() -> Void)?
     var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func forgotPassSendAPICode(email: String, isMockApi: Bool) {
+    func verifyEmailUser(email: String, isMockApi: Bool) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
-        let forgotPass = EndpointPath.AuthForgotPassword.rawValue
-        let urlString = "\(baseUrl)\(forgotPass)"
-
+        let emailVerify = EndpointPath.AuthResendVerify.rawValue
+        let urlString = "\(baseUrl)\(emailVerify)"
+        
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
-
+        
         let userData: [String: Any] = [
             "email": email,
         ]
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
-
+        
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
             request.httpBody = jsonData
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
@@ -50,19 +49,20 @@ class ForgotPassViewModel {
                                 
                                 DispatchQueue.main.async { [weak self] in
                                     self?.loading?()
-                                    self?.presentAlert?(status, description.capitalized, nil)
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             } else {
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                                     DispatchQueue.main.async { [weak self] in
                                         self?.loading?()
-                                        self?.presentAlert?("Email Sent", "Please check your email", {
-                                            self?.navigateToVerificationCode?()
-                                        })
+                                        if let data = jsonResponse["data"] as? [String: Any],
+                                           let message = data["message"] as? String {
+                                            self?.presentAlert?("Resend Email", message, nil)
+                                        }
                                         print("BerhasilResponse: \(jsonResponse)")
                                     }
                                 } else {
-                                    print("Sign-Up Error: Unexpected Response Code")
+                                    print("VerifyEmail Error: Unexpected Response Code")
                                 }
                             }
                         }
@@ -76,6 +76,4 @@ class ForgotPassViewModel {
             print("Error creating JSON data: \(error)")
         }
     }
-    
-   
 }

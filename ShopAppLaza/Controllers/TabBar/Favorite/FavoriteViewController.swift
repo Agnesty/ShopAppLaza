@@ -59,7 +59,7 @@ class FavoriteViewController: UIViewController {
     
     //MARK: FUNCTION
     func getFavorite() {
-        self.favoriteVM.getFavoriteList(accessTokenKey: APIService().token!) { [weak self] wishlist in
+        self.favoriteVM.getFavoriteList(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async {
                 self?.wishlist = wishlist
                 self?.countWishlist.text = "\(wishlist.data.total) items"
@@ -87,7 +87,7 @@ extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDe
         if let cellWishlist = wishlist?.data.products?[indexPath.row] {
             cell.imageProduct.setImageWithPlugin(url: cellWishlist.imageURL)
             cell.titleProduk.text = cellWishlist.name
-            cell.priceProduk.text = String(cellWishlist.price)
+            cell.priceProduk.text = "Rp " + String(cellWishlist.price)
         }
         return cell
     }

@@ -10,8 +10,12 @@ import Foundation
 class NewArrivalTableViewModel {
     var newArrivalTableViewCell: NewArrivalTableViewCell?
     
-    func getDataProduct(completion: @escaping (Welcome) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/products") else { print("Invalid URL.")
+    func getDataProduct(isMockApi: Bool, completion: @escaping (Welcome) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let products = EndpointPath.Products.rawValue
+        let urlString = "\(baseUrl)\(products)"
+        
+        guard let url = URL(string: urlString) else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in

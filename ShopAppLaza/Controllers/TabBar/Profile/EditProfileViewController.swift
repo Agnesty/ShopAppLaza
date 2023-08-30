@@ -40,12 +40,22 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         setupTabBarItemImage()
         imagePicker.delegate = self
-        profileVM.profileViewCtr = self
-        
+        if imagePhoto.image == nil {
+            // Jika imageView masih belum memiliki gambar (kosong), ambil gambar dari UserDefaults
+            if let imagePath = UserDefaults.standard.string(forKey: "GambarSignUP"),
+               let image = UIImage(contentsOfFile: imagePath) {
+                imagePhoto.image = image
+            }
+        }
+        profileVM.navigateToBack = { [weak self] in
+            self?.backBtn()
+        }
+        profileVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
     }
     
     //MARK: IBAction
-    
     @IBAction func backButtonAction(_ sender: UIButton) {
        backBtn()
     }
@@ -62,13 +72,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             showAlert(title: "Upss..", message: "Please choose your image.")
             print("kamu belum memasukkan image")
             return }
-        profileVM.putRequest(image: img, accessTokenKey: APIService().token!, fullname: fullnameTF.text!, username: usernameTF.text!, email: emailTF.text!)
+        profileVM.putRequest(isMockApi: false, image: img, accessTokenKey: APIService().token!, fullname: fullnameTF.text!, username: usernameTF.text!, email: emailTF.text!)
     }
     
     //MARK: FUNCTIONS
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imagePhoto.contentMode = .scaleAspectFit
             imagePhoto.image = pickedImage
             img = pickedImage
         }

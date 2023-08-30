@@ -11,21 +11,29 @@ class NewArriveVAViewController: UIViewController {
     
     private var newArrivalTableVM = NewArrivalTableViewModel()
     var productAPI = [WelcomeElement]()
+    var isAscendingOrder = true
 
     //MARK: IBOutlet
+    @IBOutlet weak var sortBtn: UIButton!{
+        didSet{
+            sortBtn.setImage(UIImage(systemName: ""), for: .normal)
+            sortBtn.setTitle(" Sort", for: .normal)
+        }
+    }
     @IBOutlet weak var countItems: UILabel!
     @IBOutlet weak var newArrivalCollection: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        sortData()
         
         newArrivalCollection.dataSource = self
         newArrivalCollection.delegate = self
         newArrivalCollection.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
         DispatchQueue.main.async {
-            self.newArrivalTableVM.getDataProduct { [weak self] produk in
+            self.newArrivalTableVM.getDataProduct(isMockApi: false) { [weak self] produk in
                 guard let produkResponse = produk else { return }
                 self?.productAPI.append(contentsOf: produkResponse.data)
-                self?.countItems.text = String((self?.productAPI.count)!)
+                self?.countItems.text = String((self?.productAPI.count)!) + " items"
                 self?.newArrivalCollection.reloadData()
             }
         }
@@ -35,6 +43,31 @@ class NewArriveVAViewController: UIViewController {
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    @IBAction func sortAction(_ sender: UIButton) {
+        toggleSortOrder()
+    }
+    
+    //MARK: FUNCTION
+    func toggleSortOrder() {
+        isAscendingOrder.toggle()
+        sortData()
+    }
+    func sortData() {
+        if sortBtn.currentImage == UIImage(systemName: ""){
+            sortBtn.setTitle(" Sort", for: .normal)
+            sortBtn.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
+        } else if isAscendingOrder {
+            productAPI.sort { $0.name < $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.first.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" A-Z", for: .normal)
+        } else if !isAscendingOrder {
+            productAPI.sort { $0.name > $1.name }
+            sortBtn.setImage(UIImage(systemName: "text.line.last.and.arrowtriangle.forward"), for: .normal)
+            sortBtn.setTitle(" Z-A", for: .normal)
+        }
+        newArrivalCollection.reloadData()
+    }
+    
     
 }
 
@@ -47,7 +80,7 @@ extension NewArriveVAViewController: UICollectionViewDelegateFlowLayout, UIColle
             let newArraival = productAPI[indexPath.row]
             cellNewArraival.imageProduct.setImageWithPlugin(url: newArraival.image_url)
             cellNewArraival.titleProduk.text = newArraival.name
-            cellNewArraival.priceProduk.text = "$\(String(newArraival.price))"
+            cellNewArraival.priceProduk.text = "Rp \(String(newArraival.price))"
             return cellNewArraival
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

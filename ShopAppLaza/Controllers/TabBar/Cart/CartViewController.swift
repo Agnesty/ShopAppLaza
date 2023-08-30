@@ -34,6 +34,8 @@ class CartViewController: UIViewController {
     @IBOutlet weak var subtotalPrice: UILabel!
     @IBOutlet weak var shippingCost: UILabel!
     @IBOutlet weak var totalPrice: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
     
     private func setupTabBarItemImage() {
         let label = UILabel()
@@ -49,7 +51,6 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cartTableVM.cartTableVC = self
         setupTabBarItemImage()
         getAllCartData()
         let countProduct = dataCart?.products?.count
@@ -59,7 +60,7 @@ class CartViewController: UIViewController {
             self.emptyLabel.isHidden = true
         }
         
-        cartVM.getAllSize { allSize in
+        cartVM.getAllSize(isMockApi: false) { allSize in
             DispatchQueue.main.async { [weak self] in
                 self?.allSizes = allSize
             }
@@ -68,6 +69,10 @@ class CartViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CartTableViewCell.nib(), forCellReuseIdentifier: CartTableViewCell.identifier)
+        
+        cartTableVM.presentAlert = { [weak self] title, message, completion in
+            self?.showAlert(title: title, message: message, completion: completion)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +93,7 @@ class CartViewController: UIViewController {
     }
     @IBAction func addressBtnAction(_ sender: UIButton) {
         guard let performAddress = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddressViewController") as? AddressViewController else { return }
+        performAddress.delegate = self
         self.navigationController?.pushViewController(performAddress, animated: true)
     }
     @IBAction func paymentBtnAction(_ sender: UIButton) {
@@ -98,12 +104,12 @@ class CartViewController: UIViewController {
     //MARK: FUNCTION
     func getAllCartData() {
         DispatchQueue.main.async {
-            self.cartVM.getProducInCart(accessTokenKey: APIService().token!) { [weak self] cartProduct in
+            self.cartVM.getProducInCart(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] cartProduct in
                 self?.dataCart = cartProduct.data
                 if let orderInfo = self?.dataCart?.orderInfo {
-                    self?.subtotalPrice.text = "$\(orderInfo.subTotal)"
-                    self?.shippingCost.text = "$\(orderInfo.shippingCost)"
-                    self?.totalPrice.text = "$\(orderInfo.total)"
+                    self?.subtotalPrice.text = "Rp \(orderInfo.subTotal)"
+                    self?.shippingCost.text = "Rp \(orderInfo.shippingCost)"
+                    self?.totalPrice.text = "Rp \(orderInfo.total)"
                 }
                 self?.tableView.reloadData()
             }
@@ -139,7 +145,7 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate{
             cell.labelNameProduct.text = dataCart.productName
             cell.imageProduct.setImageWithPlugin(url: dataCart.imageURL)
             cell.jumlahProduct.text = "\(dataCart.quantity)"
-            cell.priceProduct.text = "$\(dataCart.price)"
+            cell.priceProduct.text = "Rp \(dataCart.price)"
             cell.sizeLabel.text = "Size: \(dataCart.size)"
         }
         cell.delegate = self
@@ -163,7 +169,7 @@ extension CartViewController: deleteProductInCartProtocol {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.increaseQuantityCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+            cartTableVM.increaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
                 if bool == true {
                     self.getAllCartData()
                     completion(dataCart.quantity)
@@ -175,7 +181,7 @@ extension CartViewController: deleteProductInCartProtocol {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.decreaseQuantityCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+            cartTableVM.decreaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
                 if bool == true {
                     self.getAllCartData()
                     completion(dataCart.quantity)
@@ -187,13 +193,18 @@ extension CartViewController: deleteProductInCartProtocol {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.deleteProductCart(productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+            cartTableVM.deleteProductCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
                 if bool == true {
                     self.getAllCartData()
                 }
             }
         }
     }
-    
-    
+}
+
+extension CartViewController: PassingDataAddresDelegate {
+    func didFinishPassingData(city: String, country: String) {
+        addressLabel.text = city
+        cityLabel.text = country
+    }
 }

@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController {
     
     //MARK: FUNCTION
     func getDataProfile() {
-        profileVM.getUserProfile(accessTokenKey: APIService().token!) { [weak self] userdata in
+        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
             self?.contentDataUser = userdata
             print("apakah ini benar: \(userdata)")
             

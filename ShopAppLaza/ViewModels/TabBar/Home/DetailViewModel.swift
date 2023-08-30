@@ -8,12 +8,15 @@
 import Foundation
 
 class DetailViewModel {
-    var detailViewCtr: DetailViewController?
     var loading: (() -> Void)?
-//    var fungsi: ((Bool) -> Void)?
+    var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
-    func getDetailProductById(id: Int, completion: @escaping (DetailProduct) -> Void) {
-        guard let url = URL(string: "https://lazaapp.shop/products/\(id)") else { print("Invalid URL.")
+    func getDetailProductById(id: Int, isMockApi: Bool, completion: @escaping (DetailProduct) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let products = EndpointPath.Products.rawValue
+        let urlString = "\(baseUrl)\(products)/\(id)"
+        
+        guard let url = URL(string: urlString) else { print("Invalid URL.")
             return
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -38,8 +41,11 @@ class DetailViewModel {
         }.resume()
     }
     
-    func putFavorite(accessTokenKey: String, productId: Int, completion: @escaping (UpdateWishlist) -> Void) {
-        guard var components = URLComponents(string: "https://lazaapp.shop/wishlists") else {
+    func putFavorite(isMockApi: Bool, accessTokenKey: String, productId: Int, completion: @escaping (UpdateWishlist) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let wishlist = EndpointPath.Wishlist.rawValue
+        let urlString = "\(baseUrl)\(wishlist)"
+        guard var components = URLComponents(string: urlString) else {
             print("Invalid URL.")
             return
         }
@@ -51,7 +57,7 @@ class DetailViewModel {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = HttpMethod.PUT.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -76,10 +82,11 @@ class DetailViewModel {
         }.resume()
     }
     
-    func addToCart(productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
-        print("post add")
-        guard let unwrappedVC = detailViewCtr else { return }
-        guard var components = URLComponents(string: "https://lazaapp.shop/carts") else {
+    func addToCart(isMockApi: Bool, productId: Int, sizeId: Int, accessTokenKey: String, completion: @escaping (Bool) -> Void) {
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let cart = EndpointPath.Cart.rawValue
+        let urlString = "\(baseUrl)\(cart)"
+        guard var components = URLComponents(string: urlString) else {
             print("Invalid URL.")
             return
         }
@@ -92,7 +99,7 @@ class DetailViewModel {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = HttpMethod.POST.rawValue
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -109,19 +116,19 @@ class DetailViewModel {
                            let description = jsonResponse["description"] as? String,
                            let status = jsonResponse["status"] as? String {
                             
-                            DispatchQueue.main.async {
-                                self.loading?()
-                                unwrappedVC.showAlert(title: status, message: description) {
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?(status, description, {
                                     completion(false)
-                                }
+                                })
                             }
                         } else {
                             if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                DispatchQueue.main.async {
-                                    self.loading?()
-                                    unwrappedVC.showAlert(title: "Added to cart", message: "You have successfully added this product.") {
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?("Added to cart", "You have successfully added this product.", {
                                         completion(true)
-                                    }
+                                    })
                                     print("BerhasilResponse: \(jsonResponse)")
                                 }
                             } else {
