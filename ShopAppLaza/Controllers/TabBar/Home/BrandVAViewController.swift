@@ -30,7 +30,7 @@ class BrandVAViewController: UIViewController {
             self.categoryTableVM.getDataCategories(isMockApi: false) { [weak self] category in
                 guard let categoryResponse = category else { return }
                 self?.categoryBrandVA.append(contentsOf: categoryResponse.description)
-                self?.countItems.text = String((self?.categoryBrandVA.count)!) + " items"
+                self?.countItems.text = String((self?.categoryBrandVA.count)!) + Utils.setItemsWord(dataItem: (self?.categoryBrandVA.count)!)
                 self?.brandCollection.reloadData()
             }
         }

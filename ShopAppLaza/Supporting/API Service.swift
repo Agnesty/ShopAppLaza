@@ -19,6 +19,19 @@ class APIService {
     }
 }
 
+class Utils {
+    static func setItemsWord(dataItem: Int) -> String {
+        let countProduct = dataItem
+        if countProduct == 0 || countProduct == 1 {
+                  return " item"
+              } else if countProduct > 1 {
+                  return " items"
+              } else {
+                  return " item"
+              }
+    }
+}
+
 class DateTimeUtils {
     static let shared = DateTimeUtils()
     

@@ -79,6 +79,7 @@
 		335990A22A92318D00972213 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335990A12A92318D00972213 /* ProfileViewController.swift */; };
 		335990A42A9253CD00972213 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335990A32A9253CD00972213 /* ProfileViewModel.swift */; };
 		335990A62A925B0D00972213 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335990A52A925B0D00972213 /* Media.swift */; };
+		3369D5172AA06F7A00B0A82D /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 3369D5162AA06F7A00B0A82D /* JWTDecode */; };
 		336A2F102A7BEE9400C639FD /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A2F0F2A7BEE9400C639FD /* VerificationCodeViewController.swift */; };
 		336A2F122A7C01F500C639FD /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A2F112A7C01F500C639FD /* Regex.swift */; };
 		3378B5362A70B71A00420E00 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3378B5352A70B71A00420E00 /* SignUpViewController.swift */; };
@@ -243,6 +244,7 @@
 				3322C1222A81E54400EEF0C7 /* StripeApplePay in Frameworks */,
 				3322C12E2A81E54400EEF0C7 /* StripePaymentsUI in Frameworks */,
 				334257EA2A724BD3000CD97A /* SDWebImageMapKit in Frameworks */,
+				3369D5172AA06F7A00B0A82D /* JWTDecode in Frameworks */,
 				3343C24A2A96FF69008AEA92 /* GoogleSignIn in Frameworks */,
 				3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */,
 				3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */,
@@ -591,6 +593,7 @@
 				3322C12B2A81E54400EEF0C7 /* StripePayments */,
 				3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */,
 				3343C2492A96FF69008AEA92 /* GoogleSignIn */,
+				3369D5162AA06F7A00B0A82D /* JWTDecode */,
 			);
 			productName = ShopAppLaza;
 			productReference = 332C98A32A701133003CAFD3 /* ShopAppLaza.app */;
@@ -624,6 +627,7 @@
 				334257E62A724BD3000CD97A /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */,
 			);
 			productRefGroup = 332C98A42A701133003CAFD3 /* Products */;
 			projectDirPath = "";
@@ -1038,6 +1042,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1095,6 +1107,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		3369D5162AA06F7A00B0A82D /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */;
+			productName = JWTDecode;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

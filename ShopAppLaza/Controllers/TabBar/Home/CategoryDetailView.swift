@@ -37,7 +37,7 @@ class CategoryDetailView: UIViewController {
             DispatchQueue.main.async {
                 self?.categoryDetail = produkBrand.data
                 print("ini adalah produk brand", produkBrand)
-                self?.countItems.text = String((self?.categoryDetail.count)!) + " items"
+                self?.countItems.text = String((self?.categoryDetail.count)!) + Utils.setItemsWord(dataItem: (self?.categoryDetail.count)!)
                 self?.logoImage.setImageWithPlugin(url: self!.img)
                 self?.categoryBrandCollection.reloadData()
             }

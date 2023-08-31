@@ -24,7 +24,6 @@ class AddAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        addAddressVM.addAddressCtr = self
         if let previousValue = userAddresses {
             nameTF.text = previousValue.receiverName
             countryTF.text = previousValue.country

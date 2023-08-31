@@ -34,11 +34,13 @@ class NewArriveVAViewController: UIViewController {
             self.newArrivalTableVM.getDataProduct(isMockApi: false) { [weak self] produk in
                 guard let produkResponse = produk else { return }
                 self?.productAPI.append(contentsOf: produkResponse.data)
-                self?.countItems.text = String((self?.productAPI.count)!) + " items"
+                self?.countItems.text = String((self?.productAPI.count)!) + (Utils.setItemsWord(dataItem: (self?.productAPI.count)!))
                 self?.newArrivalCollection.reloadData()
             }
         }
     }
+    
+ 
     
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {

@@ -51,7 +51,7 @@ class FavoriteViewController: UIViewController {
         self.favoriteVM.getFavoriteList(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] wishlist in
             DispatchQueue.main.async {
                 self?.wishlist = wishlist
-                self?.countWishlist.text = "\(wishlist.data.total) items"
+                self?.countWishlist.text = "\(wishlist.data.total)" + Utils.setItemsWord(dataItem: (self?.wishlist?.data.total)!)
                 self?.collectionWishlist.reloadData()
             }
         }

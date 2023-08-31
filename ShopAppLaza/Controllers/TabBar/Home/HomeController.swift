@@ -7,6 +7,7 @@
 
 import UIKit
 import SideMenu
+import JWTDecode
 
 protocol searchProductHomeProtocol: AnyObject {
     func searchProdFetch(isActive: Bool, textString: String)
@@ -14,6 +15,7 @@ protocol searchProductHomeProtocol: AnyObject {
 
 class HomeController: UIViewController {
     var loggedInUser: UserElement?
+    var isValidToken = false
     private var sideMenuNav: SideMenuNavigationController?
     private var homeVM = HomeViewModel()
     
@@ -57,14 +59,43 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         setupTabBarItemImage()
         view.addSubview(menuButton)
-        
+        jwtExpired()
+        if isValidToken {
+            setUpTableView()
+        }
+    }
+    
+    func jwtExpired() {
+        do {
+            let jwt = try decode(jwt: APIService().token!)
+            if jwt.expired {
+                isValidToken = false
+                showAlert(title: "Your token is expired", message: "Plese re-login"){
+                    // Menghapus data dari UserDefaults
+                    UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+                    UserDefaults.standard.removeObject(forKey: "loggedInUsername")
+                    UserDefaults.standard.removeObject(forKey: "loggedInPassword")
+                    UserDefaults.standard.synchronize()
+                    
+                    // Mengarahkan pengguna kembali ke root view controller
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            } else {
+                isValidToken = true
+            }
+            
+        } catch {
+            print("ini gagal")
+        }
+    }
+    func setUpTableView() {
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
         tableView.register(NewArrivalTableViewCell.nib(), forCellReuseIdentifier: NewArrivalTableViewCell.identifier)
     }
-    
+  
 }
 
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
