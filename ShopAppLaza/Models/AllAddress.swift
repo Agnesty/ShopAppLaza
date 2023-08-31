@@ -10,7 +10,7 @@ import Foundation
 struct AllAddress: Codable {
     let status: String
     let isError: Bool
-    let data: [DataAllAddress]?
+    var data: [DataAllAddress]?
 }
 
 // MARK: - Datum

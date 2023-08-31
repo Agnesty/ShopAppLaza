@@ -13,10 +13,12 @@ protocol PassingDataAddresDelegate: AnyObject {
 
 class AddressViewController: UIViewController {
     private let addressVM = AddressViewModel()
+    private let addAddressVM = AddAddressViewModel()
     var allAddresses: AllAddress?
     weak var delegate: PassingDataAddresDelegate?
     var selectedIndexPath: IndexPath?
     var clickCount = 0
+    var sortedAddresses: [DataAllAddress]?
     
     //MARK: IBOutlet
     @IBOutlet weak var addBtn: UIButton!
@@ -26,31 +28,18 @@ class AddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getAllAddress()
-        let countAddress = allAddresses?.data?.count
-        if countAddress == 0 {
-            self.emptyLabel.isHidden = false
-        } else {
-            self.emptyLabel.isHidden = true
-        }
         
         cardAddress.dataSource = self
         cardAddress.delegate = self
         cardAddress.register(CardAddressTableViewCell.nib(), forCellReuseIdentifier: CardAddressTableViewCell.identifier)
         addressVM.presentAlert = { [weak self] title, message, completion in
             self?.showAlert(title: title, message: message, completion: completion)
-            
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllAddress()
-        let countAddress = allAddresses?.data?.count
-        if countAddress == 0 {
-            self.emptyLabel.isHidden = false
-        } else {
-            self.emptyLabel.isHidden = true
-        }
     }
     
     //MARK: IBAction
@@ -67,6 +56,7 @@ class AddressViewController: UIViewController {
         addressVM.getAllAddress(isMockApi: false, accessTokenKey: APIService().token!) { allAddress in
             DispatchQueue.main.async { [weak self] in
                 self?.allAddresses = allAddress
+                self?.allAddresses?.data?.reverse()
                 print("ini bagian allAddress:", allAddress)
                 self?.cardAddress.reloadData()
             }
@@ -93,6 +83,15 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
             cell.phoneNo.text = ": " + addressCell.phoneNumber
             cell.address.text = ": " + addressCell.city
             cell.cityCountry.text = ": " + addressCell.country
+            if addressCell.isPrimary == true {
+                cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")?.withAlphaComponent(0.3)
+                cell.viewContainer.layer.borderWidth = 1
+                cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
+            } else {
+                cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
+                cell.viewContainer.layer.borderWidth = 0
+                cell.viewContainer.layer.borderColor = nil
+            }
         }
         cell.delegate = self
         return cell
@@ -101,6 +100,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
         return 150
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         clickCount += 1
         if selectedIndexPath == indexPath {
             if clickCount == 2 {
@@ -112,8 +112,15 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             if let previousSelectedIndexPath = selectedIndexPath {
+                let isPrimary = allAddresses?.data?[previousSelectedIndexPath.row].isPrimary ?? false
                 if let cell = tableView.cellForRow(at: previousSelectedIndexPath) as? CardAddressTableViewCell {
-                    cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
+                    if isPrimary {
+                        cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")?.withAlphaComponent(0.3)
+                        cell.viewContainer.layer.borderWidth = 1
+                        cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
+                    } else {
+                        cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
+                    }
                     cell.receiveName.textColor = .black
                     cell.phoneNo.textColor = .black
                     cell.address.textColor = .black

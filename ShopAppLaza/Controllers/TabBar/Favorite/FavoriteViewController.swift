@@ -39,22 +39,11 @@ class FavoriteViewController: UIViewController {
         collectionWishlist.delegate = self
         collectionWishlist.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
         
-        if wishlist?.data.total == 0 {
-            self.emptyDataLabel.isHidden = false
-        } else {
-            self.emptyDataLabel.isHidden = true
-            }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getFavorite()
-        if wishlist?.data.total == 0 {
-            self.emptyDataLabel.isHidden = false
-        } else {
-            self.emptyDataLabel.isHidden = true
-            }
     }
     
     //MARK: FUNCTION

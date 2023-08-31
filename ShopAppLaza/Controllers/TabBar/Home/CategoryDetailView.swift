@@ -15,7 +15,7 @@ class CategoryDetailView: UIViewController {
     var isAscendingOrder = true
     
     //MARK: IBOutlet
-    
+    @IBOutlet weak var noItemLabel: UILabel!
     @IBOutlet weak var sortBtn: UIButton!{
         didSet{
             sortBtn.setImage(UIImage(systemName: ""), for: .normal)
@@ -81,7 +81,13 @@ class CategoryDetailView: UIViewController {
 
 extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoryDetail.count
+        let countProduct = categoryDetail.count
+        if countProduct == 0 {
+            self.noItemLabel.isHidden = false
+        } else {
+            self.noItemLabel.isHidden = true
+            }
+        return countProduct
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }

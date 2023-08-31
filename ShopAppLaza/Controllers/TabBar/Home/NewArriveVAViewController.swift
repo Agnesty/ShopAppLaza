@@ -14,6 +14,7 @@ class NewArriveVAViewController: UIViewController {
     var isAscendingOrder = true
 
     //MARK: IBOutlet
+    @IBOutlet weak var noItemLabel: UILabel!
     @IBOutlet weak var sortBtn: UIButton!{
         didSet{
             sortBtn.setImage(UIImage(systemName: ""), for: .normal)
@@ -73,7 +74,13 @@ class NewArriveVAViewController: UIViewController {
 
 extension NewArriveVAViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return productAPI.count
+        let countProduct = productAPI.count
+        if countProduct == 0 {
+            self.noItemLabel.isHidden = false
+        } else {
+            self.noItemLabel.isHidden = true
+            }
+        return countProduct
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cellNewArraival = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }

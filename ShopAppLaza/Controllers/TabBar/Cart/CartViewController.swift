@@ -10,8 +10,10 @@ import UIKit
 class CartViewController: UIViewController {
     private let cartVM = CartViewModel()
     private let cartTableVM = CartTableViewModel()
+    private let addressVM = AddressViewModel()
     var dataCart: DataCart?
     var allSizes: AllSize?
+    var allAddresses: DataAllAddress?
     
     //MARK: IBOutlet
     @IBOutlet weak var emptyLabel: UILabel!
@@ -53,18 +55,13 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
         setupTabBarItemImage()
         getAllCartData()
-        let countProduct = dataCart?.products?.count
-        if countProduct == 0 {
-            self.emptyLabel.isHidden = false
-        } else {
-            self.emptyLabel.isHidden = true
-        }
+        getAllAddress()
+        getAllSize()
         
-        cartVM.getAllSize(isMockApi: false) { allSize in
-            DispatchQueue.main.async { [weak self] in
-                self?.allSizes = allSize
-            }
-        }
+        self.addressLabel.text = self.allAddresses?.country
+        self.cityLabel.text = self.allAddresses?.city
+        
+
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -78,12 +75,6 @@ class CartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getAllCartData()
-        let countProduct = dataCart?.products?.count
-        if countProduct == 0 {
-            self.emptyLabel.isHidden = false
-        } else {
-            self.emptyLabel.isHidden = true
-        }
     }
     
     //MARK: IBAction
@@ -126,12 +117,28 @@ class CartViewController: UIViewController {
         }
         return sizeId
     }
+    func getAllAddress() {
+        addressVM.getAllAddress(isMockApi: false, accessTokenKey: APIService().token!) { allAddress in
+            DispatchQueue.main.async { [weak self] in
+                self?.allAddresses = allAddress.data?.first(where: {$0.isPrimary == true})
+                self?.addressLabel.text = self?.allAddresses?.country
+                self?.cityLabel.text = self?.allAddresses?.city
+            }
+        }
+    }
+    func getAllSize() {
+        cartVM.getAllSize(isMockApi: false) { allSize in
+            DispatchQueue.main.async { [weak self] in
+                self?.allSizes = allSize
+            }
+        }
+    }
 }
 
 extension CartViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let countProduct = dataCart?.products?.count
-        if countProduct == 0 {
+        if countProduct == nil {
             self.emptyLabel.isHidden = false
         } else {
             self.emptyLabel.isHidden = true

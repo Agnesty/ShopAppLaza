@@ -36,6 +36,7 @@ class CardAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var labelCountry: UILabel!
     
+    @IBOutlet weak var primaryLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -68,8 +68,10 @@ class LoginViewModel {
                                         self?.loading?()
                                         self?.presentAlert?("Login Successful", "Congratulations! You have successfully Login.", {
                                             if let data = jsonResponse["data"] as? [String: Any],
-                                               let accessToken = data["access_token"] as? String {
+                                               let accessToken = data["access_token"] as? String,
+                                            let refreshToken = data["refresh_token"] as? String {
                                                 UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                                                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
                                                 self?.navigateToHome?()
                                             }
                                         })

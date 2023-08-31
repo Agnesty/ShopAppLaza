@@ -8,7 +8,6 @@
 import Foundation
 
 class ProfilViewModel {
-    
     func getUserProfile(isMockApi: Bool, accessTokenKey: String, completion: @escaping (UserElement) -> Void) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
         let userProfile = EndpointPath.UserProfile.rawValue

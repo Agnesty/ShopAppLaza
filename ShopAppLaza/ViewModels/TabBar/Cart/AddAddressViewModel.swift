@@ -83,7 +83,7 @@ class AddAddressViewModel {
         }
     }
     
-    func editAddressById(isMockApi: Bool, id: Int, accessTokenKey: String, country: String, city: String, receiverName: String, phoneNo: String, isPrimary: Bool, completion: @escaping (Bool) -> Void) {
+    func editAddressById(isMockApi: Bool, id: Int, accessTokenKey: String, country: String, city: String, receiverName: String, phoneNo: String, isPrimary: Bool) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
         let address = EndpointPath.Address.rawValue
         let urlString = "\(baseUrl)\(address)"
@@ -139,7 +139,6 @@ class AddAddressViewModel {
                 }
             } catch {
                 print("Error decoding JSON: \(error)")
-                completion(false)
             }
         }.resume()
     }

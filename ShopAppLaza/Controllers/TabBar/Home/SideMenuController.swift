@@ -14,10 +14,16 @@ protocol SideMenuControllerDelegate: AnyObject {
 
 class SideMenuController: UIViewController {
     weak var delegate: SideMenuControllerDelegate?
+    private let profileVM = ProfilViewModel()
+    var contentDataUser: UserElement?
     
     //MARK: IBOutlet
     @IBOutlet weak var menuBack: UIButton!
-    @IBOutlet weak var imageUser: UIButton!
+    @IBOutlet weak var imageUser: UIImageView!{
+        didSet{
+            imageUser.layer.cornerRadius = CGFloat(imageUser.frame.width/2)
+        }
+    }
     @IBOutlet weak var sumOrders: UIButton!
     @IBOutlet weak var switchMode: UISwitch!
     @IBOutlet weak var accountInfo: UIButton!
@@ -36,7 +42,18 @@ class SideMenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
+                DispatchQueue.main.async { [weak self] in
+                self?.contentDataUser = userdata
+                print("apakah ini benar: \(userdata)")
+                    DispatchQueue.main.async {
+                        if let contentData = self?.contentDataUser?.data {
+                            self?.namaLabel.text = contentData.fullName
+                            self?.imageUser.setImageWithPlugin(url: contentData.imageUrl)
+                        }
+                    }
+            }
+        }
         if let firstname = UserDefaults.standard.string(forKey: "loggedInFirstName"){
             namaLabel.text = "\(firstname.capitalized)"
         }

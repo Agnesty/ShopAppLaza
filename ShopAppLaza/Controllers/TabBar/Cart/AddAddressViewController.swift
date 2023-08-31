@@ -31,6 +31,12 @@ class AddAddressViewController: UIViewController {
             cityTF.text = previousValue.city
             phoneNoTF.text = previousValue.phoneNumber
             addressTF.text = previousValue.city
+            let isPrimary = previousValue.isPrimary
+            if isPrimary == nil {
+                savePrimaryAddress.isOn = false
+            } else {
+                savePrimaryAddress.isOn = true
+            }
         }
         
         addAddressVM.navigateToBack = { [weak self] in
@@ -51,11 +57,7 @@ class AddAddressViewController: UIViewController {
         if trueUpdate == true {
             print("isi true update")
             if let address = userAddresses {
-                addAddressVM.editAddressById(isMockApi: false, id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn) { bool in
-                    if bool == true {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }
+                addAddressVM.editAddressById(isMockApi: false, id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn)
                 trueUpdate = false
             }
         } else {

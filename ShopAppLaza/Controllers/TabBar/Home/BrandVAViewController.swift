@@ -13,6 +13,7 @@ class BrandVAViewController: UIViewController {
     var isAscendingOrder = true
     
     //MARK: IBOutlet
+    @IBOutlet weak var noItemLabel: UILabel!
     @IBOutlet weak var sortBtn: UIButton!{
         didSet{
             sortBtn.setImage(UIImage(systemName: ""), for: .normal)
@@ -74,7 +75,13 @@ class BrandVAViewController: UIViewController {
 
 extension BrandVAViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoryBrandVA.count
+        let countProduct = categoryBrandVA.count
+        if countProduct == 0 {
+            self.noItemLabel.isHidden = false
+        } else {
+            self.noItemLabel.isHidden = true
+            }
+        return countProduct
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
