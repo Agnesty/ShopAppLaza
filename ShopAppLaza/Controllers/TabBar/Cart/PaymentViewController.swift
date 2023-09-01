@@ -11,6 +11,26 @@ class PaymentViewController: UIViewController {
 
     //MARK: IBOutlet
     @IBOutlet weak var paymentCollectionView: UICollectionView!
+    @IBOutlet weak var nameCard: UITextField!{
+        didSet{
+            nameCard.isEnabled = false
+        }
+    }
+    @IBOutlet weak var cardNumber: UITextField!{
+        didSet{
+            cardNumber.isEnabled = false
+        }
+    }
+    @IBOutlet weak var expCard: UITextField!{
+        didSet{
+            expCard.isEnabled = false
+        }
+    }
+    @IBOutlet weak var cvvCard: UITextField!{
+        didSet{
+            cvvCard.isEnabled = false
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

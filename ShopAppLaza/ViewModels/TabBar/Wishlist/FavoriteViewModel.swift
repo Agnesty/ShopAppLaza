@@ -8,7 +8,6 @@
 import Foundation
 
 class FavoriteViewModel{
-    var favoriteViewCtr: FavoriteViewController?
     func getFavoriteList(isMockApi: Bool, accessTokenKey: String, completion: @escaping (Wishlist) -> Void) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
         let wishlist = EndpointPath.Wishlist.rawValue

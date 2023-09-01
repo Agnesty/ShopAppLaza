@@ -106,10 +106,9 @@ class SideMenuController: UIViewController {
         let logoutAction = UIAlertAction(title: "OK", style: .destructive) { _ in
             
             // Menghapus data dari UserDefaults
+            KeychainManager.keychain.deleteToken(service: Token.access.rawValue)
+            KeychainManager.keychain.deleteToken(service: Token.refresh.rawValue)
             UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-            UserDefaults.standard.removeObject(forKey: "loggedInUsername")
-            UserDefaults.standard.removeObject(forKey: "loggedInPassword")
-            UserDefaults.standard.synchronize()
             
             // Mengarahkan pengguna kembali ke root view controller
             self.delegate?.logoutPressed()

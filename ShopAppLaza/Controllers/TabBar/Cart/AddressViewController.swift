@@ -56,13 +56,15 @@ class AddressViewController: UIViewController {
         addressVM.getAllAddress(isMockApi: false, accessTokenKey: APIService().token!) { allAddress in
             DispatchQueue.main.async { [weak self] in
                 self?.allAddresses = allAddress
-                self?.allAddresses?.data?.reverse()
-                print("ini bagian allAddress:", allAddress)
+                let primaryAddresses = self?.allAddresses?.data?.filter { $0.isPrimary != nil } ?? []
+                let nonPrimaryAddresses = self?.allAddresses?.data?.filter { $0.isPrimary == nil } ?? []
+                let combinedAddresses = primaryAddresses + nonPrimaryAddresses
+                self?.allAddresses?.data = combinedAddresses 
+                print("Get all address")
                 self?.cardAddress.reloadData()
             }
         }
     }
-    
 }
 
 extension AddressViewController: UITableViewDelegate, UITableViewDataSource {

@@ -70,16 +70,7 @@ class HomeController: UIViewController {
             let jwt = try decode(jwt: APIService().token!)
             if jwt.expired {
                 isValidToken = false
-                showAlert(title: "Your token is expired", message: "Plese re-login"){
-                    // Menghapus data dari UserDefaults
-                    UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-                    UserDefaults.standard.removeObject(forKey: "loggedInUsername")
-                    UserDefaults.standard.removeObject(forKey: "loggedInPassword")
-                    UserDefaults.standard.synchronize()
-                    
-                    // Mengarahkan pengguna kembali ke root view controller
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
+                updateUsers()
             } else {
                 isValidToken = true
             }
@@ -95,7 +86,19 @@ class HomeController: UIViewController {
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
         tableView.register(NewArrivalTableViewCell.nib(), forCellReuseIdentifier: NewArrivalTableViewCell.identifier)
     }
-  
+    
+    func updateUsers() {
+        guard let refreshToken = KeychainManager.keychain.getToken(service: Token.refresh.rawValue) else {
+            print("Refresh token is nil")
+            self.navigationController?.popToRootViewController(animated: false)
+            return
+        }
+        APIService.refreshTokenAsync(isMockApi: false, refreshTokenKey: refreshToken) { refreshedToken in
+            print("Refreshed token:", refreshedToken)
+        }
+    }
+    
+    
 }
 
 extension HomeController: UITableViewDelegate, UITableViewDataSource {

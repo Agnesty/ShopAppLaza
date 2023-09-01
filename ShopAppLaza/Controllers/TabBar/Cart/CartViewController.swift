@@ -88,7 +88,7 @@ class CartViewController: UIViewController {
         self.navigationController?.pushViewController(performAddress, animated: true)
     }
     @IBAction func paymentBtnAction(_ sender: UIButton) {
-        guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentMethodViewController") as? PaymentMethodViewController else { return }
+        guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
         self.navigationController?.pushViewController(performPaymentMethod, animated: true)
     }
     

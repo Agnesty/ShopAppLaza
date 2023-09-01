@@ -32,7 +32,6 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favoriteVM.favoriteViewCtr = self
         getFavorite()
         setupTabBarItemImage()
         collectionWishlist.dataSource = self

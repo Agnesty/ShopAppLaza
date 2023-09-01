@@ -18,7 +18,6 @@ class AddAddressViewController: UIViewController {
     @IBOutlet weak var countryTF: UITextField!
     @IBOutlet weak var cityTF: UITextField!
     @IBOutlet weak var phoneNoTF: UITextField!
-    @IBOutlet weak var addressTF: UITextField!
     @IBOutlet weak var savePrimaryAddress: UISwitch!
     
     override func viewDidLoad() {
@@ -29,7 +28,6 @@ class AddAddressViewController: UIViewController {
             countryTF.text = previousValue.country
             cityTF.text = previousValue.city
             phoneNoTF.text = previousValue.phoneNumber
-            addressTF.text = previousValue.city
             let isPrimary = previousValue.isPrimary
             if isPrimary == nil {
                 savePrimaryAddress.isOn = false
@@ -40,6 +38,7 @@ class AddAddressViewController: UIViewController {
         
         addAddressVM.navigateToBack = { [weak self] in
             self?.goBackAfterAddAddress()
+            
         }
         addAddressVM.presentAlert = { [weak self] title, message, completion in
             self?.showAlert(title: title, message: message, completion: completion)
