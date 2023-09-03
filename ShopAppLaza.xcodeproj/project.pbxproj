@@ -122,6 +122,10 @@
 		33E2BA1C2A9482A2008FC8FC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2BA1B2A9482A2008FC8FC /* HomeViewModel.swift */; };
 		33E2BA1E2A948377008FC8FC /* SearchProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2BA1D2A948377008FC8FC /* SearchProduct.swift */; };
 		33EFBB482A7B3823005D7841 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EFBB472A7B3823005D7841 /* SideMenuController.swift */; };
+		33FB3B4B2AA463EF00EDC220 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B492AA463EF00EDC220 /* CoreData.xcdatamodeld */; };
+		33FB3B4D2AA4647000EDC220 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B4C2AA4647000EDC220 /* CardModel.swift */; };
+		33FB3B4F2AA465FD00EDC220 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B4E2AA465FD00EDC220 /* CoreDataManager.swift */; };
+		33FB3B522AA46C4F00EDC220 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 33FB3B512AA46C4F00EDC220 /* SkeletonView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -231,6 +235,9 @@
 		33E2BA1B2A9482A2008FC8FC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		33E2BA1D2A948377008FC8FC /* SearchProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProduct.swift; sourceTree = "<group>"; };
 		33EFBB472A7B3823005D7841 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
+		33FB3B4A2AA463EF00EDC220 /* CoreDataCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataCard.xcdatamodel; sourceTree = "<group>"; };
+		33FB3B4C2AA4647000EDC220 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		33FB3B4E2AA465FD00EDC220 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		D041EDD0416E78C08C642479 /* Pods_ShopAppLaza.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopAppLaza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -247,6 +254,7 @@
 				3369D5172AA06F7A00B0A82D /* JWTDecode in Frameworks */,
 				3343C24A2A96FF69008AEA92 /* GoogleSignIn in Frameworks */,
 				3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */,
+				33FB3B522AA46C4F00EDC220 /* SkeletonView in Frameworks */,
 				3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */,
 				334257E82A724BD3000CD97A /* SDWebImage in Frameworks */,
 				04C8D7A9005B9F12197895CF /* Pods_ShopAppLaza.framework in Frameworks */,
@@ -302,6 +310,7 @@
 				332C98AF2A701134003CAFD3 /* Assets.xcassets */,
 				332C98B42A701134003CAFD3 /* Info.plist */,
 				3378B55D2A70FC6100420E00 /* Fonts */,
+				33FB3B492AA463EF00EDC220 /* CoreData.xcdatamodeld */,
 			);
 			path = ShopAppLaza;
 			sourceTree = "<group>";
@@ -368,6 +377,7 @@
 				332C0B612A7CACD4008ECB27 /* CustomSlider.swift */,
 				338C67EB2A8CB5C900762160 /* API Service.swift */,
 				33100F402A8EFEFD00DE9A2F /* Keychain Manager.swift */,
+				33FB3B4E2AA465FD00EDC220 /* CoreDataManager.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -389,6 +399,7 @@
 				33E2BA1D2A948377008FC8FC /* SearchProduct.swift */,
 				3397A9332A951723008787A3 /* CartProduct.swift */,
 				3347DF7F2A95BD97002E70DE /* AllAddress.swift */,
+				33FB3B4C2AA4647000EDC220 /* CardModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -594,6 +605,7 @@
 				3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */,
 				3343C2492A96FF69008AEA92 /* GoogleSignIn */,
 				3369D5162AA06F7A00B0A82D /* JWTDecode */,
+				33FB3B512AA46C4F00EDC220 /* SkeletonView */,
 			);
 			productName = ShopAppLaza;
 			productReference = 332C98A32A701133003CAFD3 /* ShopAppLaza.app */;
@@ -628,6 +640,7 @@
 				3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */,
+				33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 332C98A42A701133003CAFD3 /* Products */;
 			projectDirPath = "";
@@ -749,6 +762,7 @@
 				33100F452A8F662200DE9A2F /* AllReviews.swift in Sources */,
 				33BA02E22A8A0539003AEB76 /* ReviewsViewModel.swift in Sources */,
 				334BF3E82A7B875800755766 /* ReviewsTableViewCell.swift in Sources */,
+				33FB3B4F2AA465FD00EDC220 /* CoreDataManager.swift in Sources */,
 				332C0B622A7CACD4008ECB27 /* CustomSlider.swift in Sources */,
 				3338439C2A933C240092ACC8 /* FavoriteViewModel.swift in Sources */,
 				3347DF7E2A95B2C4002E70DE /* AddAddressViewModel.swift in Sources */,
@@ -766,6 +780,7 @@
 				332291D32A7FC4A40035D65F /* DetailViewModel.swift in Sources */,
 				334257E12A723E68000CD97A /* Extensions.swift in Sources */,
 				334BF3DB2A7B5EEA00755766 /* ReviewsViewController.swift in Sources */,
+				33FB3B4D2AA4647000EDC220 /* CardModel.swift in Sources */,
 				332C98BC2A7023D4003CAFD3 /* Screen2ViewController.swift in Sources */,
 				333843952A92FA040092ACC8 /* CategoryDetailViewModel.swift in Sources */,
 				339C5D0C2A79EE9600085359 /* DynamicHeightCollectionView.swift in Sources */,
@@ -778,6 +793,7 @@
 				334E61AB2A83833D00DB3921 /* GopayPaymentViewController.swift in Sources */,
 				3335D8832A8B20560091376B /* ForgotPassViewModel.swift in Sources */,
 				3322C11A2A81D77800EEF0C7 /* CategoryDetailView.swift in Sources */,
+				33FB3B4B2AA463EF00EDC220 /* CoreData.xcdatamodeld in Sources */,
 				33CE6F292A7E601E00FA8084 /* LoginViewModel.swift in Sources */,
 				3354D3EC2A80975B00A9DB7F /* AddAddressViewController.swift in Sources */,
 				33BA02DE2A89CC33003AEB76 /* Brand.swift in Sources */,
@@ -1050,6 +1066,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1113,7 +1137,25 @@
 			package = 3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */;
 			productName = JWTDecode;
 		};
+		33FB3B512AA46C4F00EDC220 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		33FB3B492AA463EF00EDC220 /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				33FB3B4A2AA463EF00EDC220 /* CoreDataCard.xcdatamodel */,
+			);
+			currentVersion = 33FB3B4A2AA463EF00EDC220 /* CoreDataCard.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 332C989B2A701133003CAFD3 /* Project object */;
 }

@@ -14,9 +14,8 @@ enum APIServiceError: Error {
     // Add other error cases as needed
 }
 class APIService {
-    
-    let token = UserDefaults.standard.string(forKey: "accessToken")
-    let refToken = UserDefaults.standard.string(forKey: "refreshToken")
+    let token = KeychainManager.keychain.getToken(service: Token.access.rawValue)
+    let refToken = KeychainManager.keychain.getToken(service: Token.refresh.rawValue)
     static func getHttpBodyRaw(param: [String:Any]) -> Data? {
         let jsonData = try? JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
         return jsonData
@@ -25,44 +24,7 @@ class APIService {
         let baseUrl = isMockApi ? "http://localhost:3001/" : "https://lazaapp.shop/"
         return baseUrl
     }
-//    static func refreshToken(isMockApi: Bool, refreshTokenKey: String) {
-//        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
-//        let refreshToken = EndpointPath.AuthRefreshToken.rawValue
-//        let urlString = "\(baseUrl)\(refreshToken)"
-//
-//        guard let url = URL(string: urlString) else { print("Invalid URL.")
-//            return
-//        }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = HttpMethod.GET.rawValue
-//        request.addValue("Bearer \(refreshTokenKey)", forHTTPHeaderField: "X-Auth-Refresh")
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let error = error {
-//                print("Error: \(error)")
-//                return
-//            }
-//            guard let data = data else {
-//                print("Data is nil.")
-//                return
-//            }
-//            do {
-//                let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any]
-//                print(result as Any)
-//                if let data = result?["data"] as? [String: Any],
-//                   let accessToken = data["access_token"] as? String {
-//                    UserDefaults.standard.set(accessToken, forKey: "accessToken")
-//                }
-//            } catch {
-//                print("Error JSONSerialization: \(error)")
-//
-//            }
-//        }.resume()
-//    }
-    
-    
-
-    static func refreshTokenAsync(isMockApi: Bool, refreshTokenKey: String, completion: @escaping (String) -> Void) {
+    static func refreshToken(isMockApi: Bool, refreshTokenKey: String, completion: @escaping (String) -> Void) {
         // Construct the URL
         let baseUrl = APIAddress(isMockApi: isMockApi)
         let refreshTokenPath = EndpointPath.AuthRefreshToken.rawValue

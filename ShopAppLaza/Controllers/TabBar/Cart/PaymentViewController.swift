@@ -8,7 +8,10 @@
 import UIKit
 
 class PaymentViewController: UIViewController {
-
+    
+    var creditCards: [CardModel] = []
+    var coredataManager = CoreDataManager()
+    
     //MARK: IBOutlet
     @IBOutlet weak var paymentCollectionView: UICollectionView!
     @IBOutlet weak var nameCard: UITextField!{
@@ -37,8 +40,13 @@ class PaymentViewController: UIViewController {
         paymentCollectionView.dataSource = self
         paymentCollectionView.delegate = self
         paymentCollectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
+        coredataManager.retrieve { [weak self] creditCard in
+            self?.creditCards.append(contentsOf: creditCard)
+            self?.paymentCollectionView.reloadData()
+        }
+        
     }
-   
+    
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -52,10 +60,14 @@ class PaymentViewController: UIViewController {
 
 extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return creditCards.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardPaymentCollectionViewCell.identifier, for: indexPath) as? CardPaymentCollectionViewCell else { return UICollectionViewCell() }
+        
+        let card = creditCards[indexPath.item]
+        cell.configureData(card: card)
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -68,11 +80,5 @@ extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-    
-
-    
-  
-    
-    
     
 }

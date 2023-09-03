@@ -1996,13 +1996,10 @@
                                 <buttonConfiguration key="configuration" style="gray" title="Confirm Card">
                                     <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="confirmCard:" destination="QaS-td-nlp" eventType="touchUpInside" id="drn-KS-E5j"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put Your Info Card" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzc-rR-oSr">
-                                <rect key="frame" x="20" y="375" width="146.66666666666666" height="20.666666666666686"/>
-                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
-                                <color key="textColor" name="FontSetColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o55-68-RU6" customClass="CreditCardFormView" customModule="CreditCardForm">
                                 <rect key="frame" x="46" y="155" width="301" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2011,12 +2008,33 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DX3-5v-ci4" customClass="STPPaymentCardTextField" customModule="StripePaymentsUI">
-                                <rect key="frame" x="20" y="405.66666666666669" width="353" height="50"/>
+                                <rect key="frame" x="20" y="506.33333333333326" width="353" height="50"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Qos-Lg-U4Q"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card Owner" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-6S-Dyx">
+                                <rect key="frame" x="19.999999999999993" y="375" width="96.333333333333314" height="20.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
+                                <color key="textColor" name="FontSetColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QvF-G7-5F5">
+                                <rect key="frame" x="20" y="405.66666666666669" width="353" height="50"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uzT-Ai-pfW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put Your Info Card" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzc-rR-oSr">
+                                <rect key="frame" x="20" y="475.66666666666669" width="146.66666666666666" height="20.666666666666686"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="17"/>
+                                <color key="textColor" name="FontSetColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CuZ-HF-plj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2025,22 +2043,29 @@
                             <constraint firstItem="Pzc-rR-oSr" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="6Sy-b6-dR6"/>
                             <constraint firstAttribute="bottom" secondItem="HcS-7P-yVs" secondAttribute="bottom" id="Aru-Mk-jMz"/>
                             <constraint firstItem="CmQ-gh-pZQ" firstAttribute="centerX" secondItem="GiQ-Pc-tqx" secondAttribute="centerX" id="Iw0-oB-W52"/>
-                            <constraint firstItem="DX3-5v-ci4" firstAttribute="top" secondItem="Pzc-rR-oSr" secondAttribute="bottom" constant="10" id="O6a-Ub-lmt"/>
+                            <constraint firstItem="DX3-5v-ci4" firstAttribute="top" secondItem="Pzc-rR-oSr" secondAttribute="bottom" constant="10" id="Jba-rj-77j"/>
                             <constraint firstItem="HcS-7P-yVs" firstAttribute="trailing" secondItem="CuZ-HF-plj" secondAttribute="trailing" id="O6g-wo-Z8s"/>
-                            <constraint firstItem="Pzc-rR-oSr" firstAttribute="top" secondItem="o55-68-RU6" secondAttribute="bottom" constant="20" id="OeD-OC-NP7"/>
+                            <constraint firstItem="Bkf-6S-Dyx" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="RqD-A5-unn"/>
                             <constraint firstItem="CuZ-HF-plj" firstAttribute="trailing" secondItem="o55-68-RU6" secondAttribute="trailing" constant="46" id="RsE-TU-Pvk"/>
                             <constraint firstItem="DX3-5v-ci4" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="W62-mx-4k7"/>
+                            <constraint firstItem="Bkf-6S-Dyx" firstAttribute="top" secondItem="o55-68-RU6" secondAttribute="bottom" constant="20" id="W6c-rJ-ugD"/>
+                            <constraint firstItem="QvF-G7-5F5" firstAttribute="top" secondItem="Bkf-6S-Dyx" secondAttribute="bottom" constant="10" id="bb3-YE-O8j"/>
                             <constraint firstItem="CmQ-gh-pZQ" firstAttribute="top" secondItem="CuZ-HF-plj" secondAttribute="top" constant="45" id="bik-d9-BAW"/>
+                            <constraint firstItem="DX3-5v-ci4" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="h2T-k5-1UM"/>
                             <constraint firstItem="o55-68-RU6" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="46" id="iPS-bY-lnh"/>
                             <constraint firstItem="CuZ-HF-plj" firstAttribute="trailing" secondItem="DX3-5v-ci4" secondAttribute="trailing" constant="20" id="j78-FB-Z78"/>
+                            <constraint firstItem="QvF-G7-5F5" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="jg2-ba-UTD"/>
+                            <constraint firstItem="Pzc-rR-oSr" firstAttribute="top" secondItem="QvF-G7-5F5" secondAttribute="bottom" constant="20" id="lkc-ap-tTG"/>
                             <constraint firstItem="HcS-7P-yVs" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" id="oFY-Zg-ZSJ"/>
                             <constraint firstItem="o55-68-RU6" firstAttribute="top" secondItem="Awg-hL-pcj" secondAttribute="bottom" constant="20" id="oTs-uE-fXW"/>
                             <constraint firstItem="Awg-hL-pcj" firstAttribute="leading" secondItem="CuZ-HF-plj" secondAttribute="leading" constant="20" id="p9m-Ac-LRh"/>
+                            <constraint firstItem="CuZ-HF-plj" firstAttribute="trailing" secondItem="QvF-G7-5F5" secondAttribute="trailing" constant="20" id="tuF-0Y-hkH"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cardOwnerTF" destination="DX3-5v-ci4" id="8mc-9V-1Nl"/>
                         <outlet property="cardView" destination="o55-68-RU6" id="f5k-tp-45t"/>
+                        <outlet property="ownerTF" destination="QvF-G7-5F5" id="QdE-B8-Kkx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SNF-hp-pHC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

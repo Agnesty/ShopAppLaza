@@ -7,6 +7,7 @@
 
 import UIKit
 import CreditCardForm
+import StripePaymentsUI
 
 class CardPaymentCollectionViewCell: UICollectionViewCell {
     
@@ -25,5 +26,32 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: IBAction
-
+    
+    //MARK: FUNCTION
+    func configureData(card: CardModel) {
+        let cardOwner = card.ownerCard
+        let cardNumber = card.numberCard
+        let expMonth = card.expMonthCard
+        let expYear = card.expYearCard
+        let cvc = card.cvvCard
+        
+        cardPayment.paymentCardTextFieldDidChange(cardNumber: cardNumber, expirationYear: UInt(expYear), expirationMonth: UInt(expYear), cvc: cvc)
+        cardPayment.cardHolderString = cardOwner
+    }
+    func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
+        cardPayment.paymentCardTextFieldDidChange(cardNumber: textField.cardNumber, expirationYear: UInt(textField.expirationYear), expirationMonth: UInt(textField.expirationMonth), cvc: textField.cvc)
+        
+    }
+    
+    func paymentCardTextFieldDidEndEditingExpiration(_ textField: STPPaymentCardTextField) {
+        cardPayment.paymentCardTextFieldDidEndEditingExpiration(expirationYear: UInt(textField.expirationYear))
+    }
+    
+    func paymentCardTextFieldDidBeginEditingCVC(_ textField: STPPaymentCardTextField) {
+        cardPayment.paymentCardTextFieldDidBeginEditingCVC()
+    }
+    
+    func paymentCardTextFieldDidEndEditingCVC(_ textField: STPPaymentCardTextField) {
+        cardPayment.paymentCardTextFieldDidEndEditingCVC()
+    }
 }

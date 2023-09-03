@@ -15,7 +15,6 @@ protocol searchProductHomeProtocol: AnyObject {
 
 class HomeController: UIViewController {
     var loggedInUser: UserElement?
-    var isValidToken = false
     private var sideMenuNav: SideMenuNavigationController?
     private var homeVM = HomeViewModel()
     
@@ -60,19 +59,15 @@ class HomeController: UIViewController {
         setupTabBarItemImage()
         view.addSubview(menuButton)
         jwtExpired()
-        if isValidToken {
-            setUpTableView()
-        }
+        setUpTableView()
     }
+    
     
     func jwtExpired() {
         do {
             let jwt = try decode(jwt: APIService().token!)
             if jwt.expired {
-                isValidToken = false
                 updateUsers()
-            } else {
-                isValidToken = true
             }
             
         } catch {
@@ -93,7 +88,7 @@ class HomeController: UIViewController {
             self.navigationController?.popToRootViewController(animated: false)
             return
         }
-        APIService.refreshTokenAsync(isMockApi: false, refreshTokenKey: refreshToken) { refreshedToken in
+        APIService.refreshToken(isMockApi: false, refreshTokenKey: refreshToken) { refreshedToken in
             print("Refreshed token:", refreshedToken)
         }
     }

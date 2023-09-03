@@ -72,8 +72,8 @@ class LoginViewModel {
                                             let refreshToken = data["refresh_token"] as? String {
                                                 KeychainManager.keychain.saveToken(token: accessToken, service: Token.access.rawValue)
                                                 KeychainManager.keychain.saveToken(token: refreshToken, service: Token.refresh.rawValue)
-                                                UserDefaults.standard.set(accessToken, forKey: "accessToken")
-                                                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+//                                                UserDefaults.standard.set(accessToken, forKey: "accessToken")
+//                                                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
                                                 self?.navigateToHome?()
                                             }
                                         })
