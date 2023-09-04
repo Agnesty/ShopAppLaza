@@ -42,11 +42,6 @@ class PaymentViewController: UIViewController {
         paymentCollectionView.dataSource = self
         paymentCollectionView.delegate = self
         paymentCollectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
-        retrieveCard()
-//        coredataManager.retrieve { [weak self] creditCard in
-//            self?.creditCards.append(contentsOf: creditCard)
-//            self?.paymentCollectionView.reloadData()
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +57,6 @@ class PaymentViewController: UIViewController {
         guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
         self.navigationController?.pushViewController(performAddCardNumber, animated: true)
     }
-    
     @IBAction func editCard(_ sender: UIButton) {
         guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
         performAddCardNumber.creditCardNumber = self.idCardChoose
@@ -70,19 +64,37 @@ class PaymentViewController: UIViewController {
         self.navigationController?.pushViewController(performAddCardNumber, animated: true)
         
     }
+    @IBAction func deleteCard(_ sender: UIButton) {
+        guard let selectedInd = selectedIndexPath else { return }
+        showAlert(title: "Delete Card", message: "Are you sure you want to delete this card?") {
+            self.deleteCardIndex(indexPath: selectedInd)
+        }
+    }
     
     //MARK: FUNCTION
     func retrieveCard() {
+        creditCards.removeAll()
         coredataManager.retrieve { [weak self] creditCard in
             self?.creditCards.append(contentsOf: creditCard)
             self?.paymentCollectionView.reloadData()
         }
     }
+    func deleteCardIndex(indexPath: IndexPath) {
+          let card = creditCards[indexPath.row]
+          coredataManager.delete(card) { [weak self] in
+              DispatchQueue.main.async {
+                  self?.creditCards.remove(at: indexPath.row)
+                  self?.paymentCollectionView.deleteItems(at: [indexPath])
+                  print("successfully delete card")
+              }
+          }
+      }
     
 }
 
 extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("jumlah kartu = ", creditCards.count)
         return creditCards.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

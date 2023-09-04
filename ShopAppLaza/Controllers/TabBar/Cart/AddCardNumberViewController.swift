@@ -26,20 +26,17 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        if let previousValue = creditCard{
-//          
+//
 //        }
         
         coredataManager.presentAlertFailed = {
             self.showAlert(title: "Data Already Exists", message: "Data with species \(self.cardOwnerTF.cardNumber!) already exists in Core Data.")
         }
         coredataManager.presentAlertSucces = {
-            self.showAlert(title: "Data Created", message: "Data has been successfully created.")
-        }
-    
-        coredataManager.navigateToBack = {
-            self.navigationController?.popViewController(animated: true)
+            self.showAlert(title: "Data Created", message: "Data has been successfully created.") {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
@@ -48,10 +45,6 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func confirmCard(_ sender: UIButton) {
-        guard let ccNumber = creditCardNumber else { print("kosong")
-            return
-        }
-        
         let card = CardModel(
             ownerCard: ownerTF.text!,
             numberCard: cardOwnerTF.cardNumber!,
@@ -60,14 +53,17 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
             expYearCard: String(cardOwnerTF.expirationYear)
         )
         if edit == true {
-            coredataManager.updateData(card, numberCard: ccNumber)
-            edit = false
+            if let ccNumber = creditCardNumber {
+                coredataManager.updateData(card, numberCard: ccNumber)
+                edit = false
+            }
         } else {
-            coredataManager.create(card)
+            coredataManager.createku(card)
         }
     }
     
     @IBAction func deleteCard(_ sender: UIButton) {
+        
     }
     
     //MARK: FUNCTION

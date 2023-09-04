@@ -598,6 +598,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="deleteCard"/>
                                         <connections>
+                                            <action selector="deleteCard:" destination="Psj-qw-umb" eventType="touchUpInside" id="iWt-dC-mpl"/>
                                             <action selector="deleteCard:" destination="h4a-Xv-KKg" eventType="touchUpInside" id="kka-js-4Ex"/>
                                         </connections>
                                     </button>

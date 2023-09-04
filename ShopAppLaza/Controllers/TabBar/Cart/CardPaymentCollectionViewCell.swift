@@ -25,8 +25,6 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    //MARK: IBAction
-    
     //MARK: FUNCTION
     func configureData(card: CardModel) {
         let cardOwner = card.ownerCard
