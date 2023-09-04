@@ -11,6 +11,8 @@ class PaymentViewController: UIViewController {
     
     var creditCards: [CardModel] = []
     var coredataManager = CoreDataManager()
+    var selectedIndexPath: IndexPath?
+    var idCardChoose: String?
     
     //MARK: IBOutlet
     @IBOutlet weak var paymentCollectionView: UICollectionView!
@@ -40,11 +42,16 @@ class PaymentViewController: UIViewController {
         paymentCollectionView.dataSource = self
         paymentCollectionView.delegate = self
         paymentCollectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
-        coredataManager.retrieve { [weak self] creditCard in
-            self?.creditCards.append(contentsOf: creditCard)
-            self?.paymentCollectionView.reloadData()
-        }
-        
+        retrieveCard()
+//        coredataManager.retrieve { [weak self] creditCard in
+//            self?.creditCards.append(contentsOf: creditCard)
+//            self?.paymentCollectionView.reloadData()
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        retrieveCard()
     }
     
     //MARK: IBAction
@@ -54,6 +61,22 @@ class PaymentViewController: UIViewController {
     @IBAction func addCartNumber(_ sender: UIButton) {
         guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
         self.navigationController?.pushViewController(performAddCardNumber, animated: true)
+    }
+    
+    @IBAction func editCard(_ sender: UIButton) {
+        guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
+        performAddCardNumber.creditCardNumber = self.idCardChoose
+        performAddCardNumber.edit = true
+        self.navigationController?.pushViewController(performAddCardNumber, animated: true)
+        
+    }
+    
+    //MARK: FUNCTION
+    func retrieveCard() {
+        coredataManager.retrieve { [weak self] creditCard in
+            self?.creditCards.append(contentsOf: creditCard)
+            self?.paymentCollectionView.reloadData()
+        }
     }
     
 }
@@ -69,6 +92,15 @@ extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDel
         cell.configureData(card: card)
         
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        let card = creditCards[indexPath.item]
+        self.idCardChoose = card.numberCard
+        nameCard.text = card.ownerCard
+        cardNumber.text = card.numberCard
+        expCard.text = card.expMonthCard + "/" + card.expYearCard
+        cvvCard.text = card.cvvCard
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = CGSize(width: 300, height: 200)

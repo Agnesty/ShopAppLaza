@@ -19,7 +19,7 @@ struct UserElement: Codable {
 struct DataUser: Codable {
     let id: Int
     let fullName, username, email: String
-    let imageUrl: String
+    let imageUrl: String?
     let isVerified: Bool
     let createdAt, updatedAt: String
     

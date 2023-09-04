@@ -70,4 +70,40 @@ class CoreDataManager {
         }
     }
     
+    func updateData(_ cardModel: CardModel, numberCard: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+
+        let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "DataCard")
+        fetchRequest.predicate = NSPredicate(format: "numberCard = %@", numberCard)
+
+        do {
+          let fetchedResults = try managedContext.fetch(fetchRequest)
+
+            if let updateCard = fetchedResults.first {
+                updateCard.setValue(cardModel.numberCard, forKey: "numberCard")
+                updateCard.setValue(cardModel.ownerCard, forKey: "ownerCard")
+                updateCard.setValue(cardModel.expMonthCard, forKey: "expMonthCard")
+                updateCard.setValue(cardModel.expYearCard, forKey: "expYearCard")
+                updateCard.setValue(cardModel.cvvCard, forKey: "cvvCard")
+            }
+            
+            do {
+              try managedContext.save()
+              presentAlertSucces?()
+              navigateToBack?()
+              print("Data updated successfully")
+            } catch{
+              presentAlertFailed?()
+              print("Failed to update data: (error), (error.userInfo)", error)
+            }
+          
+        } catch {
+          print("Fetch error: (error), (error.userInfo)", error)
+        }
+      }
+    
+    
+
 }

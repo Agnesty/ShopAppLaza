@@ -49,7 +49,7 @@ class SideMenuController: UIViewController {
                     DispatchQueue.main.async {
                         if let contentData = self?.contentDataUser?.data {
                             self?.namaLabel.text = contentData.fullName
-                            self?.imageUser.setImageWithPlugin(url: contentData.imageUrl)
+                            self?.imageUser.setImageWithPlugin(url: contentData.imageUrl ?? "")
                         }
                     }
             }

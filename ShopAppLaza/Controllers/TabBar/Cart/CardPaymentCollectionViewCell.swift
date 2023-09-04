@@ -15,9 +15,9 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
     static func nib() -> UINib {
         return UINib(nibName: "CardPaymentCollectionViewCell", bundle: nil)
     }
+    var editButtonAction: (() -> Void)?
     
     //MARK: IBOutlet
-    
     @IBOutlet weak var cardPayment: CreditCardFormView!
     
     override func awakeFromNib() {
@@ -35,7 +35,7 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
         let expYear = card.expYearCard
         let cvc = card.cvvCard
         
-        cardPayment.paymentCardTextFieldDidChange(cardNumber: cardNumber, expirationYear: UInt(expYear), expirationMonth: UInt(expYear), cvc: cvc)
+        cardPayment.paymentCardTextFieldDidChange(cardNumber: cardNumber, expirationYear: UInt(expYear), expirationMonth: UInt(expMonth), cvc: cvc)
         cardPayment.cardHolderString = cardOwner
     }
     func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
