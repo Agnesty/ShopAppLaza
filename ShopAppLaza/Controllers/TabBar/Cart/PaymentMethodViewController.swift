@@ -23,7 +23,6 @@ class PaymentMethodViewController: UIViewController {
             viewCreditCard.layer.cornerRadius = CGFloat(10)
         }
     }
-    
     @IBOutlet weak var gopayCheck: UIButton!
     @IBOutlet weak var creditCardCheck: UIButton!
     @IBOutlet weak var savePaymentBtn: UIButton!
@@ -71,7 +70,6 @@ class PaymentMethodViewController: UIViewController {
                savePaymentBtn.backgroundColor = UIColor(hex: "#8E8E93")
            }
     }
-
     @IBAction func savePaymentAction(_ sender: UIButton) {
         if contentCheckGopay {
             guard let performGopayPayment = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "GopayPaymentViewController") as? GopayPaymentViewController else { return }

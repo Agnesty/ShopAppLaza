@@ -70,10 +70,9 @@ class LoginViewModel {
                                             if let data = jsonResponse["data"] as? [String: Any],
                                                let accessToken = data["access_token"] as? String,
                                             let refreshToken = data["refresh_token"] as? String {
-                                                KeychainManager.keychain.saveToken(token: accessToken, service: Token.access.rawValue)
-                                                KeychainManager.keychain.saveToken(token: refreshToken, service: Token.refresh.rawValue)
-//                                                UserDefaults.standard.set(accessToken, forKey: "accessToken")
-//                                                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                                                KeychainManager.keychain.addTokenToKeychain(token: accessToken, service: Token.access.rawValue)
+                                                KeychainManager.keychain.addTokenToKeychain(token: refreshToken, service: Token.refresh.rawValue)
+                                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                                                 self?.navigateToHome?()
                                             }
                                         })

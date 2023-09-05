@@ -32,7 +32,6 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getFavorite()
         setupTabBarItemImage()
         collectionWishlist.dataSource = self
         collectionWishlist.delegate = self
@@ -42,7 +41,12 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFavorite()
+        self.tabBarController?.tabBar.isHidden = false
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.getFavorite()
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
     }
     
     //MARK: FUNCTION
@@ -55,8 +59,6 @@ class FavoriteViewController: UIViewController {
             }
         }
     }
-    
-    
 }
 
 extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -69,7 +71,6 @@ extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDe
             }
         return countProduct ?? 0
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewArraivalCollectionViewCell.identifier, for: indexPath) as? NewArraivalCollectionViewCell else { return UICollectionViewCell() }
         if let cellWishlist = wishlist?.data.products?[indexPath.row] {
@@ -93,13 +94,7 @@ extension FavoriteViewController: UICollectionViewDataSource, UICollectionViewDe
         guard let newArrivalDetailView = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else { return }
         newArrivalDetailView.productId = wishlist?.data.products?[indexPath.item].id
         self.navigationController?.pushViewController(newArrivalDetailView, animated: true)
-        
-        
-        
-        
-        
     }
-    
 }
 
 

@@ -58,22 +58,14 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         setupTabBarItemImage()
         view.addSubview(menuButton)
-        jwtExpired()
-        setUpTableView()
+        self.setUpTableView()
     }
     
-    
-    func jwtExpired() {
-        do {
-            let jwt = try decode(jwt: APIService().token!)
-            if jwt.expired {
-                updateUsers()
-            }
-            
-        } catch {
-            print("ini gagal")
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+//        APIService().jwtExpired()
     }
+
     func setUpTableView() {
         searchBar.delegate = self
         tableView.delegate = self
@@ -81,19 +73,6 @@ class HomeController: UIViewController {
         tableView.register(CategoryTableViewCell.nib(), forCellReuseIdentifier: CategoryTableViewCell.identifier)
         tableView.register(NewArrivalTableViewCell.nib(), forCellReuseIdentifier: NewArrivalTableViewCell.identifier)
     }
-    
-    func updateUsers() {
-        guard let refreshToken = KeychainManager.keychain.getToken(service: Token.refresh.rawValue) else {
-            print("Refresh token is nil")
-            self.navigationController?.popToRootViewController(animated: false)
-            return
-        }
-        APIService.refreshToken(isMockApi: false, refreshTokenKey: refreshToken) { refreshedToken in
-            print("Refreshed token:", refreshedToken)
-        }
-    }
-    
-    
 }
 
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
@@ -160,9 +139,44 @@ extension HomeController: CategoryBrandSelectItemDelegate {
 }
 
 extension HomeController: SideMenuControllerDelegate {
+    func goToWishlist() {
+        sideMenuNav?.dismiss(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ){
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
+    
+    func goToCart() {
+        sideMenuNav?.dismiss(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ){
+            self.tabBarController?.selectedIndex = 2
+        }
+    }
+    
+    func goToProfile() {
+        sideMenuNav?.dismiss(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ){
+            self.tabBarController?.selectedIndex = 3
+        }
+    }
+    
+    func goToChangePassword() {
+        sideMenuNav?.dismiss(animated: true)
+        let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as? ChangePasswordViewController else { return }
+//        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func logoutPressed() {
         sideMenuNav?.dismiss(animated: true)
-        navigationController?.popToRootViewController(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            let nav = UINavigationController(rootViewController: vc)
+            nav.setNavigationBarHidden(true, animated: true)
+            self.view.window?.windowScene?.keyWindow?.rootViewController = nav
+        }
     }
 }
 

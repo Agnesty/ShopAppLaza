@@ -27,7 +27,6 @@ class AddressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAllAddress()
         
         cardAddress.dataSource = self
         cardAddress.delegate = self
@@ -39,7 +38,12 @@ class AddressViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getAllAddress()
+        self.tabBarController?.tabBar.isHidden = true
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.getAllAddress()
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
     }
     
     //MARK: IBAction
@@ -163,10 +167,14 @@ extension AddressViewController: deleteAddressProtocol {
     func deleteAddress(cell: CardAddressTableViewCell) {
         guard let indexPath = cardAddress.indexPath(for: cell) else { return }
         if let addressCell = allAddresses?.data?[indexPath.row] {
-            addressVM.deleteAddressById(isMockApi: false, id: addressCell.id, accessTokenKey: APIService().token!) { status in
-                if status == true {
-                    self.getAllAddress()
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.addressVM.deleteAddressById(isMockApi: false, id: addressCell.id, accessTokenKey: APIService().token!) { status in
+                    if status == true {
+                        self?.getAllAddress()
+                    }
                 }
+            } onError: { errorMessage in
+                print(errorMessage)
             }
         }
     }

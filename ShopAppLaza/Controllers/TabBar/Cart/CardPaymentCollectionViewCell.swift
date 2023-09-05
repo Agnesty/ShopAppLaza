@@ -22,7 +22,6 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     //MARK: FUNCTION

@@ -26,7 +26,6 @@ class NewArriveVAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sortData()
-        
         newArrivalCollection.dataSource = self
         newArrivalCollection.delegate = self
         newArrivalCollection.register(NewArraivalCollectionViewCell.nib(), forCellWithReuseIdentifier: NewArraivalCollectionViewCell.identifier)
@@ -39,8 +38,6 @@ class NewArriveVAViewController: UIViewController {
             }
         }
     }
-    
- 
     
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {
@@ -70,8 +67,6 @@ class NewArriveVAViewController: UIViewController {
         }
         newArrivalCollection.reloadData()
     }
-    
-    
 }
 
 extension NewArriveVAViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

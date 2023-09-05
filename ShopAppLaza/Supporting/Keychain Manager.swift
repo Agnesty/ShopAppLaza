@@ -11,6 +11,7 @@ import Security
 enum Token: String {
     case access = "access-token"
     case refresh = "refresh-token"
+    case password = "password"
 }
 
 class KeychainManager {
@@ -42,6 +43,34 @@ class KeychainManager {
         }
         
     }
+    func addTokenToKeychain(token: String, service: String) {
+            let data = Data(token.utf8)
+            let addquery = [
+                kSecAttrService: service,
+                kSecAttrAccount: "laza-account",
+                kSecClass: kSecClassGenericPassword,
+                kSecValueData: data
+            ] as [CFString : Any] as CFDictionary
+            // Add to keychain
+            let status = SecItemAdd(addquery, nil)
+            if status == errSecDuplicateItem {
+                // Item already exists, thus update it
+                let updatequery = [
+                    kSecAttrService: service,
+                    kSecAttrAccount: "laza-account",
+                    kSecClass: kSecClassGenericPassword
+                ] as [CFString : Any] as CFDictionary
+                let attributeToUpdate = [kSecValueData: data] as CFDictionary
+                // Update to keychain
+                let updateStatus = SecItemUpdate(updatequery, attributeToUpdate)
+                if updateStatus != errSecSuccess {
+                    print("Error updating token to keychain, status: \(status)")
+                }
+            } else if status != errSecSuccess {
+                print("Error adding token to keychain, status: \(status)")
+            }
+        }
+
     
     func getToken(service: String) -> String? {
         let queary = [
@@ -63,18 +92,21 @@ class KeychainManager {
         return String(decoding: data, as: UTF8.self)
     }
     
-    func deleteToken(service: String) {
-        let queary = [
-            kSecAttrService: service,
-            kSecAttrAccount: "laza-account",
-            kSecClass: kSecClassGenericPassword,
-            kSecValueData: true
-        ] as [CFString : Any]
+    func deleteToken() {
+        let spec : CFDictionary = [kSecClass: kSecClassGenericPassword] as CFDictionary
+        SecItemDelete(spec)
         
-        if SecItemDelete(queary as CFDictionary) == errSecSuccess {
-            print("Deleted from keychain")
-        } else {
-            print("Delete from keychain failed")
-        }
+//        let queary = [
+//            kSecAttrService: service,
+//            kSecAttrAccount: "laza-account",
+//            kSecClass: kSecClassGenericPassword,
+//            kSecValueData: true
+//        ] as [CFString : Any]
+        
+//        if SecItemDelete(queary as CFDictionary) == errSecSuccess {
+//            print("Deleted from keychain")
+//        } else {
+//            print("Delete from keychain failed")
+//        }
     }
 }

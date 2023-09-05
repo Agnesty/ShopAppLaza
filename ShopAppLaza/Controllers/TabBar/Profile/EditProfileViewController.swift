@@ -38,21 +38,23 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fullnameTF.text = contentDataUser?.data.fullName
+        usernameTF.text = contentDataUser?.data.username
+        emailTF.text = contentDataUser?.data.email
+        imagePhoto.setImageWithPlugin(url: contentDataUser?.data.imageUrl ?? "")
+        
         setupTabBarItemImage()
         imagePicker.delegate = self
-        if imagePhoto.image == nil {
-            // Jika imageView masih belum memiliki gambar (kosong), ambil gambar dari UserDefaults
-            if let imagePath = UserDefaults.standard.string(forKey: "GambarSignUP"),
-               let image = UIImage(contentsOfFile: imagePath) {
-                imagePhoto.image = image
-            }
-        }
         profileVM.navigateToBack = { [weak self] in
             self?.backBtn()
         }
         profileVM.presentAlert = { [weak self] title, message, completion in
             self?.showAlert(title: title, message: message, completion: completion)
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     //MARK: IBAction

@@ -56,17 +56,23 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBarItemImage()
-        getDataProfile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getDataProfile()
+        self.tabBarController?.tabBar.isHidden = false
+        
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.getDataProfile()
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
     }
     
     //MARK: IBAction
     @IBAction func editDataAction(_ sender: UIButton) {
         guard let performEditPage = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else { return }
+        performEditPage.contentDataUser = contentDataUser
         self.navigationController?.pushViewController(performEditPage, animated: true)
     }
     
@@ -74,8 +80,6 @@ class ProfileViewController: UIViewController {
     func getDataProfile() {
         profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
             self?.contentDataUser = userdata
-            print("apakah ini benar: \(userdata)")
-            
             DispatchQueue.main.async {
                 self?.fullnameLabel.text = self?.contentDataUser?.data.fullName
                 self?.usernameLabel.text = self?.contentDataUser?.data.username

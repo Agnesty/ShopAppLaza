@@ -52,9 +52,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = UserDefaults.standard
-        if let savedUsername = defaults.string(forKey: "savedUsername"),
-           let savedPassword = defaults.string(forKey: "savedPassword") {
+        
+        
+        if let savedUsername = UserDefaults.standard.string(forKey: "username"),
+           let savedPassword = KeychainManager.keychain.getToken(service: Token.password.rawValue) {
             usernameTF.text = savedUsername
             passwordTF.text = savedPassword
             }
@@ -77,9 +78,6 @@ class LoginViewController: UIViewController {
         }
         
         //MARK: IBAction
-        @IBAction func backButton(_ sender: UIButton) {
-            self.navigationController?.popViewController(animated: true)
-        }
         @IBAction func hidePassBtn(_ sender: UIButton) {
             let isHidden = passwordTF.isSecureTextEntry
             passwordTF.isSecureTextEntry = !isHidden
@@ -91,16 +89,19 @@ class LoginViewController: UIViewController {
             self.navigationController?.pushViewController(forgotPass, animated: true)
         }
         @IBAction func rememberMeSwitch(_ sender: UISwitch) {
-            let defaults = UserDefaults.standard
+            guard let username = usernameTF.text else { return }
+            guard let password = passwordTF.text else { return }
             if sender.isOn {
-                if let username = usernameTF.text, let password = passwordTF.text {
-                    defaults.set(username, forKey: "savedUsername")
-                    defaults.set(password, forKey: "savedPassword")
-                }
+                UserDefaults.standard.set(username, forKey: "username")
+                KeychainManager.keychain.saveToken(token: password, service: Token.password.rawValue)
             }
         }
         
-        
+    @IBAction func signUpAction(_ sender: UIButton) {
+        guard let performSignUp = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return }
+        self.navigationController?.pushViewController(performSignUp, animated: true)
+    }
+    
         @IBAction func loginAction(_ sender: UIButton) {
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
             viewLoading.isHidden = false
@@ -150,12 +151,12 @@ class LoginViewController: UIViewController {
         //MARK: FUNCTION
         func goToHome() {
             guard let homeAction = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "TabBarControllerViewController") as? TabBarControllerViewController else { return }
-            self.navigationController?.pushViewController(homeAction, animated: true)
             homeAction.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(homeAction, animated: true)
         }
         func goToVerifyEmail() {
             guard let verifyAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerifyEmailViewController") as? VerifyEmailViewController else { return }
-            self.navigationController?.pushViewController(verifyAction, animated: true)
             verifyAction.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(verifyAction, animated: true)
         }
     }

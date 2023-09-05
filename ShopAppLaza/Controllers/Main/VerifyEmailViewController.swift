@@ -53,7 +53,11 @@ class VerifyEmailViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func backButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let nav = UINavigationController(rootViewController: vc)
+        nav.setNavigationBarHidden(true, animated: true)
+        self.view.window?.windowScene?.keyWindow?.rootViewController = nav
     }
     
     

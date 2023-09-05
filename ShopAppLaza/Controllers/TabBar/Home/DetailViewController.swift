@@ -54,6 +54,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Determine the image name based on the message received
         guard let id = productId else { return }
+        self.tabBarController?.tabBar.isHidden = true //Menghilangkan tabbar
         sizeCollection.dataSource = self
         sizeCollection.delegate = self
         sizeCollection.register(SizeDetailCollectionViewCell.nib(), forCellWithReuseIdentifier: SizeDetailCollectionViewCell.identifier)
@@ -82,9 +83,39 @@ class DetailViewController: UIViewController {
             self?.showAlert(title: title, message: message, completion: completion)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     
     //MARK: IBAction
     @IBAction func favoriteAction(_ sender: UIButton) {
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.putFavorite()
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
+    }
+    @IBAction func viewAllReviewAction(_ sender: UIButton) {
+        guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
+        performReviews.idProduct = productId
+        self.navigationController?.pushViewController(performReviews, animated: true)
+    }
+    @IBAction func backButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func addToCartAction(_ sender: UIButton) {
+        print("AddToCartAction")
+        guard let idSize = idSizeChoose else {
+            print("id for size is nil")
+            showAlert(title: "Sorry!", message: "Please choose your size product")
+            return
+        }
+        self.detailVM.addToCart(isMockApi: false, productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!) { _ in
+        }
+    }
+    
+    //MARK: FUNCTIONS
+    func putFavorite() {
         detailVM.putFavorite(isMockApi: false, accessTokenKey: APIService().token!, productId: productId!) { [weak self] updateWishlist in
             DispatchQueue.main.async {
                 self?.updateWishlist = updateWishlist
@@ -108,28 +139,7 @@ class DetailViewController: UIViewController {
                 }
             }
         }
-        
     }
-    @IBAction func viewAllReviewAction(_ sender: UIButton) {
-        guard let performReviews = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
-        performReviews.idProduct = productId
-        self.navigationController?.pushViewController(performReviews, animated: true)
-    }
-    @IBAction func backButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @IBAction func addToCartAction(_ sender: UIButton) {
-        print("AddToCartAction")
-        guard let idSize = idSizeChoose else {
-            print("id for size is nil")
-            showAlert(title: "Sorry!", message: "Please choose your size product")
-            return
-        }
-        self.detailVM.addToCart(isMockApi: false, productId: productId!, sizeId: idSize, accessTokenKey: APIService().token!) { _ in
-        }
-    }
-    
-    //MARK: FUNCTIONS
     func ratingStarData(rating: Double) {
         var collectStar = [Star]()
         var colors = [UIColor]()
@@ -165,22 +175,26 @@ class DetailViewController: UIViewController {
         star5.tintColor = colors[4]
     }
     func isProductInWishlists(completion: @escaping (Bool) -> Void) {
-        self.favoriteVM.getFavoriteList(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] wishlist in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.wishlist = wishlist.data
-                guard let productId = self.productId else { return }
-                guard let products = wishlist.data.products else { return }
-                print(productId)
-                print(products)
-                if ((products.contains(where: { productWishlist in
-                    productWishlist.id == productId
-                }))) {
-                    completion(true)
-                } else {
-                    completion(false)
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.favoriteVM.getFavoriteList(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] wishlist in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.wishlist = wishlist.data
+                    guard let productId = self.productId else { return }
+                    guard let products = wishlist.data.products else { return }
+                    print(productId)
+                    print(products)
+                    if ((products.contains(where: { productWishlist in
+                        productWishlist.id == productId
+                    }))) {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
                 }
             }
+        } onError: { errorMessage in
+            print(errorMessage)
         }
     }
     func setProduct() {
@@ -210,10 +224,10 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if indexPath == selectedIndexPath {
             cell.viewSize.backgroundColor = UIColor(hex: "#9775FA")
             cell.labelSize.textColor = .white
-            } else {
-                cell.viewSize.backgroundColor = UIColor(named: "colorbrand")
+        } else {
+            cell.viewSize.backgroundColor = UIColor(named: "colorbrand")
             cell.labelSize.textColor = UIColor(named: "FontSetColor")
-            }
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

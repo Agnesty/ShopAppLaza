@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol PassingDataCardDelegate: AnyObject {
+    func PassingDataCard(cardNumber: String)
+}
+
 class PaymentViewController: UIViewController {
     
     var creditCards: [CardModel] = []
     var coredataManager = CoreDataManager()
     var selectedIndexPath: IndexPath?
     var idCardChoose: String?
+    weak var delegate: PassingDataCardDelegate?
     
     //MARK: IBOutlet
     @IBOutlet weak var paymentCollectionView: UICollectionView!
@@ -39,6 +44,7 @@ class PaymentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         paymentCollectionView.dataSource = self
         paymentCollectionView.delegate = self
         paymentCollectionView.register(CardPaymentCollectionViewCell.nib(), forCellWithReuseIdentifier: CardPaymentCollectionViewCell.identifier)
@@ -70,6 +76,14 @@ class PaymentViewController: UIViewController {
             self.deleteCardIndex(indexPath: selectedInd)
         }
     }
+    @IBAction func saveCard(_ sender: UIButton) {
+        guard let numberCard = idCardChoose else { print("ini kosong")
+            return
+        }
+        self.delegate?.PassingDataCard(cardNumber: numberCard)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     //MARK: FUNCTION
     func retrieveCard() {

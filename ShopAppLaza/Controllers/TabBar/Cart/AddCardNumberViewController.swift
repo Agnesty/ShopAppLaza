@@ -62,10 +62,6 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
         }
     }
     
-    @IBAction func deleteCard(_ sender: UIButton) {
-        
-    }
-    
     //MARK: FUNCTION
 //    func saveToCoreData() {
 //        let card = CardModel(

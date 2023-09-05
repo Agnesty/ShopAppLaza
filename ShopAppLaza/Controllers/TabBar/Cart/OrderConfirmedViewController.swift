@@ -20,6 +20,11 @@ class OrderConfirmedViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {

@@ -14,6 +14,7 @@ class CartViewController: UIViewController {
     var dataCart: DataCart?
     var allSizes: AllSize?
     var allAddresses: DataAllAddress?
+    var orderCheckoutResponse: [OrderCheckout]?
     
     //MARK: IBOutlet
     @IBOutlet weak var emptyLabel: UILabel!
@@ -38,6 +39,7 @@ class CartViewController: UIViewController {
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cardNumber: UILabel!
     
     private func setupTabBarItemImage() {
         let label = UILabel()
@@ -46,22 +48,26 @@ class CartViewController: UIViewController {
         label.text = "Order"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
-        
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
         tabBarItem.selectedImage = UIImage(view: label)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        if let products = self.dataCart {
+        //            cartVM.checkout(isMockApi: false, products: products.products, addressId: 151) { [weak self] orderCheckout in
+        //                DispatchQueue.main.async {
+        //                    <#code#>
+        //                }
+        //            }
+        //        }
+        
         setupTabBarItemImage()
-        getAllCartData()
         getAllAddress()
         getAllSize()
         
         self.addressLabel.text = self.allAddresses?.country
         self.cityLabel.text = self.allAddresses?.city
-        
-
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -74,6 +80,8 @@ class CartViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        
         getAllCartData()
     }
     
@@ -89,13 +97,14 @@ class CartViewController: UIViewController {
     }
     @IBAction func paymentBtnAction(_ sender: UIButton) {
         guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
+        performPaymentMethod.delegate = self
         self.navigationController?.pushViewController(performPaymentMethod, animated: true)
     }
     
     //MARK: FUNCTION
     func getAllCartData() {
-        DispatchQueue.main.async {
-            self.cartVM.getProducInCart(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] cartProduct in
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.cartVM.getProducInCart(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] cartProduct in
                 self?.dataCart = cartProduct.data
                 if let orderInfo = self?.dataCart?.orderInfo {
                     self?.subtotalPrice.text = "Rp \(orderInfo.subTotal)"
@@ -104,6 +113,8 @@ class CartViewController: UIViewController {
                 }
                 self?.tableView.reloadData()
             }
+        } onError: { errorMessage in
+            print(errorMessage)
         }
     }
     func getSizeId(forSize size: String) -> Int {
@@ -176,11 +187,15 @@ extension CartViewController: deleteProductInCartProtocol {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.increaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
-                if bool == true {
-                    self.getAllCartData()
-                    completion(dataCart.quantity)
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.cartTableVM.increaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+                    if bool == true {
+                        self?.getAllCartData()
+                        completion(dataCart.quantity)
+                    }
                 }
+            } onError: { errorMessage in
+                print(errorMessage)
             }
         }
     }
@@ -188,22 +203,31 @@ extension CartViewController: deleteProductInCartProtocol {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.decreaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
-                if bool == true {
-                    self.getAllCartData()
-                    completion(dataCart.quantity)
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.cartTableVM.decreaseQuantityCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+                    if bool == true {
+                        self?.getAllCartData()
+                        completion(dataCart.quantity)
+                    }
                 }
+            } onError: { errorMessage in
+                print(errorMessage)
             }
+            
         }
     }
     func deleteProductCart(cell: CartTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         if let dataCart = dataCart?.products?[indexPath.row] {
             let getSizeId = getSizeId(forSize: dataCart.size)
-            cartTableVM.deleteProductCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
-                if bool == true {
-                    self.getAllCartData()
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.cartTableVM.deleteProductCart(isMockApi: false, productId: dataCart.id, sizeId: getSizeId, accessTokenKey: APIService().token!) { bool in
+                    if bool == true {
+                        self?.getAllCartData()
+                    }
                 }
+            } onError: { errorMessage in
+                print(errorMessage)
             }
         }
     }
@@ -213,5 +237,11 @@ extension CartViewController: PassingDataAddresDelegate {
     func didFinishPassingData(city: String, country: String) {
         addressLabel.text = city
         cityLabel.text = country
+    }
+}
+
+extension CartViewController: PassingDataCardDelegate {
+    func PassingDataCard(cardNumber: String) {
+        self.cardNumber.text = cardNumber
     }
 }

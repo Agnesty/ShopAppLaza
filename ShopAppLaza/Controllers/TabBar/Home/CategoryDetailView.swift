@@ -41,7 +41,6 @@ class CategoryDetailView: UIViewController {
                 self?.logoImage.setImageWithPlugin(url: self!.img)
                 self?.categoryBrandCollection.reloadData()
             }
-            
         }
         categoryBrandCollection.dataSource = self
         categoryBrandCollection.delegate = self
@@ -76,7 +75,6 @@ class CategoryDetailView: UIViewController {
         }
         categoryBrandCollection.reloadData()
     }
-    
 }
 
 extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -95,7 +93,6 @@ extension CategoryDetailView: UICollectionViewDataSource, UICollectionViewDelega
         cell.imageProduct.setImageWithPlugin(url: categoryBrand.imageURL)
         cell.titleProduk.text = categoryBrand.name.capitalized
         cell.priceProduk.text = "Rp \(String(categoryBrand.price))"
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

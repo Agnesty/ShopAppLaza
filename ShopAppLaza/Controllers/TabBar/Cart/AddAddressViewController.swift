@@ -55,12 +55,20 @@ class AddAddressViewController: UIViewController {
         if trueUpdate == true {
             print("isi true update")
             if let address = userAddresses {
-                addAddressVM.editAddressById(isMockApi: false, id: address.id, accessTokenKey: APIService().token!, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNo: phoneNoTF.text!, isPrimary: isSwitchOn)
+                APIService().refreshTokenIfNeeded { [weak self] in
+                    self?.addAddressVM.editAddressById(isMockApi: false, id: address.id, accessTokenKey: APIService().token!, country: (self?.countryTF.text)!, city: (self?.cityTF.text)!, receiverName: (self?.nameTF.text)!, phoneNo: (self?.phoneNoTF.text)!, isPrimary: isSwitchOn)
+                } onError: { errorMessage in
+                    print(errorMessage)
+                }
                 trueUpdate = false
             }
         } else {
             print("isi false update")
-            addAddressVM.addAddressCart(isMockApi: false, country: countryTF.text!, city: cityTF.text!, receiverName: nameTF.text!, phoneNumber: phoneNoTF.text!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.addAddressVM.addAddressCart(isMockApi: false, country: (self?.countryTF.text)!, city: (self?.cityTF.text)!, receiverName: (self?.nameTF.text)!, phoneNumber: (self?.phoneNoTF.text)!, isPrimary: isSwitchOn, accessTokenKey: APIService().token!)
+            } onError: { errorMessage in
+                print(errorMessage)
+            }
         }
     }
     

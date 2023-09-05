@@ -47,23 +47,25 @@ class AddReviewController: UIViewController {
     }
     
     @IBAction func submitReviewAction(_ sender: UIButton) {
-        addReviewVM.AddReview(isMockApi: false, id: self.idProduct!, accessTokenKey: APIService().token!, comment: textView.text!, rating: Double(formatValue(Double(slider.value)))!)
-        
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.addReview()
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
     }
+    
+    //MARK: FUNCTION
     private func updateRating() {
         newRatingValue = Double(slider.value)
         self.contentStar.text = formatValue(newRatingValue)
     }
-    
     func formatValue(_ value: Double) -> String {
         return String(format: "%.1f", value)
     }
-    
     func goToReview() {
         self.navigationController?.popViewController(animated: true)
-//        guard let reviewAction = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "ReviewsViewController") as? ReviewsViewController else { return }
-//        self.navigationController?.pushViewController(reviewAction, animated: true)
-//        reviewAction.idProduct = idProduct
-//        reviewAction.navigationItem.hidesBackButton = true
+    }
+    func addReview() {
+        addReviewVM.AddReview(isMockApi: false, id: self.idProduct!, accessTokenKey: APIService().token!, comment: textView.text!, rating: Double(formatValue(Double(slider.value)))!)
     }
 }
