@@ -29,14 +29,21 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
 //        if let previousValue = creditCard{
 //
 //        }
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         coredataManager.presentAlertFailed = {
-            self.showAlert(title: "Data Already Exists", message: "Data with species \(self.cardOwnerTF.cardNumber!) already exists in Core Data.")
+            self.showAlert(title: "Card Already Exists", message: "Card with this number already exists.")
         }
         coredataManager.presentAlertSucces = {
-            self.showAlert(title: "Data Created", message: "Data has been successfully created.") {
+            self.showAlert(title: "Card Created", message: "Card has been successfully created.") {
                 self.navigationController?.popViewController(animated: true)
             }
+        }
+        coredataManager.presentAlertUpdateSucces = {
+            self.showAlert(title: "Card Updated", message: "Card has been successfully created.")
+        }
+        coredataManager.presentAlertUpdateFailed = {
+            self.showAlert(title: "Card Can't Updated", message: "Failed to update data card.")
         }
     }
     
@@ -58,7 +65,7 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
                 edit = false
             }
         } else {
-            coredataManager.createku(card)
+            coredataManager.create(card)
         }
     }
     

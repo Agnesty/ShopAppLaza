@@ -27,12 +27,12 @@ class OrderConfirmedViewController: UIViewController {
     
     
     //MARK: IBAction
-    @IBAction func backButtonAction(_ sender: UIButton) {
+
+    @IBAction func goToOrderAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func goToOrderAction(_ sender: UIButton) {
-    }
     @IBAction func continueShopAction(_ sender: UIButton) {
+        self.tabBarController?.selectedIndex = 0
     }
     
     

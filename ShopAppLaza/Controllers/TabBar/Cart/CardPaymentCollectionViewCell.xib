@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="250" height="151"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmM-Jj-iha" customClass="CreditCardFormView" customModule="CreditCardForm">
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmM-Jj-iha" customClass="CreditCardFormView" customModule="CreditCardForm">
                         <rect key="frame" x="10" y="5" width="230" height="141"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>

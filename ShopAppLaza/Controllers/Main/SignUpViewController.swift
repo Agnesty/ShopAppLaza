@@ -10,15 +10,9 @@ import UIKit
 class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let signUpVM = SignUpViewModel()
-    let imagePicker = UIImagePickerController()
     //    var img: UIImage?
     
     //MARK: IBOutlet
-    @IBOutlet weak var photoUserView: UIImageView!{
-        didSet{
-            photoUserView.layer.cornerRadius = CGFloat(photoUserView.frame.width/2)
-        }
-    }
     @IBOutlet weak var usernameTF: UITextField!{
         didSet{
             usernameTF.borderStyle = .none
@@ -32,11 +26,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var passwordTF: UITextField!{
         didSet{
             passwordTF.borderStyle = .none
+            passwordTF.isSecureTextEntry = true
         }
     }
     @IBOutlet weak var confirmPassTF: UITextField!{
         didSet{
             confirmPassTF.borderStyle = .none
+            confirmPassTF.isSecureTextEntry = true
         }
     }
     @IBOutlet weak var emailError: UILabel!
@@ -70,7 +66,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-        imagePicker.delegate = self
         signUp.isEnabled = false
         usernameTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         emailTF.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
@@ -85,13 +80,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     //MARK: IBAction
-    @IBAction func imagePicker(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
     @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -170,25 +158,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     //MARK: FUNCTION
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            photoUserView.image = pickedImage
-            
-            // Simpan path gambar ke UserDefaults
-            if let imageData = pickedImage.jpegData(compressionQuality: 0.6) {
-                let fileManager = FileManager.default
-                if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    let imagePath = documentsURL.appendingPathComponent("savedImagePhoto.jpg")
-                    try? imageData.write(to: imagePath)
-                    UserDefaults.standard.set(imagePath.path, forKey: "GambarSignUP")
-                }
-            }
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
     //Buka tutup password
     func hideEyePass(object: UITextField, sender: UIButton) {
         let isHidden = object.isSecureTextEntry

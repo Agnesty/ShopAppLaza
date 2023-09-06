@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
         label.sizeToFit()
 
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
-        tabBarItem.selectedImage = UIImage(view: label)
+        navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
     override func viewDidLoad() {
@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController {
                 self?.fullnameLabel.text = self?.contentDataUser?.data.fullName
                 self?.usernameLabel.text = self?.contentDataUser?.data.username
                 self?.emailLabel.text = self?.contentDataUser?.data.email
-                self?.imagePhoto.setImageWithPlugin(url: (self?.contentDataUser?.data.imageUrl)!)
+                self?.imagePhoto.setImageWithPlugin(url: self?.contentDataUser?.data.imageUrl ?? "")
             }
         }
     }

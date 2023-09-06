@@ -8,11 +8,10 @@
 import UIKit
 
 protocol PassingDataCardDelegate: AnyObject {
-    func PassingDataCard(cardNumber: String)
+    func PassingDataCard(cardNumber: String, bank: String)
 }
 
 class PaymentViewController: UIViewController {
-    
     var creditCards: [CardModel] = []
     var coredataManager = CoreDataManager()
     var selectedIndexPath: IndexPath?
@@ -41,6 +40,30 @@ class PaymentViewController: UIViewController {
             cvvCard.isEnabled = false
         }
     }
+    @IBOutlet weak var editBtn: UIButton!{
+        didSet{
+            editBtn.layer.cornerRadius = CGFloat(10)
+            if let borderColor = UIColor(hex: "#9775FA")?.cgColor {
+                editBtn.layer.borderColor = borderColor
+                editBtn.layer.borderWidth = 1.0
+            } else {
+                print("Gagal mengonversi warna dari format hex.")
+            }
+        }
+    }
+    @IBOutlet weak var deleteBtn: UIButton!{
+        didSet{
+            deleteBtn.layer.cornerRadius = CGFloat(10)
+            deleteBtn.backgroundColor = UIColor.systemRed.withAlphaComponent(0.1)
+            let borderColor = UIColor.systemRed.cgColor
+            deleteBtn.layer.borderColor = borderColor
+            deleteBtn.layer.borderWidth = 1.0
+            
+        }
+    }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +95,7 @@ class PaymentViewController: UIViewController {
     }
     @IBAction func deleteCard(_ sender: UIButton) {
         guard let selectedInd = selectedIndexPath else { return }
-        showAlert(title: "Delete Card", message: "Are you sure you want to delete this card?") {
+        showAlert2(title: "Delete Card", message: "Are you sure you want to delete this card?") {
             self.deleteCardIndex(indexPath: selectedInd)
         }
     }
@@ -80,7 +103,7 @@ class PaymentViewController: UIViewController {
         guard let numberCard = idCardChoose else { print("ini kosong")
             return
         }
-        self.delegate?.PassingDataCard(cardNumber: numberCard)
+        self.delegate?.PassingDataCard(cardNumber: numberCard, bank: "bni")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -88,21 +111,55 @@ class PaymentViewController: UIViewController {
     //MARK: FUNCTION
     func retrieveCard() {
         creditCards.removeAll()
-        coredataManager.retrieve { [weak self] creditCard in
-            self?.creditCards.append(contentsOf: creditCard)
-            self?.paymentCollectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.coredataManager.retrieve { creditCard in
+                self?.creditCards.append(contentsOf: creditCard)
+                if self?.creditCards.count ?? 0 > 0{
+                    let indexPath = IndexPath(item: 0, section: 0)
+                    self?.performCardInTextfield(indexPath: indexPath)
+                    self?.paymentCollectionView.reloadData()
+                }
+            }
         }
     }
     func deleteCardIndex(indexPath: IndexPath) {
-          let card = creditCards[indexPath.row]
-          coredataManager.delete(card) { [weak self] in
-              DispatchQueue.main.async {
-                  self?.creditCards.remove(at: indexPath.row)
-                  self?.paymentCollectionView.deleteItems(at: [indexPath])
-                  print("successfully delete card")
-              }
-          }
-      }
+        let card = creditCards[indexPath.row]
+        coredataManager.delete(card) { [weak self] in
+            DispatchQueue.main.async {
+                self?.creditCards.remove(at: indexPath.row)
+                self?.paymentCollectionView.deleteItems(at: [indexPath])
+                print("successfully delete card")
+            }
+        }
+    }
+    func performCardInTextfield(indexPath: IndexPath){
+        selectedIndexPath = indexPath
+        let card = creditCards[indexPath.item]
+        self.idCardChoose = card.numberCard
+        nameCard.text = card.ownerCard
+        cardNumber.text = card.numberCard
+        expCard.text = card.expMonthCard + "/" + card.expYearCard
+        cvvCard.text = card.cvvCard
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // Menggunakan if let untuk memeriksa apakah selectedCellIndex tidak nil
+        guard let selectedIndexPath = selectedIndexPath else { return }
+        let currentIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
+        
+        // Dapatkan bagian (section) dari selectedIndexPath
+        let selectedSection = selectedIndexPath.section
+        // Buat IndexPath baru dengan selectedSection dan currentIndex
+        let newIndexPath = IndexPath(item: currentIndex, section: selectedSection)
+        
+        // Memanggil fungsi performCardInTextfield dengan newIndexPath
+        performCardInTextfield(indexPath: newIndexPath)
+        
+        // Dapat memeriksa apakah currentIndex sama dengan selectedRow atau tidak
+        if currentIndex != selectedIndexPath.row {
+            // Melakukan tindakan yang sesuai jika currentIndex berbeda
+            print("Indeks terpilih setelah berhenti: \(currentIndex)")
+        }
+    }
     
 }
 
@@ -115,28 +172,27 @@ extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDel
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardPaymentCollectionViewCell.identifier, for: indexPath) as? CardPaymentCollectionViewCell else { return UICollectionViewCell() }
         
         let card = creditCards[indexPath.item]
-        cell.configureData(card: card)
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+            cell.configureData(card: card)
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath
-        let card = creditCards[indexPath.item]
-        self.idCardChoose = card.numberCard
-        nameCard.text = card.ownerCard
-        cardNumber.text = card.numberCard
-        expCard.text = card.expMonthCard + "/" + card.expYearCard
-        cvvCard.text = card.cvvCard
+        performCardInTextfield(indexPath: indexPath)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: 300, height: 200)
-        return size
+        let width = view.bounds.width
+        print("Screen width: \(width)")
+        let heightToWidthRatio: Double = Double(200) / Double(300)
+        let height = width * heightToWidthRatio
+        print(width, height, separator: " - ")
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 0
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    //    }
     
 }

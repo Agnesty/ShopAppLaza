@@ -55,7 +55,14 @@ class SideMenuController: UIViewController {
         dismiss(animated: true)
     }
     @IBAction func logoutButtonAction(_ sender: UIButton) {
-        showLogoutAlert()
+        showAlert2(title: nil, message: "Are you sure to logout?") {
+            // Menghapus data dari UserDefaults
+            KeychainManager.keychain.deleteToken()
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
+            
+            // Mengarahkan pengguna kembali ke root view controller
+            self.delegate?.logoutPressed()
+        }
     }
     @IBAction func myCartButtonAction(_ sender: UIButton) {
         self.delegate?.goToCart()
@@ -95,21 +102,5 @@ class SideMenuController: UIViewController {
                 }
             }
         }
-    }
-    func showLogoutAlert() {
-        let alert = UIAlertController(title: nil, message: "Anda yakin akan keluar?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Batal", style: .cancel, handler: nil)
-        let logoutAction = UIAlertAction(title: "OK", style: .destructive) { _ in
-            
-            // Menghapus data dari UserDefaults
-            KeychainManager.keychain.deleteToken()
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            
-            // Mengarahkan pengguna kembali ke root view controller
-            self.delegate?.logoutPressed()
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(logoutAction)
-        present(alert, animated: true, completion: nil)
     }
 }

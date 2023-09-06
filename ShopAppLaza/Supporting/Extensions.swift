@@ -61,11 +61,21 @@ extension UIImageView {
 //}
 
 extension UIViewController {
-    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+    func showAlert(title: String?, message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
             completion?()
         })
+        present(alert, animated: true, completion: nil)
+    }
+    func showAlert2(title: String?, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(logoutAction)
         present(alert, animated: true, completion: nil)
     }
 }

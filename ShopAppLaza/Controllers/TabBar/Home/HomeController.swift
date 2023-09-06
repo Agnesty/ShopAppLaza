@@ -51,7 +51,7 @@ class HomeController: UIViewController {
         label.sizeToFit()
         
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
-        tabBarItem.selectedImage = UIImage(view: label)
+        navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
     override func viewDidLoad() {
@@ -63,7 +63,6 @@ class HomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-//        APIService().jwtExpired()
     }
 
     func setUpTableView() {

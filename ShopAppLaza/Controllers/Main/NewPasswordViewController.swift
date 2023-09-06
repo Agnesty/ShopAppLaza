@@ -17,10 +17,12 @@ class NewPasswordViewController: UIViewController {
     @IBOutlet weak var passwordTF: UITextField!{
         didSet{
             passwordTF.borderStyle = .none
+            passwordTF.isSecureTextEntry = true
         }
     }
     @IBOutlet weak var confirmPassTF: UITextField!{
         didSet{
+            confirmPassTF.isSecureTextEntry = true
             confirmPassTF.borderStyle = .none
         }
     }

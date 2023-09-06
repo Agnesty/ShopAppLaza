@@ -79,47 +79,75 @@ class CartViewModel {
         }.resume()
     }
     
-    func checkout(isMockApi: Bool, products: DataCart, addressId: Int, completion: @escaping ([OrderCheckout]) -> Void) {
-        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
-        let order = EndpointPath.Order.rawValue
-        let urlString = "\(baseUrl)\(order)"
+    func checkout(isMockApi: Bool, accessTokenKey: String, products: [DataProductCheckout], addressId: Int, bank: String) {
+        print("Calling checkout function")
         
+        // Construct the base URL
+        let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
+        let orderEndpoint = EndpointPath.Order.rawValue
+        let urlString = "\(baseUrl)\(orderEndpoint)"
+        
+        // Validate the URL
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
-        let userCart: [String: Any] = [
-            "products": products,
-            "address_id": addressId,
-            "bank": "bni"
-        ]
         
+        // Create and configure the request
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.POST.rawValue
-        request.httpBody = APIService.getHttpBodyRaw(param: userCart)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error:", error)
-                return
-            }
-            guard let data = data else {
-                print("Data is nil.")
-                return
-            }
-            do {
-                let orderProducts = try JSONDecoder().decode([OrderCheckout].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completion(orderProducts)
-                    print("apakah ini orderProductSucces:", orderProducts)
-                }
-            } catch {
-                print("Error decoding JSON: \(error)")
-                
-            }
-            
-            
+        // Serialize the request body
+        do {
+            let checkout = Checkout(products: products, addressId: addressId, bank: bank)
+            let jsonData = try JSONEncoder().encode(checkout)
+            request.httpBody = jsonData
+        } catch {
+            print("Error encoding userCart to JSON: \(error)")
+            return
         }
+        
+        // Perform the HTTP request
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            
+            if let data = data {
+                do {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print("Response: \(jsonResponse)")
+                        if let isError = jsonResponse["isError"] as? Bool, isError,
+                           let description = jsonResponse["description"] as? String,
+                           let status = jsonResponse["status"] as? String {
+                            
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?(status, description, nil)
+                            }
+                        } else {
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.navigateToHome?()
+                                    print("Successful Response: \(jsonResponse)")
+                                }
+                            } else {
+                                print("Checkout Code Error: Unexpected Response Code")
+                            }
+                        }
+                    }
+                } catch {
+                    print("JSON Serialization Error: \(error)")
+                }
+            }
+        }
+        
+        task.resume()
     }
+
+
 }

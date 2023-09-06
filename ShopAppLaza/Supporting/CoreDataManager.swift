@@ -11,7 +11,9 @@ import CoreData
 
 class CoreDataManager {
     var presentAlertSucces: (() -> Void)?
+    var presentAlertUpdateSucces: (() -> Void)?
     var presentAlertFailed: (() -> Void)?
+    var presentAlertUpdateFailed: (() -> Void)?
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     func createku(_ cardModel: CardModel) {
@@ -28,8 +30,10 @@ class CoreDataManager {
         
         do {
             try managedContext.save()
+            presentAlertSucces?()
             print("Saved data into Core Data")
         } catch let err {
+            presentAlertFailed?()
             print("Failed to save data", err)
         }
     }
@@ -114,10 +118,10 @@ class CoreDataManager {
             
             do {
                 try managedContext.save()
-                presentAlertSucces?()
+                presentAlertUpdateSucces?()
                 print("Data updated successfully")
             } catch{
-                presentAlertFailed?()
+                presentAlertUpdateFailed?()
                 print("Failed to update data: (error), (error.userInfo)", error)
             }
             

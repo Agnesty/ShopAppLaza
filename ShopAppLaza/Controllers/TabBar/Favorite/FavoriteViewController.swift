@@ -27,7 +27,7 @@ class FavoriteViewController: UIViewController {
         label.sizeToFit()
         
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
-        tabBarItem.selectedImage = UIImage(view: label)
+        navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
     override func viewDidLoad() {

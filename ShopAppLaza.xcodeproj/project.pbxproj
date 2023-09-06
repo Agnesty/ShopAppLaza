@@ -24,6 +24,7 @@
 		3322C12C2A81E54400EEF0C7 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C12B2A81E54400EEF0C7 /* StripePayments */; };
 		3322C12E2A81E54400EEF0C7 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */; };
 		33294FAD2AA5A1B500F1E757 /* OrderCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33294FAC2AA5A1B500F1E757 /* OrderCheckout.swift */; };
+		332B57552AA8530500BCE8E5 /* Checkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B57542AA8530500BCE8E5 /* Checkout.swift */; };
 		332BCE982A9461B000885216 /* ProductBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332BCE972A9461B000885216 /* ProductBrand.swift */; };
 		332C0B622A7CACD4008ECB27 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332C0B612A7CACD4008ECB27 /* CustomSlider.swift */; };
 		332C98A72A701133003CAFD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332C98A62A701133003CAFD3 /* AppDelegate.swift */; };
@@ -142,6 +143,7 @@
 		332291D22A7FC4A40035D65F /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3322C1192A81D77800EEF0C7 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		33294FAC2AA5A1B500F1E757 /* OrderCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckout.swift; sourceTree = "<group>"; };
+		332B57542AA8530500BCE8E5 /* Checkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkout.swift; sourceTree = "<group>"; };
 		332BCE972A9461B000885216 /* ProductBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBrand.swift; sourceTree = "<group>"; };
 		332C0B612A7CACD4008ECB27 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		332C98A32A701133003CAFD3 /* ShopAppLaza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopAppLaza.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -409,6 +411,7 @@
 				3347DF7F2A95BD97002E70DE /* AllAddress.swift */,
 				33FB3B4C2AA4647000EDC220 /* CardModel.swift */,
 				33294FAC2AA5A1B500F1E757 /* OrderCheckout.swift */,
+				332B57542AA8530500BCE8E5 /* Checkout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				33304B612A78E0BF000804A8 /* CategoryTableViewCell.swift in Sources */,
 				334BF3DD2A7B61D700755766 /* AddReviewController.swift in Sources */,
 				338C67F12A8CCDF900762160 /* EditProfileViewModel.swift in Sources */,
+				332B57552AA8530500BCE8E5 /* Checkout.swift in Sources */,
 				33100F432A8F494C00DE9A2F /* DetailProduct.swift in Sources */,
 				33100F452A8F662200DE9A2F /* AllReviews.swift in Sources */,
 				33BA02E22A8A0539003AEB76 /* ReviewsViewModel.swift in Sources */,
