@@ -97,18 +97,6 @@ class SideMenuController: UIViewController {
     
     //MARK: FUNCTION
     func getUserData() {
-        //        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
-        //            DispatchQueue.main.async { [weak self] in
-        //                self?.contentDataUser = userdata
-        //                print("apakah ini benar: \(userdata)")
-        //                DispatchQueue.main.async {
-        //                    if let contentData = self?.contentDataUser?.data {
-        //                        self?.namaLabel.text = contentData.fullName
-        //                        self?.imageUser.setImageWithPlugin(url: contentData.imageUrl ?? "")
-        //                    }
-        //                }
-        //            }
-        //        }
         if let dataProfile = KeychainManager.keychain.getProfileToKeychain(service: Token.saveProfile.rawValue) {
             self.contentDataUser = dataProfile
             DispatchQueue.main.async { [weak self] in

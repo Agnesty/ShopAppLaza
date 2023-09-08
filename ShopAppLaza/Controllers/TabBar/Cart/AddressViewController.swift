@@ -89,23 +89,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
             cell.phoneNo.text = addressCell.phoneNumber
             cell.address.text = addressCell.city
             cell.labelCountry.text = addressCell.country
-            
             if addressCell.isPrimary == true {
-                cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")?.withAlphaComponent(0.3)
-                cell.viewContainer.layer.borderWidth = 1
-                cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
-                cell.receiveName.textColor = .black
-                cell.phoneNo.textColor = .black
-                cell.address.textColor = .black
-                cell.labelCountry.textColor = .black
+                self.setViewIfPrimary(cell: cell)
             } else {
-                cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
-                cell.viewContainer.layer.borderWidth = 0
-                cell.viewContainer.layer.borderColor = nil
-                cell.receiveName.textColor = .black
-                cell.phoneNo.textColor = .black
-                cell.address.textColor = .black
-                cell.labelCountry.textColor = .black
+                self.setViewIfNonPrimary(cell: cell)
             }
         }
         cell.delegate = self
@@ -118,15 +105,9 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? CardAddressTableViewCell {
             let isPrimary = allAddresses?.data?[indexPath.row].isPrimary ?? false
             if isPrimary {
-                cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")?.withAlphaComponent(0.3)
-                cell.viewContainer.layer.borderWidth = 1
-                cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
-                cell.receiveName.textColor = .black
-                cell.phoneNo.textColor = .black
-                cell.address.textColor = .black
-                cell.labelCountry.textColor = .black
+                self.setViewIfPrimary(cell: cell)
             } else {
-                cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
+                cell.viewContainer.backgroundColor = UIColor(named: "VCIfNonPrimary")
                 cell.receiveName.textColor = .black
                 cell.phoneNo.textColor = .black
                 cell.address.textColor = .black
@@ -146,7 +127,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
                    clickCount = 0
                } else {
                    if let cell = tableView.cellForRow(at: indexPath) as? CardAddressTableViewCell {
-                       cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA") //ungu
+                       cell.viewContainer.backgroundColor = UIColor(named: "VCIfPrimary") //ungu
                        cell.receiveName.textColor = .white
                        cell.phoneNo.textColor = .white
                        cell.address.textColor = .white
@@ -158,13 +139,31 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
                selectedIndexPath = indexPath
                clickCount = 1
                if let cell = tableView.cellForRow(at: indexPath) as? CardAddressTableViewCell {
-                   cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA") //ungu
+                   cell.viewContainer.backgroundColor = UIColor(named: "VCIfPrimary") //ungu
                    cell.receiveName.textColor = .white
                    cell.phoneNo.textColor = .white
                    cell.address.textColor = .white
                    cell.labelCountry.textColor = .white
                }
            }
+    }
+    func setViewIfPrimary(cell: CardAddressTableViewCell) {
+        cell.viewContainer.backgroundColor = UIColor(named: "VCIfPrimary")?.withAlphaComponent(0.3)
+        cell.viewContainer.layer.borderWidth = 1
+        cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
+        cell.receiveName.textColor = .white
+        cell.phoneNo.textColor = .white
+        cell.address.textColor = .white
+        cell.labelCountry.textColor = .white
+    }
+    func setViewIfNonPrimary(cell: CardAddressTableViewCell) {
+        cell.viewContainer.backgroundColor = UIColor(named: "VCIfNonPrimary")
+        cell.viewContainer.layer.borderWidth = 0
+        cell.viewContainer.layer.borderColor = nil
+        cell.receiveName.textColor = .black
+        cell.phoneNo.textColor = .black
+        cell.address.textColor = .black
+        cell.labelCountry.textColor = .black
     }
 }
 
@@ -173,21 +172,9 @@ extension AddressViewController: deleteAddressProtocol {
         guard let indexPath = cardAddress.indexPath(for: cell) else { return }
         if let addressCell = allAddresses?.data?[indexPath.row] {
         if addressCell.isPrimary == true {
-            cell.viewContainer.backgroundColor = UIColor(hex: "#9775FA")?.withAlphaComponent(0.3)
-            cell.viewContainer.layer.borderWidth = 1
-            cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
-            cell.receiveName.textColor = .black
-            cell.phoneNo.textColor = .black
-            cell.address.textColor = .black
-            cell.labelCountry.textColor = .black
+            self.setViewIfPrimary(cell: cell)
         } else {
-            cell.viewContainer.backgroundColor = UIColor(hex: "#F5F6FA")
-            cell.viewContainer.layer.borderWidth = 0
-            cell.viewContainer.layer.borderColor = nil
-            cell.receiveName.textColor = .black
-            cell.phoneNo.textColor = .black
-            cell.address.textColor = .black
-            cell.labelCountry.textColor = .black
+            self.setViewIfNonPrimary(cell: cell)
         }
     }
         guard let performUpdateAddress = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as? AddAddressViewController else { return }

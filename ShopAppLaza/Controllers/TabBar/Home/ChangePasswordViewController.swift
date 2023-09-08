@@ -19,16 +19,19 @@ class ChangePasswordViewController: UIViewController {
     @IBOutlet weak var oldPassTF: UITextField!{
         didSet{
             oldPassTF.isSecureTextEntry = true
+            oldPassTF.borderStyle = .none
         }
     }
     @IBOutlet weak var newPassTF: UITextField!{
         didSet{
             newPassTF.isSecureTextEntry = true
+            newPassTF.borderStyle = .none
         }
     }
     @IBOutlet weak var confirmPassTF: UITextField!{
         didSet{
             confirmPassTF.isSecureTextEntry = true
+            confirmPassTF.borderStyle = .none
         }
     }
     @IBOutlet weak var checkOldPass: UIButton!{

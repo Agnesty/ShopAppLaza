@@ -110,6 +110,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="address" destination="5Or-Ee-Egc" id="fJ6-Lb-3va"/>
+                <outlet property="deleteBtn" destination="hTQ-ll-icf" id="hVU-iq-4OH"/>
+                <outlet property="editBtn" destination="prJ-Ix-Nbd" id="8o2-uy-bOS"/>
                 <outlet property="labelCountry" destination="4Yi-8O-Qpl" id="5yY-l0-ssl"/>
                 <outlet property="phoneNo" destination="iMY-gt-9dk" id="KMu-Ei-lHv"/>
                 <outlet property="receiveName" destination="K8R-7z-Fyl" id="4ra-8v-NJ6"/>
