@@ -12,6 +12,7 @@ enum Token: String {
     case access = "access-token"
     case refresh = "refresh-token"
     case password = "password"
+    case saveProfile = "data-profile"
 }
 
 class KeychainManager {
@@ -44,33 +45,33 @@ class KeychainManager {
         
     }
     func addTokenToKeychain(token: String, service: String) {
-            let data = Data(token.utf8)
-            let addquery = [
+        let data = Data(token.utf8)
+        let addquery = [
+            kSecAttrService: service,
+            kSecAttrAccount: "laza-account",
+            kSecClass: kSecClassGenericPassword,
+            kSecValueData: data
+        ] as [CFString : Any] as CFDictionary
+        // Add to keychain
+        let status = SecItemAdd(addquery, nil)
+        if status == errSecDuplicateItem {
+            // Item already exists, thus update it
+            let updatequery = [
                 kSecAttrService: service,
                 kSecAttrAccount: "laza-account",
-                kSecClass: kSecClassGenericPassword,
-                kSecValueData: data
+                kSecClass: kSecClassGenericPassword
             ] as [CFString : Any] as CFDictionary
-            // Add to keychain
-            let status = SecItemAdd(addquery, nil)
-            if status == errSecDuplicateItem {
-                // Item already exists, thus update it
-                let updatequery = [
-                    kSecAttrService: service,
-                    kSecAttrAccount: "laza-account",
-                    kSecClass: kSecClassGenericPassword
-                ] as [CFString : Any] as CFDictionary
-                let attributeToUpdate = [kSecValueData: data] as CFDictionary
-                // Update to keychain
-                let updateStatus = SecItemUpdate(updatequery, attributeToUpdate)
-                if updateStatus != errSecSuccess {
-                    print("Error updating token to keychain, status: \(status)")
-                }
-            } else if status != errSecSuccess {
-                print("Error adding token to keychain, status: \(status)")
+            let attributeToUpdate = [kSecValueData: data] as CFDictionary
+            // Update to keychain
+            let updateStatus = SecItemUpdate(updatequery, attributeToUpdate)
+            if updateStatus != errSecSuccess {
+                print("Error updating token to keychain, status: \(status)")
             }
+        } else if status != errSecSuccess {
+            print("Error adding token to keychain, status: \(status)")
         }
-
+    }
+    
     
     func getToken(service: String) -> String? {
         let queary = [
@@ -95,18 +96,65 @@ class KeychainManager {
     func deleteToken() {
         let spec : CFDictionary = [kSecClass: kSecClassGenericPassword] as CFDictionary
         SecItemDelete(spec)
+    }
+    
+    func addProfileToKeychain(profile: UserElement, service: String) {
+        guard let data = try? JSONEncoder().encode(profile) else {
+            print("Encode error")
+            return
+        }
+        let addquery = [
+            kSecAttrService: service,
+            kSecAttrAccount: "laza-account",
+            kSecClass: kSecClassGenericPassword,
+            kSecValueData: data
+        ] as [CFString : Any] as CFDictionary
+        // Add to keychain
+        let status = SecItemAdd(addquery, nil)
+        if status == errSecDuplicateItem {
+            // Item already exists, thus update it
+            let updatequery = [
+                kSecAttrService: service,
+                kSecAttrAccount: "laza-account",
+                kSecClass: kSecClassGenericPassword
+            ] as [CFString : Any] as CFDictionary
+            let attributeToUpdate = [kSecValueData: data] as CFDictionary
+            // Update to keychain
+            let updateStatus = SecItemUpdate(updatequery, attributeToUpdate)
+            if updateStatus != errSecSuccess {
+                print("Error updating token to keychain, status: \(status)")
+            }
+        } else if status != errSecSuccess {
+            print("Error adding token to keychain, status: \(status)")
+        }
+    }
+    
+    func getProfileToKeychain(service: String) -> UserElement? {
+        let queary = [
+            kSecAttrService: service,
+            kSecAttrAccount: "laza-account",
+            kSecClass: kSecClassGenericPassword,
+            kSecReturnData: true
+        ] as [CFString : Any]
         
-//        let queary = [
-//            kSecAttrService: service,
-//            kSecAttrAccount: "laza-account",
-//            kSecClass: kSecClassGenericPassword,
-//            kSecValueData: true
-//        ] as [CFString : Any]
-        
-//        if SecItemDelete(queary as CFDictionary) == errSecSuccess {
-//            print("Deleted from keychain")
-//        } else {
-//            print("Delete from keychain failed")
-//        }
+        var ref: CFTypeRef?
+        let status = SecItemCopyMatching(queary as CFDictionary, &ref)
+        if status == errSecSuccess{
+            
+            print("berhasil keychain profile")
+        } else {
+            print("gagal, status: \(status)")
+            return nil
+        }
+        if let data = ref as? Data {
+            do {
+                // Mendecode data yang diambil menjadi objek UserElement
+                let userProfile = try JSONDecoder().decode(UserElement.self, from: data)
+                return userProfile
+            } catch {
+                print("Gagal mendecode data dari Keychain: \(error)")
+            }
+        }
+        return nil
     }
 }

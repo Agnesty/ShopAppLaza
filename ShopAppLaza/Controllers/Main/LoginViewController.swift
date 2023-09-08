@@ -8,9 +8,9 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
+    private let profileVM = ProfilViewModel()
     private let loginVM = LoginViewModel()
-    
+   
     //MARK: IBOutlet
     @IBOutlet weak var usernameTF: UITextField!{
         didSet{
@@ -67,10 +67,13 @@ class LoginViewController: UIViewController {
             self?.showAlert(title: title, message: message, completion: completion)
         }
         loginVM.navigateToHome = { [weak self] in
-            self?.goToHome()
+            self?.getDataProfile()
         }
         loginVM.navigateToVerifyEmail = { [weak self] in
             self?.goToVerifyEmail()
+        }
+        profileVM.afterSaveToLocal = { [weak self] in
+            self?.goToHome()
         }
     }
     
@@ -97,6 +100,7 @@ class LoginViewController: UIViewController {
         guard let performSignUp = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return }
         self.navigationController?.pushViewController(performSignUp, animated: true)
     }
+    
     @IBAction func loginAction(_ sender: UIButton) {
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
         viewLoading.isHidden = false
@@ -110,6 +114,7 @@ class LoginViewController: UIViewController {
             }
         }
         loginVM.loginUser(username: usernameTF.text!, password: passwordTF.text!, isMockApi: false)
+        
     }
     
     @objc func disabledBtn(){
@@ -153,5 +158,13 @@ class LoginViewController: UIViewController {
         guard let verifyAction = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VerifyEmailViewController") as? VerifyEmailViewController else { return }
         verifyAction.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(verifyAction, animated: true)
+    }
+    func getDataProfile() {
+        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) {userdata in
+            DispatchQueue.main.async {
+                APIService.setCurrentProfile(profile: userdata)
+                print("userData di Login Nih: ", userdata)
+            }
+        }
     }
 }

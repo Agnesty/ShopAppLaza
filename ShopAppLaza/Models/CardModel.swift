@@ -8,6 +8,7 @@
 import Foundation
 
 struct CardModel: Codable {
+    var userId: Int
     var ownerCard: String
     var numberCard: String
     var cvvCard: String

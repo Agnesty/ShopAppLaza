@@ -30,8 +30,17 @@ class FavoriteViewController: UIViewController {
         navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
+    @objc func refreshTableView(){
+        collectionWishlist.refreshControl?.endRefreshing()
+        collectionWishlist.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
+        collectionWishlist.refreshControl = refreshControl
+        
         setupTabBarItemImage()
         collectionWishlist.dataSource = self
         collectionWishlist.delegate = self

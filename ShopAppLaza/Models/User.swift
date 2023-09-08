@@ -13,7 +13,7 @@ typealias User = UserElement
 struct UserElement: Codable {
     let status: String
     let isError: Bool
-    let data: DataUser
+    var data: DataUser
 }
 
 struct DataUser: Codable {

@@ -15,13 +15,25 @@ class CoreDataManager {
     var presentAlertFailed: (() -> Void)?
     var presentAlertUpdateFailed: (() -> Void)?
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    var userData: UserElement?
     
-    func createku(_ cardModel: CardModel) {
+    func getUserDataFromKeychain() {
+        if let dataProfile = KeychainManager.keychain.getProfileToKeychain(service: Token.saveProfile.rawValue) {
+            self.userData = dataProfile
+        } else {
+            return print("data kosong")
+        }
+    }
+    
+    func create(_ cardModel: CardModel) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        
+        getUserDataFromKeychain()
         
         let creditCardEntity = NSEntityDescription.entity(forEntityName: "DataCard", in: managedContext)
         
         let insert = NSManagedObject(entity: creditCardEntity!, insertInto: managedContext)
+        insert.setValue(userData?.data.id, forKey: "userId")
         insert.setValue(cardModel.cvvCard, forKey: "cvvCard")
         insert.setValue(cardModel.expMonthCard, forKey: "expMonthCard")
         insert.setValue(cardModel.expYearCard, forKey: "expYearCard")
@@ -38,47 +50,25 @@ class CoreDataManager {
         }
     }
     
-    func create(_ cardModel: CardModel) {
-        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DataCard")
-        fetchRequest.predicate = NSPredicate(format: "numberCard = %@", cardModel.numberCard)
-        
-        do {
-            let result = try managedContext.fetch(fetchRequest) as? [NSManagedObject]
-            
-            if result?.isEmpty == true {
-                // Data tidak ditemukan, tambahkan ke Core Data
-                let userEntity = NSEntityDescription.entity(forEntityName: "DataCard", in: managedContext)
-                
-                //entity body
-                let insert = NSManagedObject(entity: userEntity!, insertInto: managedContext)
-                insert.setValue(cardModel.cvvCard, forKey: "cvvCard")
-                insert.setValue(cardModel.expMonthCard, forKey: "expMonthCard")
-                insert.setValue(cardModel.expYearCard, forKey: "expYearCard")
-                insert.setValue(cardModel.numberCard, forKey: "numberCard")
-                insert.setValue(cardModel.ownerCard, forKey: "ownerCard")
-                
-                try managedContext.save()
-                print("Saved data into CoreData")
-                presentAlertSucces?()
-            } else {
-                presentAlertFailed?()
-            }
-        } catch let error {
-            print("Failed to create data", error)
-        }
-    }
-    
-    func retrieve(completion: @escaping ([CardModel]) -> Void) {
+    func retrieveAllCard(completion: @escaping ([CardModel]) -> Void) {
         var creditCard = [CardModel]() // Mulai dengan array kosong
-        
         let managedContext = appDelegate?.persistentContainer.viewContext
+        
+        getUserDataFromKeychain()
+        
+        guard let userId = userData?.data.id else {
+            print("UserID is nil")
+            return
+        }
+        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DataCard")
+        fetchRequest.predicate = NSPredicate(format: "userId = %@", String(userId))
         
         do {
             let result = try managedContext?.fetch(fetchRequest)
             result?.forEach { creditCardData in
                 let card = CardModel(
+                    userId: creditCardData.value(forKey: "userId") as! Int,
                     ownerCard: creditCardData.value(forKey: "ownerCard") as! String,
                     numberCard: creditCardData.value(forKey: "numberCard") as! String,
                     cvvCard: creditCardData.value(forKey: "cvvCard") as! String,
@@ -94,21 +84,29 @@ class CoreDataManager {
             print("Failed to fetch data", error)
         }
     }
-
-    
     
     func updateData(_ cardModel: CardModel, numberCard: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         let managedContext = appDelegate.persistentContainer.viewContext
         
+        getUserDataFromKeychain()
+        
+        guard let userId = userData?.data.id else {
+            print("UserID is nil")
+            return
+        }
+        
         let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "DataCard")
-        fetchRequest.predicate = NSPredicate(format: "numberCard = %@", numberCard)
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "numberCard = %@", numberCard),
+            NSPredicate(format: "userId = %@", String(userId))
+        ])
         
         do {
             let fetchedResults = try managedContext.fetch(fetchRequest)
             
             if let updateCard = fetchedResults.first {
+                updateCard.setValue(cardModel.userId, forKey: "userId")
                 updateCard.setValue(cardModel.numberCard, forKey: "numberCard")
                 updateCard.setValue(cardModel.ownerCard, forKey: "ownerCard")
                 updateCard.setValue(cardModel.expMonthCard, forKey: "expMonthCard")
@@ -124,7 +122,6 @@ class CoreDataManager {
                 presentAlertUpdateFailed?()
                 print("Failed to update data: (error), (error.userInfo)", error)
             }
-            
         } catch {
             print("Fetch error: (error), (error.userInfo)", error)
         }
@@ -133,8 +130,17 @@ class CoreDataManager {
     func delete(_ creditCard: CardModel, completion: @escaping () -> Void) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else {
             return }
+        
+        getUserDataFromKeychain()
+        guard let userId = userData?.data.id else {
+            print("UserID is nil")
+            return
+        }
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "DataCard")
-        fetchRequest.predicate = NSPredicate(format: "numberCard = %@", creditCard.numberCard)
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "numberCard = %@", creditCard.numberCard),
+            NSPredicate(format: "userId = %@", String(userId))
+        ])
         
         do {
             let result = try managedContext.fetch(fetchRequest)

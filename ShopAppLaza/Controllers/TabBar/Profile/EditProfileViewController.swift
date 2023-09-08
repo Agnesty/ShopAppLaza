@@ -13,11 +13,15 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     private let profileVM = EditProfileViewModel()
     let imagePicker = UIImagePickerController()
     var contentDataUser: UserElement?
-    var img: UIImage?
+    var profileVC : ProfileViewController?
     
     @IBOutlet weak var fullnameTF: UITextField!
     @IBOutlet weak var usernameTF: UITextField!
-    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var emailTF: UITextField!{
+        didSet{
+            emailTF.isEnabled = false
+        }
+    }
     @IBOutlet weak var imagePhoto: UIImageView!{
         didSet{
             imagePhoto.layer.cornerRadius = CGFloat(imagePhoto.frame.width/2)
@@ -59,6 +63,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {
+        profileVC?.getDataProfile()
        backBtn()
     }
     @IBAction func chooseImageAction(_ sender: UIButton) {
@@ -69,19 +74,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func editDataAction(_ sender: UIButton) {
-        print("kamu bau")
-        guard let img = img else {
-            showAlert(title: "Upss..", message: "Please choose your image.")
-            print("kamu belum memasukkan image")
-            return }
-        profileVM.putRequest(isMockApi: false, image: img, accessTokenKey: APIService().token!, fullname: fullnameTF.text!, username: usernameTF.text!, email: emailTF.text!)
+        guard let img = imagePhoto.image else { return }
+        APIService().refreshTokenIfNeeded { [weak self] in
+            self?.profileVM.putRequest(isMockApi: false, image: img, accessTokenKey: APIService().token!, fullname: (self?.fullnameTF.text)!, username: (self?.usernameTF.text)!, email: (self?.emailTF.text)!)
+        } onError: { errorMessage in
+            print(errorMessage)
+        }
     }
     
     //MARK: FUNCTIONS
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imagePhoto.image = pickedImage
-            img = pickedImage
         }
         dismiss(animated: true, completion: nil)
     }

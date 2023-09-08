@@ -29,22 +29,22 @@ class CardAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var receiveName: UILabel!
     @IBOutlet weak var phoneNo: UILabel!
     @IBOutlet weak var address: UILabel!
-    @IBOutlet weak var cityCountry: UILabel!
-    
-    @IBOutlet weak var labelName: UILabel!
-    @IBOutlet weak var labelPhoneNo: UILabel!
-    @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var labelCountry: UILabel!
     
-    @IBOutlet weak var primaryLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    override var isSelected: Bool {
+        didSet {
+            self.contentView.backgroundColor = isSelected ? UIColor(named: "BG") : UIColor(named: "BG")
+        }
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     

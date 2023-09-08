@@ -53,6 +53,7 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" name="BG"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="f0O-iX-JSi" secondAttribute="trailing" id="1Q0-mv-iAe"/>
                 <constraint firstItem="f0O-iX-JSi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="L8d-ZF-15o"/>
@@ -69,6 +70,9 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <namedColor name="BG">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="FontSetColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

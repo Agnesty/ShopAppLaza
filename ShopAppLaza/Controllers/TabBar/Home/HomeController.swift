@@ -54,8 +54,17 @@ class HomeController: UIViewController {
         navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
+    @objc func refreshTableView(){
+        tableView.refreshControl?.endRefreshing()
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        
         setupTabBarItemImage()
         view.addSubview(menuButton)
         self.setUpTableView()
@@ -64,7 +73,7 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
     }
-
+    
     func setUpTableView() {
         searchBar.delegate = self
         tableView.delegate = self
@@ -163,7 +172,7 @@ extension HomeController: SideMenuControllerDelegate {
         sideMenuNav?.dismiss(animated: true)
         let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as? ChangePasswordViewController else { return }
-//        vc.delegate = self
+        //        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

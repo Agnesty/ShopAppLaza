@@ -70,7 +70,7 @@ class AddressViewModel {
                        let status = jsonResponse["status"] as? String{
                         DispatchQueue.main.async { [weak self] in
                             self?.loading?()
-                            self?.presentAlert?("Cart Updated", data, {
+                            self?.presentAlert?("Deleted Address", data, {
                                 completion(status == "OK")
                                 print("Status Check:", status)
                                 print("Berhasil Response Please:", jsonResponse)

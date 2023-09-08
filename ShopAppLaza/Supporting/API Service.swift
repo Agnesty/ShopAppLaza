@@ -17,6 +17,10 @@ class APIService {
     let token = KeychainManager.keychain.getToken(service: Token.access.rawValue)
     let refToken = KeychainManager.keychain.getToken(service: Token.refresh.rawValue)
     
+    static func setCurrentProfile(profile: UserElement) {
+        KeychainManager.keychain.addProfileToKeychain(profile: profile, service: Token.saveProfile.rawValue)
+    }
+    
     static func getHttpBodyRaw(param: [String:Any]) -> Data? {
         let jsonData = try? JSONSerialization.data(withJSONObject: param, options: .prettyPrinted)
         return jsonData

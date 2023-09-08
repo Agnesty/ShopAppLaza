@@ -40,6 +40,11 @@ class PaymentViewController: UIViewController {
             cvvCard.isEnabled = false
         }
     }
+    @IBOutlet weak var addBtn: UIButton!{
+        didSet{
+            addBtn.layer.cornerRadius = CGFloat(addBtn.frame.width/2)
+        }
+    }
     @IBOutlet weak var editBtn: UIButton!{
         didSet{
             editBtn.layer.cornerRadius = CGFloat(10)
@@ -61,10 +66,11 @@ class PaymentViewController: UIViewController {
             
         }
     }
-    
-    
-    
-    
+    @IBOutlet weak var emptyLabelPage: UILabel!{
+        didSet{
+            emptyLabelPage.isHidden = true
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
@@ -87,16 +93,23 @@ class PaymentViewController: UIViewController {
         self.navigationController?.pushViewController(performAddCardNumber, animated: true)
     }
     @IBAction func editCard(_ sender: UIButton) {
-        guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
-        performAddCardNumber.creditCardNumber = self.idCardChoose
-        performAddCardNumber.edit = true
-        self.navigationController?.pushViewController(performAddCardNumber, animated: true)
-        
+        if creditCards.count == 0 {
+            showAlert(title: "Can't Edit Card", message: "You don't have any card.")
+        } else {
+            guard let performAddCardNumber = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddCardNumberViewController") as? AddCardNumberViewController else { return }
+            performAddCardNumber.creditCardNumber = self.idCardChoose
+            performAddCardNumber.edit = true
+            self.navigationController?.pushViewController(performAddCardNumber, animated: true)
+        }
     }
     @IBAction func deleteCard(_ sender: UIButton) {
-        guard let selectedInd = selectedIndexPath else { return }
-        showAlert2(title: "Delete Card", message: "Are you sure you want to delete this card?") {
-            self.deleteCardIndex(indexPath: selectedInd)
+        if creditCards.count == 0 {
+            showAlert(title: "Can't Delete Card", message: "You don't have any card.")
+        } else {
+            guard let selectedInd = selectedIndexPath else { return }
+            showAlert2(title: "Delete Card", message: "Are you sure you want to delete this card?") {
+                self.deleteCardIndex(indexPath: selectedInd)
+            }
         }
     }
     @IBAction func saveCard(_ sender: UIButton) {
@@ -112,7 +125,7 @@ class PaymentViewController: UIViewController {
     func retrieveCard() {
         creditCards.removeAll()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.coredataManager.retrieve { creditCard in
+            self?.coredataManager.retrieveAllCard { creditCard in
                 self?.creditCards.append(contentsOf: creditCard)
                 if self?.creditCards.count ?? 0 > 0{
                     let indexPath = IndexPath(item: 0, section: 0)
@@ -124,13 +137,13 @@ class PaymentViewController: UIViewController {
     }
     func deleteCardIndex(indexPath: IndexPath) {
         let card = creditCards[indexPath.row]
-        coredataManager.delete(card) { [weak self] in
-            DispatchQueue.main.async {
-                self?.creditCards.remove(at: indexPath.row)
-                self?.paymentCollectionView.deleteItems(at: [indexPath])
-                print("successfully delete card")
+            coredataManager.delete(card) { [weak self] in
+                DispatchQueue.main.async {
+                    self?.creditCards.remove(at: indexPath.row)
+                    self?.paymentCollectionView.deleteItems(at: [indexPath])
+                    print("successfully delete card")
+                }
             }
-        }
     }
     func performCardInTextfield(indexPath: IndexPath){
         selectedIndexPath = indexPath
@@ -165,7 +178,12 @@ class PaymentViewController: UIViewController {
 
 extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("jumlah kartu = ", creditCards.count)
+        let cardsCount = creditCards.count
+        if cardsCount == 0 {
+            self.emptyLabelPage.isHidden = false
+        } else {
+            self.emptyLabelPage.isHidden = true
+        }
         return creditCards.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -191,8 +209,5 @@ extension PaymentViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    //        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    //    }
     
 }

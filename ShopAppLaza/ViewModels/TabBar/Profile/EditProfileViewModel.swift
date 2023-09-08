@@ -7,14 +7,11 @@
 import UIKit
 
 class EditProfileViewModel {
-//    var profileViewCtr: EditProfileViewController?
     var loading: (() -> Void)?
     var navigateToBack: (() -> Void)?
     var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
     func putRequest(isMockApi: Bool, image: UIImage, accessTokenKey: String, fullname: String, username: String, email: String) {
-//        print("Calling putRequest...")
-//        guard let unwrappedVC = profileViewCtr else { return }
         let parameters = ["full_name": fullname,
                           "username": username,
                           "email": email,
@@ -54,12 +51,11 @@ class EditProfileViewModel {
                                 self?.presentAlert?("Profile Data Changed", "Successfully changed your data profile", {
                                     self?.navigateToBack?()
                                 })
-//                                unwrappedVC.showAlert(title: "Profile Data Changed", message: "Successfully changed your data profile") {
-//                                    unwrappedVC.backBtn()
-//                                }
                             }
-                            print("ini data response: \(json)")
                         }
+                        print("ini hasil response: ", json)
+                        let getUserProfile = try JSONDecoder().decode(UserElement.self, from: data)
+                        APIService.setCurrentProfile(profile: getUserProfile)
                     }
                 } catch {
                     print("ini error response: \(error)")

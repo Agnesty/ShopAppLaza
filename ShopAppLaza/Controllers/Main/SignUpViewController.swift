@@ -63,6 +63,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
             indicatorLoading.isHidden = true
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true

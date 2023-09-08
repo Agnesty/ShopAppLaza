@@ -40,15 +40,16 @@ class ProfileViewController: UIViewController {
             editProfileBtn.layer.cornerRadius = CGFloat(10)
         }
     }
-
+    
     private func setupTabBarItemImage() {
+        
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
         label.text = "Profile"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
-
+        
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
         navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
@@ -56,36 +57,33 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBarItemImage()
+        getDataProfile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        
-        APIService().refreshTokenIfNeeded { [weak self] in
-            self?.getDataProfile()
-        } onError: { errorMessage in
-            print(errorMessage)
-        }
+        getDataProfile()
     }
     
     //MARK: IBAction
     @IBAction func editDataAction(_ sender: UIButton) {
         guard let performEditPage = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else { return }
         performEditPage.contentDataUser = contentDataUser
+        performEditPage.profileVC = self
         self.navigationController?.pushViewController(performEditPage, animated: true)
     }
     
     //MARK: FUNCTION
     func getDataProfile() {
-        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
-            self?.contentDataUser = userdata
-            DispatchQueue.main.async {
-                self?.fullnameLabel.text = self?.contentDataUser?.data.fullName
-                self?.usernameLabel.text = self?.contentDataUser?.data.username
-                self?.emailLabel.text = self?.contentDataUser?.data.email
-                self?.imagePhoto.setImageWithPlugin(url: self?.contentDataUser?.data.imageUrl ?? "")
-            }
+        if let dataProfile = KeychainManager.keychain.getProfileToKeychain(service: Token.saveProfile.rawValue) {
+            self.contentDataUser = dataProfile
+            self.fullnameLabel.text = self.contentDataUser?.data.fullName
+            self.usernameLabel.text = self.contentDataUser?.data.username
+            self.emailLabel.text = self.contentDataUser?.data.email
+            self.imagePhoto.setImageWithPlugin(url: self.contentDataUser?.data.imageUrl ?? "")
+        } else {
+            return print("data kosong")
         }
     }
     

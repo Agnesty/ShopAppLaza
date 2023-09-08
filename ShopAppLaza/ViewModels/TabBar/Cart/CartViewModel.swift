@@ -9,8 +9,7 @@ import Foundation
 
 class CartViewModel {
     var loading: (() -> Void)?
-    var navigateToHome: (() -> Void)?
-    var navigateToVerifyEmail: (() -> Void)?
+    var navigateToOrderConfirmed: (() -> Void)?
     var presentAlert: ((String, String, (() -> Void)?) -> Void)?
     
     func getProducInCart(isMockApi: Bool, accessTokenKey: String, completion: @escaping (CartProduct) -> Void) {
@@ -132,7 +131,7 @@ class CartViewModel {
                             if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                 DispatchQueue.main.async { [weak self] in
                                     self?.loading?()
-                                    self?.navigateToHome?()
+                                    self?.navigateToOrderConfirmed?()
                                     print("Successful Response: \(jsonResponse)")
                                 }
                             } else {

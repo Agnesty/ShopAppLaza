@@ -18,6 +18,7 @@ class CartViewController: UIViewController {
     var productsCheckout = [DataProductCheckout]()
     var chooseBank: String?
     
+    
     //MARK: IBOutlet
     @IBOutlet weak var emptyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -42,6 +43,8 @@ class CartViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var cardNumber: UILabel!
+    @IBOutlet weak var creditCardLabelName: UILabel!
+    @IBOutlet weak var imageCard: UIImageView!
     
     private func setupTabBarItemImage() {
         let label = UILabel()
@@ -54,14 +57,20 @@ class CartViewController: UIViewController {
         navigationController?.tabBarItem.selectedImage = UIImage(view: label)
     }
     
+    @objc func refreshTableView(){
+        tableView.refreshControl?.endRefreshing()
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        
         setupTabBarItemImage()
         getAllAddress()
         getAllSize()
-        
-        self.addressLabel.text = self.allAddresses?.country
-        self.cityLabel.text = self.allAddresses?.city
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -70,7 +79,7 @@ class CartViewController: UIViewController {
         cartTableVM.presentAlert = { [weak self] title, message, completion in
             self?.showAlert(title: title, message: message, completion: completion)
         }
-        cartVM.navigateToHome = { [weak self] in
+        cartVM.navigateToOrderConfirmed = { [weak self] in
             self?.goToConfirmCheckout()
         }
     }
@@ -269,6 +278,20 @@ extension CartViewController: deleteProductInCartProtocol {
             }
         }
     }
+    func formatCreditCardNumber(_ cardNumber: String) -> String {
+        // Hilangkan spasi dan karakter non-angka
+        let cleanedNumber = cardNumber.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        
+        // Membagi nomor kartu kredit menjadi empat grup dengan masing-masing empat digit
+        var formattedNumber = ""
+        for (index, digit) in cleanedNumber.enumerated() {
+            if index > 0 && index % 4 == 0 {
+                formattedNumber += " " // Tambahkan spasi setiap empat digit
+            }
+            formattedNumber.append(digit)
+        }
+        return formattedNumber
+    }
 }
 
 extension CartViewController: PassingDataAddresDelegate {
@@ -281,7 +304,9 @@ extension CartViewController: PassingDataAddresDelegate {
 
 extension CartViewController: PassingDataCardDelegate {
     func PassingDataCard(cardNumber: String, bank: String) {
-        self.cardNumber.text = cardNumber
+        self.cardNumber.text = formatCreditCardNumber(cardNumber)
         self.chooseBank = bank
+        self.creditCardLabelName.text = bank.uppercased()
+        self.imageCard.image = UIImage(named: bank)
     }
 }

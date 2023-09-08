@@ -14,6 +14,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        let isDarkMode = UserDefaults.standard.bool(forKey: "darkmode")
+        if isDarkMode {
+          if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let appDelegate = windowScene.windows.first
+            appDelegate?.overrideUserInterfaceStyle = .dark
+          }
+        } else {
+          if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let appDelegate = windowScene.windows.first
+            appDelegate?.overrideUserInterfaceStyle = .light
+          }
+        }
+        
         if UserDefaults.standard.bool(forKey: "isLoggedIn") == true {
             let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController
@@ -22,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
             let nav = UINavigationController(rootViewController: vc)
+            nav.navigationBar.isHidden = true
             self.window?.rootViewController = nav
         }
     }

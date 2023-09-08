@@ -71,12 +71,12 @@ class DetailViewController: UIViewController {
         }
         isProductInWishlists { isInWishlist in
             if isInWishlist == true {
-                self.imageName = "heart.fill"
+                self.imageName = "Like-Wishlist-Filled"
             } else {
-                self.imageName = "heart"
+                self.imageName = "Like-Wishlist"
             }
             // Update the button image
-            let image = UIImage(systemName: self.imageName)
+            let image = UIImage(named: self.imageName)
             self.favorite.setImage(image, for: .normal)
         }
         detailVM.presentAlert = { [weak self] title, message, completion in
@@ -121,17 +121,17 @@ class DetailViewController: UIViewController {
                 self?.updateWishlist = updateWishlist
                 if let message = self?.updateWishlist?.data {
                     if message == "successfully delete wishlist" {
-                        self?.imageName = "heart"
+                        self?.imageName = "Like-Wishlist"
                     } else if message == "successfully added wishlist" {
-                        self?.imageName = "heart.fill"
+                        self?.imageName = "Like-Wishlist-Filled"
                     } else {
-                        self?.imageName = "heart"
+                        self?.imageName = "Like-Wishlist"
                     }
                 } else {
-                    self?.imageName = "heart"
+                    self?.imageName = "Like-Wishlist"
                 }
                 // Update the button image
-                let image = UIImage(systemName: self?.imageName ?? "heart")
+                let image = UIImage(named: self?.imageName ?? "Like-Wishlist")
                 self?.favorite.setImage(image, for: .normal)
                 // Show an alert if needed
                 if let message = self?.updateWishlist?.data {

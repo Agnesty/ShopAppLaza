@@ -8,11 +8,12 @@
 import Foundation
 
 class ProfilViewModel {
+    var afterSaveToLocal: (() -> Void)?
+    
     func getUserProfile(isMockApi: Bool, accessTokenKey: String, completion: @escaping (UserElement) -> Void) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
         let userProfile = EndpointPath.UserProfile.rawValue
         let urlString = "\(baseUrl)\(userProfile)"
-//        let urlString = "https://lazaapp.shop/user/profile"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
@@ -36,12 +37,15 @@ class ProfilViewModel {
                 //print(result)
                 let userprofile = try JSONDecoder().decode(UserElement.self, from: data)
                 //                print("ini hasil dari data userprofile: \(userprofile)")
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     completion(userprofile)
+                    self?.afterSaveToLocal?()
                 }
             } catch {
                 print("Error decoding JSON: \(error)")
             }
         }.resume()
     }
+    
+   
 }

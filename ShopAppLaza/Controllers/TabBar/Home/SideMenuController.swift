@@ -40,14 +40,16 @@ class SideMenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIService().refreshTokenIfNeeded { [weak self] in
-            self?.getUserData()
-        } onError: { errorMessage in
-            print(errorMessage)
-        }
+            self.getUserData()
+       
         if let firstname = UserDefaults.standard.string(forKey: "loggedInFirstName"){
             namaLabel.text = "\(firstname.capitalized)"
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkDarkMode()
     }
     
     //MARK: IBAction
@@ -77,30 +79,62 @@ class SideMenuController: UIViewController {
         self.delegate?.goToChangePassword()
     }
     @IBAction func switchMode(_ sender: UISwitch) {
-        if let window = UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first?.windows.first {
-            if sender.isOn {
-                window.overrideUserInterfaceStyle = .dark
-                return
+        if sender.isOn {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                let appDelegate = windowScene.windows.first
+                appDelegate?.overrideUserInterfaceStyle = .dark
             }
-            window.overrideUserInterfaceStyle =  .light
-            return
+            UserDefaults.standard.setValue(true, forKey: "darkmode")
+        } else {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                let appDelegate = windowScene.windows.first
+                appDelegate?.overrideUserInterfaceStyle = .light
+            }
+            UserDefaults.standard.setValue(false, forKey: "darkmode")
         }
     }
     
     
     //MARK: FUNCTION
     func getUserData() {
-        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
+        //        profileVM.getUserProfile(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] userdata in
+        //            DispatchQueue.main.async { [weak self] in
+        //                self?.contentDataUser = userdata
+        //                print("apakah ini benar: \(userdata)")
+        //                DispatchQueue.main.async {
+        //                    if let contentData = self?.contentDataUser?.data {
+        //                        self?.namaLabel.text = contentData.fullName
+        //                        self?.imageUser.setImageWithPlugin(url: contentData.imageUrl ?? "")
+        //                    }
+        //                }
+        //            }
+        //        }
+        if let dataProfile = KeychainManager.keychain.getProfileToKeychain(service: Token.saveProfile.rawValue) {
+            self.contentDataUser = dataProfile
             DispatchQueue.main.async { [weak self] in
-                self?.contentDataUser = userdata
-                print("apakah ini benar: \(userdata)")
-                DispatchQueue.main.async {
-                    if let contentData = self?.contentDataUser?.data {
-                        self?.namaLabel.text = contentData.fullName
-                        self?.imageUser.setImageWithPlugin(url: contentData.imageUrl ?? "")
-                    }
+                if let contentData = self?.contentDataUser?.data {
+                    self?.namaLabel.text = contentData.fullName
+                    self?.imageUser.setImageWithPlugin(url: contentData.imageUrl ?? "")
                 }
             }
+        } else {
+            return print("data kosong")
+        }
+    }
+    func checkDarkMode() {
+        let isDarkMode = UserDefaults.standard.bool(forKey: "darkmode")
+        if isDarkMode {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                let appDelegate = windowScene.windows.first
+                appDelegate?.overrideUserInterfaceStyle = .dark
+            }
+            switchMode.isOn = true
+        } else {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                let appDelegate = windowScene.windows.first
+                appDelegate?.overrideUserInterfaceStyle = .light
+            }
+            switchMode.isOn = false
         }
     }
 }
