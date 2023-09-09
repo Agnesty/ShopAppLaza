@@ -136,15 +136,48 @@ class PaymentViewController: UIViewController {
         }
     }
     func deleteCardIndex(indexPath: IndexPath) {
-        let card = creditCards[indexPath.row]
+        guard let lastRow = paymentCollectionView.indexPathsForVisibleItems.last as? NSIndexPath else {return}
+        var newIndex:IndexPath = IndexPath()
+        if lastRow.item != 0 {
+            newIndex = IndexPath(item: lastRow.item-1, section: 0)
+        } else {
+            newIndex = IndexPath(item: 0, section: 0)
+        }
+        
+        let card = creditCards[indexPath.item]
             coredataManager.delete(card) { [weak self] in
+                self?.creditCards.remove(at: indexPath.item)
+                if self?.creditCards.count == 0 {
+                    DispatchQueue.main.async {
+                        self?.performCardInTextfield(card: nil)
+                        self?.paymentCollectionView.reloadData()
+                    }
+                    return
+                }
                 DispatchQueue.main.async {
-                    self?.creditCards.remove(at: indexPath.row)
+                    self?.selectedIndexPath = indexPath
+                    let card = self?.creditCards[indexPath.item]
+                    self?.performCardInTextfield(card: card)
                     self?.paymentCollectionView.deleteItems(at: [indexPath])
+                    self?.paymentCollectionView.selectItem(at: newIndex, animated: true, scrollPosition: .centeredHorizontally)
                     print("successfully delete card")
+                    print("last row:", lastRow)
                 }
             }
     }
+    
+    func performCardInTextfield(card: CardModel?){
+        self.idCardChoose = card?.numberCard
+        nameCard.text = card?.ownerCard
+        cardNumber.text = card?.numberCard
+        if let unwrappedCard = card {
+            expCard.text = unwrappedCard.expMonthCard + "/" + unwrappedCard.expYearCard
+        } else {
+            expCard.text = ""
+        }
+        cvvCard.text = card?.cvvCard
+    }
+    
     func performCardInTextfield(indexPath: IndexPath){
         selectedIndexPath = indexPath
         let card = creditCards[indexPath.item]
@@ -154,6 +187,7 @@ class PaymentViewController: UIViewController {
         expCard.text = card.expMonthCard + "/" + card.expYearCard
         cvvCard.text = card.cvvCard
     }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // Menggunakan if let untuk memeriksa apakah selectedCellIndex tidak nil
         guard let selectedIndexPath = selectedIndexPath else { return }

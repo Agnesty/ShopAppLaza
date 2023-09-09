@@ -26,6 +26,7 @@ class SideMenuController: UIViewController {
     @IBOutlet weak var imageUser: UIImageView!{
         didSet{
             imageUser.layer.cornerRadius = CGFloat(imageUser.frame.width/2)
+            imageUser.backgroundColor = UIColor(named: "FontSetColor2")?.withAlphaComponent(0.3)
         }
     }
     @IBOutlet weak var switchMode: UISwitch!
@@ -42,9 +43,9 @@ class SideMenuController: UIViewController {
         super.viewDidLoad()
             self.getUserData()
        
-        if let firstname = UserDefaults.standard.string(forKey: "loggedInFirstName"){
-            namaLabel.text = "\(firstname.capitalized)"
-        }
+//        if let firstname = UserDefaults.standard.string(forKey: "loggedInFirstName"){
+//            namaLabel.text = "\(firstname.capitalized)"
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

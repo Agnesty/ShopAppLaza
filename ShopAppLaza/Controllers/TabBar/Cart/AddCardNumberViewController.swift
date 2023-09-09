@@ -93,9 +93,4 @@ class AddCardNumberViewController: UIViewController, STPPaymentCardTextFieldDele
     func paymentCardTextFieldDidBeginEditingCVC(_ textField: STPPaymentCardTextField) {
         cardView.paymentCardTextFieldDidBeginEditingCVC()
     }
-    func paymentCardTextFieldDidEndEditingCVC(_ textField: STPPaymentCardTextField) {
-        cardView.paymentCardTextFieldDidEndEditingCVC()
-    }
-    
-    
 }

@@ -175,9 +175,15 @@ class CartViewController: UIViewController {
     func getAllAddress() {
         addressVM.getAllAddress(isMockApi: false, accessTokenKey: APIService().token!) { allAddress in
             DispatchQueue.main.async { [weak self] in
-                self?.allAddresses = allAddress.data?.first(where: {$0.isPrimary == true})
-                self?.addressLabel.text = self?.allAddresses?.country
-                self?.cityLabel.text = self?.allAddresses?.city
+                guard let arrayDataAddress = allAddress.data else {return}
+                if !arrayDataAddress.isEmpty {
+                    self?.allAddresses = allAddress.data?.first(where: {$0.isPrimary == true})
+                    self?.addressLabel.text = self?.allAddresses?.country
+                    self?.cityLabel.text = self?.allAddresses?.city
+                } else {
+                    self?.addressLabel.text = "Address"
+                    self?.cityLabel.text = "City"
+                }
             }
         }
     }

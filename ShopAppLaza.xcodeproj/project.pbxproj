@@ -129,7 +129,6 @@
 		33FB3B4B2AA463EF00EDC220 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B492AA463EF00EDC220 /* CoreData.xcdatamodeld */; };
 		33FB3B4D2AA4647000EDC220 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B4C2AA4647000EDC220 /* CardModel.swift */; };
 		33FB3B4F2AA465FD00EDC220 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB3B4E2AA465FD00EDC220 /* CoreDataManager.swift */; };
-		33FB3B522AA46C4F00EDC220 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 33FB3B512AA46C4F00EDC220 /* SkeletonView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -262,7 +261,6 @@
 				3369D5172AA06F7A00B0A82D /* JWTDecode in Frameworks */,
 				3343C24A2A96FF69008AEA92 /* GoogleSignIn in Frameworks */,
 				3322C1262A81E54400EEF0C7 /* StripeFinancialConnections in Frameworks */,
-				33FB3B522AA46C4F00EDC220 /* SkeletonView in Frameworks */,
 				3322C1202A81E54400EEF0C7 /* Stripe in Frameworks */,
 				334257E82A724BD3000CD97A /* SDWebImage in Frameworks */,
 				04C8D7A9005B9F12197895CF /* Pods_ShopAppLaza.framework in Frameworks */,
@@ -617,7 +615,6 @@
 				3322C12D2A81E54400EEF0C7 /* StripePaymentsUI */,
 				3343C2492A96FF69008AEA92 /* GoogleSignIn */,
 				3369D5162AA06F7A00B0A82D /* JWTDecode */,
-				33FB3B512AA46C4F00EDC220 /* SkeletonView */,
 			);
 			productName = ShopAppLaza;
 			productReference = 332C98A32A701133003CAFD3 /* ShopAppLaza.app */;
@@ -652,7 +649,6 @@
 				3322C11E2A81E54400EEF0C7 /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				3343C2482A96FF69008AEA92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */,
-				33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 332C98A42A701133003CAFD3 /* Products */;
 			projectDirPath = "";
@@ -1082,14 +1078,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1152,11 +1140,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3369D5152AA06F7A00B0A82D /* XCRemoteSwiftPackageReference "JWTDecode" */;
 			productName = JWTDecode;
-		};
-		33FB3B512AA46C4F00EDC220 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 33FB3B502AA46C4F00EDC220 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 
