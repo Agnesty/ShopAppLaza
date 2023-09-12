@@ -31,51 +31,42 @@ class AddReviewViewModel {
         request.httpBody = APIService.getHttpBodyRaw(param: userAddReviewData)
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: userAddReviewData, options: [])
-            request.httpBody = jsonData
-            print("ini adalah jsonData: \(jsonData)")
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-                if let data = data {
-                    do {
-                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print("Response: \(jsonResponse)")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            if let data = data {
+                do {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print("Response: \(jsonResponse)")
+                        
+                        if let isError = jsonResponse["isError"] as? Int, isError != 0,
+                           let description = jsonResponse["description"] as? String,
+                           let status = jsonResponse["status"] as? String {
                             
-                            if let isError = jsonResponse["isError"] as? Int, isError != 0,
-                               let description = jsonResponse["description"] as? String,
-                               let status = jsonResponse["status"] as? String {
-                                
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?(status, description, nil)
+                            }
+                        } else {
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                 DispatchQueue.main.async { [weak self] in
                                     self?.loading?()
-                                    self?.presentAlert?(status, description, nil)
+                                    self?.presentAlert?("Added Review", "Your review is added.", {
+                                        self?.navigateToReview?()
+                                    })
+                                    print("BerhasilResponse: \(jsonResponse)")
                                 }
                             } else {
-                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.loading?()
-                                        self?.presentAlert?("Added Review", "Your review is added.", {
-                                            self?.navigateToReview?()
-                                        })
-                                        print("BerhasilResponse: \(jsonResponse)")
-                                    }
-                                } else {
-                                    print("Add Review Error: Unexpected Response Code")
-                                }
+                                print("Add Review Error: Unexpected Response Code")
                             }
                         }
-                    } catch {
-                        print("JSON Serialization Error: \(error)")
                     }
+                } catch {
+                    print("JSON Serialization Error: \(error)")
                 }
             }
-            task.resume()
-        } catch {
-            print("Error creating JSON data: \(error)")
-        }
+        }.resume()
     }
 }

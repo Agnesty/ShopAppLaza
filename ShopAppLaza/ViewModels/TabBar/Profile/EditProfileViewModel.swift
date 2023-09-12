@@ -69,7 +69,7 @@ class EditProfileViewModel {
     func generateBoundary() -> String {
         return "Boundary-\(NSUUID().uuidString)"
     }
-    
+    //Format dalam request http.body
     func createDataBody(withParameters params: Parameters?, media: Media?, boundary: String) -> Data {
         let lineBreak = "\r\n"
         var body = Data()

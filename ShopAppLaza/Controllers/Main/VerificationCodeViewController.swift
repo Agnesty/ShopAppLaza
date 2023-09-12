@@ -46,11 +46,6 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
         tf3.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         tf4.addTarget(self, action: #selector(disabledBtn), for: .editingChanged)
         
-//        let tf1Value = tf1.text!
-//        let tf2Value = tf2.text!
-//        let tf3Value = tf3.text!
-//        let tf4Value = tf4.text!
-//        let combinedText = tf1Value + tf2Value + tf3Value + tf4Value
         verificationCodeVM.presentAlert = { [weak self] title, messages, completion in
             self?.showAlert(title: title, message: messages, completion: completion)
         }
@@ -79,15 +74,6 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
             }
         }
         verificationCodeVM.verificationCode(email: userEmail!, tf1: tf1.text!, tf2: tf2.text!, tf3: tf3.text!, tf4: tf4.text!, isMockApi: false)
-        
-        //        let tf1 = tf1.text!
-        //        let tf2 = tf2.text!
-        //        let tf3 = tf3.text!
-        //        let tf4 = tf4.text!
-        //        let combinedText = tf1 + tf2 + tf3 + tf4
-        //        verificationCodeVM.navigateToNewPassword = { [weak self] in
-        //            self?.goToNewPassword(emailHttp: (self?.userEmail)!, codeHttp: combinedText)
-        //        }
     }
     
     @IBAction func backButton(_ sender: UIButton) {
@@ -109,7 +95,6 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
     private func starCountDown() {
         countDown = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
-    
     @objc func updateTime() {
         timeVerifMessage.text = "\(timeFormatted(timer))"
         if timer != 0 {
@@ -121,11 +106,9 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
     func timeFormatted(_ totalSeconds: Int) -> String {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
-        //     let hours: Int = totalSeconds / 3600
         return String(format: "%02d:%02d", minutes, seconds)
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -152,6 +135,5 @@ class VerificationCodeViewController: UIViewController, UITextFieldDelegate {
         newPassAction.email = emailHttp
         newPassAction.code = codeHttp
         self.navigationController?.pushViewController(newPassAction, animated: true)
-//                newPassAction.navigationItem.hidesBackButton = true
     }
 }

@@ -151,10 +151,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource {
         cell.viewContainer.backgroundColor = UIColor(named: "VCIfPrimary")?.withAlphaComponent(0.3)
         cell.viewContainer.layer.borderWidth = 1
         cell.viewContainer.layer.borderColor = UIColor(hex: "#9775FA")?.cgColor
-        cell.receiveName.textColor = .white
-        cell.phoneNo.textColor = .white
-        cell.address.textColor = .white
-        cell.labelCountry.textColor = .white
+        cell.receiveName.textColor = UIColor(named: "FontPrimary")
+        cell.phoneNo.textColor = UIColor(named: "FontPrimary")
+        cell.address.textColor = UIColor(named: "FontPrimary")
+        cell.labelCountry.textColor = UIColor(named: "FontPrimary")
     }
     func setViewIfNonPrimary(cell: CardAddressTableViewCell) {
         cell.viewContainer.backgroundColor = UIColor(named: "VCIfNonPrimary")

@@ -13,7 +13,6 @@ protocol CategoryBrandSelectItemDelegate: AnyObject {
 }
 
 class CategoryTableViewCell: UITableViewCell {
-    
     static let identifier = "tableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: "CategoryTableViewCell", bundle: nil)

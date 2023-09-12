@@ -69,7 +69,7 @@ class APIService {
         }
     }
     
-    func refreshTokenIfNeeded(completion: @escaping () -> Void, onError: ((String) -> Void)?) {
+    func refreshTokenIfNeeded(completion: @escaping () -> Void, onError: ((String) -> Void)?, onFinish: ((String) -> Void)? = nil){
         guard let refreshToken = KeychainManager.keychain.getToken(service: Token.refresh.rawValue) else {
             print("Refresh token is nil")
             return
@@ -85,10 +85,9 @@ class APIService {
             let isSuccess = await APIService.refreshToken(isMockApi: false, refreshTokenKey: refreshToken)
             isSuccess ? completion() : onError?("Error refresh token")
         }
+        onFinish?("")
     }
 }
-
-
 
 class Utils {
     static func setItemsWord(dataItem: Int) -> String {
@@ -136,14 +135,14 @@ enum EndpointPath: String {
     // User
     case UserProfile = "user/profile" //UDAH
     case UserUpdate = "user/update" //USAH
-    case UserChangePassword = "user/change-password"
-    case Users = "user"
+    case UserChangePassword = "user/change-password"//UDAH
+    case Users = "user"//UDAH
     // Address
     case Address = "address"//UDAH
     // Wishlist
     case Wishlist = "wishlists"//UDAH
     // Credit Card
-    case CreditCard = "credit-card"
+    case CreditCard = "credit-card"//UDAH
     // Cart
     case Cart = "carts" //UDAH
     case Order = "order/bank" //UDAH

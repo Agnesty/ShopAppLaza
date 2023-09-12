@@ -21,22 +21,16 @@ class ChangePassViewModel {
             return
         }
 
+        let parameters: [String: Any] = [
+            "old_password": oldPass,
+            "new_password": newPass,
+            "re_password": confirmPass
+        ]
+        
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.PUT.rawValue
         request.setValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
-        
-        let parameters: [String: Any] = [
-          "old_password": oldPass,
-          "new_password": newPass,
-          "re_password": confirmPass
-        ]
-        
-        do {
-          request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
-        } catch {
-          print("Failed to Create JSON Data")
-          return
-        }
+        request.httpBody = APIService.getHttpBodyRaw(param: parameters)
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {

@@ -38,6 +38,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var cvvCard: UITextField!{
         didSet{
             cvvCard.isEnabled = false
+            cvvCard.isSecureTextEntry = true
         }
     }
     @IBOutlet weak var addBtn: UIButton!{
@@ -127,7 +128,7 @@ class PaymentViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.coredataManager.retrieveAllCard { creditCard in
                 self?.creditCards.append(contentsOf: creditCard)
-                if self?.creditCards.count ?? 0 > 0{
+                if self?.creditCards.count ?? 0 > 0{ //isEmpty
                     let indexPath = IndexPath(item: 0, section: 0)
                     self?.performCardInTextfield(indexPath: indexPath)
                     self?.paymentCollectionView.reloadData()

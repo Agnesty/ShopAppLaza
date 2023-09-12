@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol checkoutProtocol: AnyObject {
+    func goTohome()
+}
+
 class OrderConfirmedViewController: UIViewController {
+    weak var delegate: checkoutProtocol?
 
     //MARK: IBOutlet
     @IBOutlet weak var goToOrderBtn: UIButton!{
@@ -32,7 +37,8 @@ class OrderConfirmedViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func continueShopAction(_ sender: UIButton) {
-        self.tabBarController?.selectedIndex = 0
+        self.navigationController?.popViewController(animated: true)
+        delegate?.goTohome()
     }
     
     

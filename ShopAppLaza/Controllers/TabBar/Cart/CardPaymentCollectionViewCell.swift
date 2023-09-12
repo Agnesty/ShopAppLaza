@@ -61,20 +61,5 @@ class CardPaymentCollectionViewCell: UICollectionViewCell {
         creditCard.paymentCardTextFieldDidChange(cardNumber: cardNumber, expirationYear: UInt(expYear), expirationMonth: UInt(expMonth), cvc: cvc)
         creditCard.cardHolderString = cardOwner
     }
-    
-//    func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
-//        cardPayment.paymentCardTextFieldDidChange(cardNumber: textField.cardNumber, expirationYear: UInt(textField.expirationYear), expirationMonth: UInt(textField.expirationMonth), cvc: textField.cvc)
-//    }
-//
-//    func paymentCardTextFieldDidEndEditingExpiration(_ textField: STPPaymentCardTextField) {
-//        cardPayment.paymentCardTextFieldDidEndEditingExpiration(expirationYear: UInt(textField.expirationYear))
-//    }
-//
-//    func paymentCardTextFieldDidBeginEditingCVC(_ textField: STPPaymentCardTextField) {
-//        cardPayment.paymentCardTextFieldDidBeginEditingCVC()
-//    }
-//
-//    func paymentCardTextFieldDidEndEditingCVC(_ textField: STPPaymentCardTextField) {
-//        cardPayment.paymentCardTextFieldDidEndEditingCVC()
-//    }
+
 }

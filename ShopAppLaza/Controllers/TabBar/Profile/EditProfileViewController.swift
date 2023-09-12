@@ -15,6 +15,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var contentDataUser: UserElement?
     var profileVC : ProfileViewController?
     
+    //MARK: IBOutlet
     @IBOutlet weak var fullnameTF: UITextField!
     @IBOutlet weak var usernameTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!{
@@ -27,6 +28,16 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             imagePhoto.layer.cornerRadius = CGFloat(imagePhoto.frame.width/2)
         }
     }
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     
     private func setupTabBarItemImage() {
         let label = UILabel()
@@ -35,19 +46,17 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         label.text = "Profile"
         label.font = UIFont(name: "Inter", size: 11)
         label.sizeToFit()
-
+        
         tabBarItem.standardAppearance?.selectionIndicatorTintColor = UIColor(named: "PurpleButton")
         tabBarItem.selectedImage = UIImage(view: label)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fullnameTF.text = contentDataUser?.data.fullName
         usernameTF.text = contentDataUser?.data.username
         emailTF.text = contentDataUser?.data.email
         imagePhoto.setImageWithPlugin(url: contentDataUser?.data.imageUrl ?? "")
-        
         setupTabBarItemImage()
         imagePicker.delegate = self
         profileVM.navigateToBack = { [weak self] in
@@ -56,6 +65,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         profileVM.presentAlert = { [weak self] title, message, completion in
             self?.showAlert(title: title, message: message, completion: completion)
         }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
@@ -64,21 +74,29 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     //MARK: IBAction
     @IBAction func backButtonAction(_ sender: UIButton) {
         profileVC?.getDataProfile()
-       backBtn()
+        backBtn()
     }
     @IBAction func chooseImageAction(_ sender: UIButton) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-               
         present(imagePicker, animated: true, completion: nil)
     }
-    
     @IBAction func editDataAction(_ sender: UIButton) {
         guard let img = imagePhoto.image else { return }
-        APIService().refreshTokenIfNeeded { [weak self] in
-            self?.profileVM.putRequest(isMockApi: false, image: img, accessTokenKey: APIService().token!, fullname: (self?.fullnameTF.text)!, username: (self?.usernameTF.text)!, email: (self?.emailTF.text)!)
-        } onError: { errorMessage in
-            print(errorMessage)
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async {
+            self.profileVM.loading = {
+                self.viewLoading.isHidden = true
+                self.indicatorLoading.isHidden = true
+                self.indicatorLoading.stopAnimating()
+            }
+            APIService().refreshTokenIfNeeded { [weak self] in
+                self?.profileVM.putRequest(isMockApi: false, image: img, accessTokenKey: APIService().token!, fullname: (self?.fullnameTF.text)!, username: (self?.usernameTF.text)!, email: (self?.emailTF.text)!)
+            } onError: { errorMessage in
+                print(errorMessage)
+            }
         }
     }
     
@@ -99,5 +117,5 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
 }
 
 
-    
- 
+
+

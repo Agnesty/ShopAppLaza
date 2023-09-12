@@ -66,7 +66,6 @@ class ForgotPasswordViewController: UIViewController {
                 self.indicatorLoading.stopAnimating()
             }
         }
-        
         forgotPassVM.forgotPassSendAPICode(email: emailTF.text!, isMockApi: false)
         resetForm()
     }

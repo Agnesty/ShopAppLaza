@@ -32,69 +32,59 @@ class LoginViewModel {
         request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
         
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-                if let data = data {
-                    do {
-                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print("Response: \(jsonResponse)")
-                            
-                            if let isError = jsonResponse["isError"] as? Int, isError != 0,
-                               let description = jsonResponse["description"] as? String,
-                               let status = jsonResponse["status"] as? String {
-                                if description == "please verify your account" {
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.loading?()
-                                        self?.presentAlert?(status, description, {
-                                            self?.navigateToVerifyEmail?()
-                                        })
-                                    }
-                                } else if description == "username or password is invalid" {
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.loading?()
-                                        self?.presentAlert?(status, description, nil)
-                                    }
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            if let data = data {
+                do {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print("Response: \(jsonResponse)")
+                        
+                        if let isError = jsonResponse["isError"] as? Int, isError != 0,
+                           let description = jsonResponse["description"] as? String,
+                           let status = jsonResponse["status"] as? String {
+                            if description == "please verify your account" {
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, {
+                                        self?.navigateToVerifyEmail?()
+                                    })
                                 }
-                            } else {
-                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.loading?()
-                                        self?.presentAlert?("Login Successful", "Congratulations! You have successfully Login.", {
-                                            if let data = jsonResponse["data"] as? [String: Any],
-                                               let accessToken = data["access_token"] as? String,
-                                            let refreshToken = data["refresh_token"] as? String {
-                                                KeychainManager.keychain.addTokenToKeychain(token: accessToken, service: Token.access.rawValue)
-                                                KeychainManager.keychain.addTokenToKeychain(token: refreshToken, service: Token.refresh.rawValue)
-                                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                                                self?.navigateToHome?()
-                                            }
-                                        })
-                                        
-                                        print("BerhasilResponse: \(jsonResponse)")
-                                    }
-                                } else {
-                                    print("Login Error: Unexpected Response Code")
+                            } else if description == "username or password is invalid" {
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?(status, description, nil)
                                 }
                             }
+                        } else {
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.loading?()
+                                    self?.presentAlert?("Login Successful", "Congratulations! You have successfully Login.", {
+                                        if let data = jsonResponse["data"] as? [String: Any],
+                                           let accessToken = data["access_token"] as? String,
+                                           let refreshToken = data["refresh_token"] as? String {
+                                            KeychainManager.keychain.saveToken(token: accessToken, service: Token.access.rawValue)
+                                            KeychainManager.keychain.saveToken(token: refreshToken, service: Token.refresh.rawValue)
+                                            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                                            self?.navigateToHome?()
+                                        }
+                                    })
+                                    
+                                    print("BerhasilResponse: \(jsonResponse)")
+                                }
+                            } else {
+                                print("Login Error: Unexpected Response Code")
+                            }
                         }
-                    } catch {
-                        print("JSON Serialization Error: \(error)")
                     }
+                } catch {
+                    print("JSON Serialization Error: \(error)")
                 }
             }
-            task.resume()
-        } catch {
-            print("Error creating JSON data: \(error)")
         }
+        task.resume()
     }
-    
-    
-    
 }

@@ -172,7 +172,6 @@ extension HomeController: SideMenuControllerDelegate {
         sideMenuNav?.dismiss(animated: true)
         let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as? ChangePasswordViewController else { return }
-        //        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

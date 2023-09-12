@@ -39,6 +39,4 @@ class Regex {
         }
         return nil
     }
-    
-    
 }

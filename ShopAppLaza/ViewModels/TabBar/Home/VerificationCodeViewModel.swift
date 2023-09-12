@@ -1,28 +1,31 @@
 //
-//  VerifyEmailViewModel.swift
+//  VerificationCodeViewModel.swift
 //  ShopAppLaza
 //
-//  Created by Agnes Triselia Yudia on 28/08/23.
+//  Created by Agnes Triselia Yudia on 15/08/23.
 //
 
 import Foundation
 
-class verifyEmailViewModel {
+class VerficationCodeViewModel {
     var loading: (() -> Void)?
     var presentAlert: ((String, String, (() -> Void)?) -> Void)?
+    var navigateToNewPassword: (() -> Void)?
     
-    func verifyEmailUser(email: String, isMockApi: Bool) {
+    func verificationCode(email: String, tf1: String, tf2: String, tf3: String, tf4: String, isMockApi: Bool) {
         let baseUrl = APIService.APIAddress(isMockApi: isMockApi)
-        let emailVerify = EndpointPath.AuthResendVerify.rawValue
-        let urlString = "\(baseUrl)\(emailVerify)"
+        let verifCode = EndpointPath.AuthVerificationCode.rawValue
+        let urlString = "\(baseUrl)\(verifCode)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
         
+        let combinedText = "\(tf1)\(tf2)\(tf3)\(tf4)"
         let userData: [String: Any] = [
             "email": email,
+            "code": combinedText,
         ]
         
         var request = URLRequest(url: url)
@@ -48,17 +51,16 @@ class verifyEmailViewModel {
                                 self?.presentAlert?(status, description, nil)
                             }
                         } else {
-                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 202 {
                                 DispatchQueue.main.async { [weak self] in
                                     self?.loading?()
-                                    if let data = jsonResponse["data"] as? [String: Any],
-                                       let message = data["message"] as? String {
-                                        self?.presentAlert?("Resend Email", message, nil)
-                                    }
+                                    self?.presentAlert?("Verification Code Successful", "Congratulations! You have successfully Verification.", {
+                                        self?.navigateToNewPassword?()
+                                    })
                                     print("BerhasilResponse: \(jsonResponse)")
                                 }
                             } else {
-                                print("VerifyEmail Error: Unexpected Response Code")
+                                print("Verification Code Error: Unexpected Response Code")
                             }
                         }
                     }

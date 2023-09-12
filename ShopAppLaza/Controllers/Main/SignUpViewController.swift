@@ -10,7 +10,6 @@ import UIKit
 class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let signUpVM = SignUpViewModel()
-    //    var img: UIImage?
     
     //MARK: IBOutlet
     @IBOutlet weak var usernameTF: UITextField!{

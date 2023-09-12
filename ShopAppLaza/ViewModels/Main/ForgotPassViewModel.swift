@@ -30,10 +30,6 @@ class ForgotPassViewModel {
         request.httpMethod = HttpMethod.POST.rawValue
         request.httpBody = APIService.getHttpBodyRaw(param: userData)
 
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
-            request.httpBody = jsonData
-
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
@@ -72,9 +68,6 @@ class ForgotPassViewModel {
                 }
             }
             task.resume()
-        } catch {
-            print("Error creating JSON data: \(error)")
-        }
     }
     
    

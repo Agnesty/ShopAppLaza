@@ -45,6 +45,16 @@ class CartViewController: UIViewController {
     @IBOutlet weak var cardNumber: UILabel!
     @IBOutlet weak var creditCardLabelName: UILabel!
     @IBOutlet weak var imageCard: UIImageView!
+    @IBOutlet weak var viewLoading: UIView!{
+        didSet{
+            viewLoading.isHidden = true
+        }
+    }
+    @IBOutlet weak var indicatorLoading: UIActivityIndicatorView!{
+        didSet{
+            indicatorLoading.isHidden = true
+        }
+    }
     
     private func setupTabBarItemImage() {
         let label = UILabel()
@@ -94,20 +104,51 @@ class CartViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func checkoutBtnAction(_ sender: UIButton) {
+        viewLoading.isHidden = false
+        indicatorLoading.isHidden = false
+        indicatorLoading.startAnimating()
+        DispatchQueue.main.async { [weak self] in
+            self?.cartVM.loading = {
+                self?.stopLoading()
+            }
+            self?.checkoutProduct()
+        }
+    }
+    @IBAction func addressBtnAction(_ sender: UIButton) {
+        guard let performAddress = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddressViewController") as? AddressViewController else { return }
+        performAddress.delegate = self
+        self.navigationController?.pushViewController(performAddress, animated: true)
+    }
+    @IBAction func paymentBtnAction(_ sender: UIButton) {
+        guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
+        performPaymentMethod.delegate = self
+        self.navigationController?.pushViewController(performPaymentMethod, animated: true)
+    }
+    
+    //MARK: FUNCTION
+    func checkoutProduct() {
+        
         APIService().refreshTokenIfNeeded { [weak self] in
             if self?.idAddress == nil, self?.productsCheckout.isEmpty ?? true, self?.chooseBank?.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: nil, message: "Please add products, select a card, and choose an address before you checkout.")
             } else if self?.idAddress == nil, self?.productsCheckout.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: nil, message: "Please add products and choose an address first.")
             } else if self?.idAddress == nil, self?.chooseBank?.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: nil, message: "Please select a card and choose an address first.")
             } else if self?.productsCheckout.isEmpty ?? true, self?.chooseBank?.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: nil, message: "Please add products and select a card.")
             } else if self?.idAddress == nil {
+                self?.stopLoading()
                 self?.showAlert(title: "Address", message: "Please choose your address first")
             } else if self?.productsCheckout.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: "Your cart is empty", message: "Please add products before you checkout.")
             } else if self?.chooseBank?.isEmpty ?? true {
+                self?.stopLoading()
                 self?.showAlert(title: "Card not selected", message: "Please select a card before you checkout.")
             } else {
                 guard let id = self?.idAddress else {
@@ -123,23 +164,17 @@ class CartViewController: UIViewController {
                     return
                 }
                 self?.cartVM.checkout(isMockApi: false, accessTokenKey: APIService().token!, products: products, addressId: id, bank: bank)
+                
             }
         } onError: { errorMessage in
             print(errorMessage)
         }
     }
-    @IBAction func addressBtnAction(_ sender: UIButton) {
-        guard let performAddress = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "AddressViewController") as? AddressViewController else { return }
-        performAddress.delegate = self
-        self.navigationController?.pushViewController(performAddress, animated: true)
+    func stopLoading() {
+        self.viewLoading.isHidden = true
+        self.indicatorLoading.isHidden = true
+        self.indicatorLoading.stopAnimating()
     }
-    @IBAction func paymentBtnAction(_ sender: UIButton) {
-        guard let performPaymentMethod = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController else { return }
-        performPaymentMethod.delegate = self
-        self.navigationController?.pushViewController(performPaymentMethod, animated: true)
-    }
-    
-    //MARK: FUNCTION
     func getAllCartData() {
         APIService().refreshTokenIfNeeded { [weak self] in
             self?.cartVM.getProducInCart(isMockApi: false, accessTokenKey: APIService().token!) { [weak self] cartProduct in
@@ -196,6 +231,7 @@ class CartViewController: UIViewController {
     }
     func goToConfirmCheckout() {
         guard let performOrderConfirmed = UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: "OrderConfirmedViewController") as? OrderConfirmedViewController else { return }
+        performOrderConfirmed.delegate = self
         self.navigationController?.pushViewController(performOrderConfirmed, animated: true)
     }
 }
@@ -315,5 +351,12 @@ extension CartViewController: PassingDataCardDelegate {
         self.chooseBank = bank
         self.creditCardLabelName.text = bank.uppercased()
         self.imageCard.image = UIImage(named: bank)
+    }
+}
+
+extension CartViewController: checkoutProtocol {
+    func goTohome() {
+        print("goToHome")
+        self.tabBarController?.selectedIndex = 0
     }
 }

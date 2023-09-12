@@ -36,51 +36,44 @@ class AddAddressViewModel {
         request.httpBody = APIService.getHttpBodyRaw(param: addressData)
         request.addValue("Bearer \(accessTokenKey)", forHTTPHeaderField: "X-Auth-Token")
         
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: addressData, options: [])
-            request.httpBody = jsonData
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-                if let data = data {
-                    do {
-                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print("Response: \(jsonResponse)")
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            if let data = data {
+                do {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print("Response: \(jsonResponse)")
+                        
+                        if let isError = jsonResponse["isError"] as? Int, isError != 0,
+                           let description = jsonResponse["description"] as? String,
+                           let status = jsonResponse["status"] as? String {
                             
-                            if let isError = jsonResponse["isError"] as? Int, isError != 0,
-                               let description = jsonResponse["description"] as? String,
-                               let status = jsonResponse["status"] as? String {
-                                
+                            DispatchQueue.main.async { [weak self] in
+                                self?.loading?()
+                                self?.presentAlert?(status, description, nil)
+                            }
+                        } else {
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
                                 DispatchQueue.main.async { [weak self] in
                                     self?.loading?()
-                                    self?.presentAlert?(status, description, nil)
+                                    self?.presentAlert?("New Address Added", "You have successfully added new address.", {
+                                        self?.navigateToBack?()
+                                    })
+                                    print("BerhasilResponse: \(jsonResponse)")
                                 }
                             } else {
-                                if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 201 {
-                                    DispatchQueue.main.async { [weak self] in
-                                        self?.loading?()
-                                        self?.presentAlert?("New Address Added", "You have successfully added new address.", {
-                                            self?.navigateToBack?()
-                                        })
-                                        print("BerhasilResponse: \(jsonResponse)")
-                                    }
-                                } else {
-                                    print("Add Address Error: Unexpected Response Code")
-                                }
+                                print("Add Address Error: Unexpected Response Code")
                             }
                         }
-                    } catch {
-                        print("JSON Serialization Error: \(error)")
                     }
+                } catch {
+                    print("JSON Serialization Error: \(error)")
                 }
             }
-            task.resume()
-        } catch {
-            print("Error creating JSON data: \(error)")
         }
+        task.resume()
     }
     
     func editAddressById(isMockApi: Bool, id: Int, accessTokenKey: String, country: String, city: String, receiverName: String, phoneNo: String, isPrimary: Bool) {
@@ -122,7 +115,7 @@ class AddAddressViewModel {
                         DispatchQueue.main.async { [weak self] in
                             self?.loading?()
                             self?.presentAlert?(status, description, nil)
-                        } 
+                        }
                     } else {
                         if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 {
                             DispatchQueue.main.async { [weak self] in
@@ -143,5 +136,5 @@ class AddAddressViewModel {
         }.resume()
     }
     
-   
+    
 }

@@ -16,7 +16,6 @@ extension UIImage {
         let image = renderer.image { rendererContext in
             view.layer.render(in: rendererContext.cgContext)
         }
-        
         if let cgImage = image.cgImage {
             self.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
         } else {
@@ -79,3 +78,12 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
+
+//extension UINavigationController {
+//    func popToRootViewControllerWithHandler(animated:Bool = true, completion: @escaping ()->()) {
+//        CATransaction.begin()
+//        CATransaction.setCompletionBlock(completion)
+//        self.popToRootViewController(animated: animated)
+//        CATransaction.commit()
+//    }
+//}

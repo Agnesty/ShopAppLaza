@@ -278,6 +278,7 @@
 				33E2BA1B2A9482A2008FC8FC /* HomeViewModel.swift */,
 				335A28BE2AA67266007AD63F /* ChangePassViewModel.swift */,
 				332291CF2A7F862E0035D65F /* CategoryTableViewModel.swift */,
+				3335D8842A8B30C30091376B /* VerificationCodeViewModel.swift */,
 				33CE6F202A7E2A4400FA8084 /* NewArrivalTableViewModel.swift */,
 				332291D22A7FC4A40035D65F /* DetailViewModel.swift */,
 				33BA02E12A8A0539003AEB76 /* ReviewsViewModel.swift */,
@@ -341,6 +342,8 @@
 				334BF3DF2A7B6BE600755766 /* SizeDetailCollectionViewCell.xib */,
 				334BF3E72A7B875800755766 /* ReviewsTableViewCell.xib */,
 				3354D3E62A808F3D00A9DB7F /* CartTableViewCell.xib */,
+				33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */,
+				334E61AF2A83942F00DB3921 /* CardAddressTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -432,12 +435,10 @@
 				3354D3ED2A809CCB00A9DB7F /* PaymentViewController.swift */,
 				3354D3EF2A80D92000A9DB7F /* AddCardNumberViewController.swift */,
 				33D5305C2A823E79009CA2ED /* CardPaymentCollectionViewCell.swift */,
-				33D5305D2A823E79009CA2ED /* CardPaymentCollectionViewCell.xib */,
 				334E61A82A83365600DB3921 /* PaymentMethodViewController.swift */,
 				334E61AA2A83833D00DB3921 /* GopayPaymentViewController.swift */,
 				334E61AC2A83920900DB3921 /* AddressViewController.swift */,
 				334E61AE2A83942F00DB3921 /* CardAddressTableViewCell.swift */,
-				334E61AF2A83942F00DB3921 /* CardAddressTableViewCell.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -549,7 +550,6 @@
 				33CE6F242A7E2D5800FA8084 /* SignUpViewModel.swift */,
 				33CE6F282A7E601E00FA8084 /* LoginViewModel.swift */,
 				3335D8822A8B20560091376B /* ForgotPassViewModel.swift */,
-				3335D8842A8B30C30091376B /* VerificationCodeViewModel.swift */,
 				3335D8862A8B4CB10091376B /* NewPasswordViewModel.swift */,
 				338EDDD42A9C4088007C6F8D /* VerifyEmailViewModel.swift */,
 			);

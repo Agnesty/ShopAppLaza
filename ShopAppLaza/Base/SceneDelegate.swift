@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //    private let screen2VM = Screen2ViewModel()
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         let isDarkMode = UserDefaults.standard.bool(forKey: "darkmode")
@@ -27,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           }
         }
         
+        //MARK: Tampilan Navigasi Setelah App Mulai
         if UserDefaults.standard.bool(forKey: "isLoggedIn") == true {
             let storyboard = UIStoryboard(name: "TabBar", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarControllerViewController") as! TabBarControllerViewController

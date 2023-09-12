@@ -33,10 +33,7 @@ class ProfilViewModel {
                 return
             }
             do {
-                //let result = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                //print(result)
                 let userprofile = try JSONDecoder().decode(UserElement.self, from: data)
-                //                print("ini hasil dari data userprofile: \(userprofile)")
                 DispatchQueue.main.async { [weak self] in
                     completion(userprofile)
                     self?.afterSaveToLocal?()

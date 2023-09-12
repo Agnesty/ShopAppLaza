@@ -122,7 +122,6 @@ class CartViewModel {
                         if let isError = jsonResponse["isError"] as? Bool, isError,
                            let description = jsonResponse["description"] as? String,
                            let status = jsonResponse["status"] as? String {
-                            
                             DispatchQueue.main.async { [weak self] in
                                 self?.loading?()
                                 self?.presentAlert?(status, description, nil)

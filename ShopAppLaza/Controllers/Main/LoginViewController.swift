@@ -114,7 +114,6 @@ class LoginViewController: UIViewController {
             }
         }
         loginVM.loginUser(username: usernameTF.text!, password: passwordTF.text!, isMockApi: false)
-        
     }
     
     @objc func disabledBtn(){
